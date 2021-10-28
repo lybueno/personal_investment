@@ -1,4 +1,4 @@
-package com.example.personal_investment;
+package com.example.personal_investment.application.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
