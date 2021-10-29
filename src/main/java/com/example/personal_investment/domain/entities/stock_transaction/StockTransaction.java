@@ -1,4 +1,4 @@
-package com.example.personal_investment.domain.entities.brokerage_note;
+package com.example.personal_investment.domain.entities.stock_transaction;
 
 import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.wallet.Wallet;
@@ -6,7 +6,7 @@ import com.example.personal_investment.domain.entities.wallet.Wallet;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class BrokerageNote {
+public class StockTransaction {
     private final Stock stock;
     private final Wallet wallet;
     private final LocalDate transactionDate;
@@ -14,7 +14,7 @@ public class BrokerageNote {
     private final BigDecimal unitaryValue;
     private final TransactionType transactionType;
 
-    public BrokerageNote(Stock stock, Wallet wallet, LocalDate transactionDate, Integer quantity, BigDecimal unitaryValue, TransactionType transactionType) {
+    public StockTransaction(Stock stock, Wallet wallet, LocalDate transactionDate, Integer quantity, BigDecimal unitaryValue, TransactionType transactionType) {
         this.stock = stock;
         this.wallet = wallet;
         this.transactionDate = transactionDate;
