@@ -4,7 +4,7 @@ import com.example.personal_investment.domain.entities.stock_transaction.StockTr
 import com.example.personal_investment.domain.exceptions.TypeNotMatchException;
 import com.example.personal_investment.domain.interfaces.IBrokerageNoteRepository;
 import com.example.personal_investment.domain.interfaces.IMyInvestmentsRepository;
-import com.example.personal_investment.domain.utils.ValidatorStock;
+import com.example.personal_investment.domain.utils.Validator;
 
 public class PurchaseStockUC {
     private final IBrokerageNoteRepository brokerageNoteRepository;
@@ -25,10 +25,11 @@ public class PurchaseStockUC {
 
     private void validatorTransaction(StockTransaction transaction) {
         if (transaction.getStock() == null) {
-            ValidatorStock.validate(transaction.getStock());
+            Validator.validateStock(transaction.getStock());
             throw new IllegalArgumentException("Stock cannot be null");
         }
         if (transaction.getWallet() == null) {
+            Validator.validateWallet(transaction.getWallet());
             throw new IllegalArgumentException("Wallet cannot be null");
         }
         if (transaction.getTransactionDate() == null) {

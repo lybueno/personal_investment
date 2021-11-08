@@ -1,9 +1,10 @@
 package com.example.personal_investment.domain.utils;
 
 import com.example.personal_investment.domain.entities.stock.Stock;
+import com.example.personal_investment.domain.entities.wallet.Wallet;
 
-public class ValidatorStock {
-    public static void validate(Stock stock) {
+public class Validator {
+    public static void validateStock(Stock stock) {
         if(stock.getType() == null){
             throw new IllegalArgumentException("Stock can not be null");
         }
@@ -15,6 +16,15 @@ public class ValidatorStock {
         }
         if(stock.getCompanyName() == null){
             throw new IllegalArgumentException("Company name cannot be null ");
+        }
+    }
+    public static void validateWallet(Wallet wallet){
+        if(wallet.getType() == null){
+            throw new IllegalArgumentException("Wallet type cannot be null");
+        }
+
+        if(wallet.getName() == null){
+            throw new IllegalArgumentException("Wallet name cannot be null");
         }
     }
 }

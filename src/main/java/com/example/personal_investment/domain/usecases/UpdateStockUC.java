@@ -2,7 +2,7 @@ package com.example.personal_investment.domain.usecases;
 
 import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.interfaces.IStockRepository;
-import com.example.personal_investment.domain.utils.ValidatorStock;
+import com.example.personal_investment.domain.utils.Validator;
 
 public class UpdateStockUC {
     private final IStockRepository stockRepository;
@@ -12,7 +12,7 @@ public class UpdateStockUC {
     }
     
     public void update(Stock stock){
-        ValidatorStock.validate(stock);
+        Validator.validateStock(stock);
         stockRepository.update(stock.getId(), stock);
     }
 }

@@ -6,6 +6,7 @@ public abstract class RegularTax implements Tax{
 
     private BigDecimal taxAliquot = new BigDecimal(0.2);
 
+    @Override
     public BigDecimal calculateTaxAmount(BigDecimal profit){
         return taxAliquot.multiply(profit);
     }

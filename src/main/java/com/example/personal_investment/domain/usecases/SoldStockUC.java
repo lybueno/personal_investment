@@ -1,5 +1,6 @@
 package com.example.personal_investment.domain.usecases;
 
-public class SoldStockUC {
+import com.example.personal_investment.domain.interfaces.IMyInvestmentsRepository;
 
+public class SoldStockUC {
 }
