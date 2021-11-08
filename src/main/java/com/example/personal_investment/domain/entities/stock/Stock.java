@@ -2,21 +2,32 @@ package com.example.personal_investment.domain.entities.stock;
 
 import java.math.BigDecimal;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Stock {
-    public Stock(String ticker, String companyName, String cnpj, BigDecimal stockQuote, StockType type) {
-        this.ticker = ticker;
-        this.companyName = companyName;
-        this.cnpj = cnpj;
-        this.stockQuote = stockQuote;
-        this.type = type;
-    }
-
+    private final String id;
+    private final StockType type;
     private String ticker;
     private String companyName;
     private String cnpj;
     private BigDecimal stockQuote;
-    private final StockType type;
+
+    public Stock(String id, StockType type, String ticker, String companyName, String cnpj, BigDecimal stockQuote) {
+        this.id = id;
+        this.type = type;
+        this.ticker = ticker;
+        this.companyName = companyName;
+        this.cnpj = cnpj;
+        this.stockQuote = stockQuote;
+    }
+
+    public Stock(StockType type, String ticker, String companyName, String cnpj, BigDecimal stockQuote) {
+        this(UUID.randomUUID().toString(),type,ticker,companyName,cnpj,stockQuote);
+    }
+
+    public String getId() {
+        return id;
+    }
 
     public StockType getType() {
         return type;
@@ -59,11 +70,11 @@ public class Stock {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Stock stock = (Stock) o;
-        return ticker.equals(stock.ticker) && companyName.equals(stock.companyName) && cnpj.equals(stock.cnpj) && type == stock.type;
+        return id.equals(stock.id) && type == stock.type && ticker.equals(stock.ticker) && companyName.equals(stock.companyName) && cnpj.equals(stock.cnpj) && stockQuote.equals(stock.stockQuote);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ticker, companyName, cnpj, type);
+        return Objects.hash(id, type, ticker, companyName, cnpj, stockQuote);
     }
 }

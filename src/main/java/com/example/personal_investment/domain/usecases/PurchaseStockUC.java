@@ -1,9 +1,10 @@
-package com.example.personal_investment.domain.usecases.purchase_stock;
+package com.example.personal_investment.domain.usecases;
 
-import com.example.personal_investment.domain.interfaces.IBrokerageNoteRepository;
 import com.example.personal_investment.domain.entities.stock_transaction.StockTransaction;
 import com.example.personal_investment.domain.exceptions.TypeNotMatchException;
+import com.example.personal_investment.domain.interfaces.IBrokerageNoteRepository;
 import com.example.personal_investment.domain.interfaces.IMyInvestmentsRepository;
+import com.example.personal_investment.domain.utils.ValidatorStock;
 
 public class PurchaseStockUC {
     private final IBrokerageNoteRepository brokerageNoteRepository;
@@ -23,13 +24,14 @@ public class PurchaseStockUC {
     }
 
     private void validatorTransaction(StockTransaction transaction) {
-        if(transaction.getStock() == null){
+        if (transaction.getStock() == null) {
+            ValidatorStock.validate(transaction.getStock());
             throw new IllegalArgumentException("Stock cannot be null");
         }
-        if(transaction.getWallet() == null){
+        if (transaction.getWallet() == null) {
             throw new IllegalArgumentException("Wallet cannot be null");
         }
-        if(transaction.getTransactionDate() == null){
+        if (transaction.getTransactionDate() == null) {
             throw new IllegalArgumentException("Transaction Date cannot be null");
         }
         if (transaction.getUnitaryValue() == null) {
@@ -39,8 +41,8 @@ public class PurchaseStockUC {
             throw new IllegalArgumentException("Transaction Type cannot be null");
         }
 
-        if(transaction.getStock().getType() != transaction.getWallet().getType()){
-            throw new TypeNotMatchException();
+        if (transaction.getStock().getType() != transaction.getWallet().getType()) {
+            throw new TypeNotMatchException("The stock type does not match with wallet type");
         }
     }
 }
