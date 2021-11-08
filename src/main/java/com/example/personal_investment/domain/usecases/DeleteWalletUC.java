@@ -1,22 +1,18 @@
 package com.example.personal_investment.domain.usecases;
 
-
-import com.example.personal_investment.domain.entities.user.User;
 import com.example.personal_investment.domain.entities.wallet.Wallet;
 import com.example.personal_investment.domain.interfaces.IWalletRepository;
 import com.example.personal_investment.domain.utils.Validator;
 
-public class AddWalletUC {
+public class DeleteWalletUC {
     private final IWalletRepository walletRepository;
 
-    public AddWalletUC(IWalletRepository walletRepository){
+    public DeleteWalletUC(IWalletRepository walletRepository) {
         this.walletRepository = walletRepository;
     }
 
-    public void insert(User user, Wallet wallet){
+    public void delete(String id, Wallet wallet){
         Validator.validateWallet(wallet);
-
-
-        walletRepository.insert(wallet);
+        walletRepository.delete(id, wallet);
     }
 }
