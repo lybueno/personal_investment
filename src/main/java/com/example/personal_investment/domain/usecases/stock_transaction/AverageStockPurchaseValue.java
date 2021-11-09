@@ -1,4 +1,4 @@
-package com.example.personal_investment.domain.usecases;
+package com.example.personal_investment.domain.usecases.stock_transaction;
 
 import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.wallet.Wallet;
@@ -8,10 +8,10 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
-public class AverageValueStockUC {
+public class AverageStockPurchaseValue {
     private final IMyInvestmentsRepository myInvestmentsRepository;
 
-    public AverageValueStockUC(IMyInvestmentsRepository myInvestmentsRepository) {
+    public AverageStockPurchaseValue(IMyInvestmentsRepository myInvestmentsRepository) {
         this.myInvestmentsRepository = myInvestmentsRepository;
     }
 
@@ -19,17 +19,19 @@ public class AverageValueStockUC {
         if(ticker == null){
             throw new IllegalArgumentException("Ticker cannot be null");
         }
-
-        List<Stock> stocks = myInvestmentsRepository.getAllStocksByTickerAndWallet(wallet ,ticker);
-
-        int quantityStocks = stocks.size();
-        BigDecimal div = new BigDecimal(Integer.toString(quantityStocks));
-        BigDecimal sum = new BigDecimal("0");
-        for (Stock stock : stocks) {
-            sum = sum.add(stock.getStockQuote());
+        if(wallet == null){
+            throw new IllegalArgumentException("Wallet cannot be null");
         }
 
-        return sum.divide(div, RoundingMode.HALF_EVEN);
+        List<Stock> stocks = myInvestmentsRepository.getAllStocksByTickerAndWallet(wallet ,ticker);
+        
+        BigDecimal quantityStocks = new BigDecimal(Integer.toString(stocks.size()));
+        BigDecimal valueOfAllStocks = new BigDecimal("0");
+        for (Stock stock : stocks) {
+            valueOfAllStocks = valueOfAllStocks.add(stock.getStockQuote());
+        }
+
+        return valueOfAllStocks.divide(quantityStocks, RoundingMode.HALF_EVEN);
     }
 
 }

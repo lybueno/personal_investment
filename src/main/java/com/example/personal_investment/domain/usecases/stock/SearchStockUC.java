@@ -1,4 +1,4 @@
-package com.example.personal_investment.domain.usecases;
+package com.example.personal_investment.domain.usecases.stock;
 
 import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.interfaces.IStockRepository;
