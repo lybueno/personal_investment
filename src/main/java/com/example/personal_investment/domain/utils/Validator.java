@@ -63,13 +63,11 @@ public class Validator {
         if(user == null){
             throw new IllegalArgumentException("User cannot be null.");
         }
-        if(user.getUsername() == null){
-            throw new IllegalArgumentException("User name cannot be null.");
+        if(user.getUsername() == null) {
+            throw new IllegalArgumentException("Username cannot be null.");
         }
-        // TODO: se usuario tiver atributo senha, verificar se null
-        /* como vcs preferem fazer a validação do usuario e senha?
-            colocamos senha como atributo de usuário? ou apenas processamos
-            essa informação no banco?
-         */
+        if(user.getPassword() == null) {
+            throw new IllegalArgumentException("Username cannot be null.");
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.personal_investment.application.data.repository;
+package com.example.personal_investment.application.data.dao;
 
 import com.example.personal_investment.domain.entities.user.User;
 import com.example.personal_investment.domain.usecases.user.UserDAO;
@@ -10,27 +10,21 @@ public class InMemoryUserDAO implements UserDAO {
     private static final Map<String, User> db = new LinkedHashMap<>();
 
     @Override
-    public Optional<User> findByName(String name) {
-        if(db.containsKey(name)){
-            return Optional.of(db.get(name));
-        }
-        return Optional.empty();
-    }
-
-    @Override
-    // TODO
-    public Optional<User> authenticate(String name, String email) {
-        return Optional.empty();
-    }
-
-    @Override
     public String create(User user) {
         db.put(user.getUsername(), user);
         return user.getUsername();
     }
 
     @Override
-    public Optional<User> findOne(String key) {
+    public Optional<User> findOne(User user) {
+        if(db.containsKey(user.getUsername())){
+            return Optional.of(db.get(user.getUsername()));
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<User> findOneByKey(String key) {
         if(db.containsKey(key)){
             return Optional.of(db.get(key));
         }

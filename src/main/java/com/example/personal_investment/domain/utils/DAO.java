@@ -7,7 +7,9 @@ public interface DAO<T, K> {
 
     K create(T type);
 
-    Optional<T> findOne(K key);
+    Optional<T> findOne(T type);
+
+    Optional<T> findOneByKey(K key);
 
     List<T> findAll();
 

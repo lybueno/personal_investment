@@ -41,7 +41,7 @@ public class Wallet {
                         s.getTicker().equals(ticker)
                 )
                 .findFirst();
-        stock.ifPresent(s -> stocks.remove(s));
+        stock.ifPresent(stocks::remove);
     }
 
     public String getId() {
