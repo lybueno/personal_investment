@@ -8,6 +8,8 @@ import java.util.List;
 
 // O mesmo que PossuiAcaoDAO
 public interface IMyInvestmentsRepository {
-    public void savePurchaseStock(StockTransaction stock);
-    public List<Stock> getAllStocksByTickerAndWallet(Wallet wallet, String ticker);
+    void addPurchaseStock(StockTransaction stock);
+    void removeSoldStock(StockTransaction stock);
+    void removeSoldStockByTickerAndWallet(Wallet wallet, String ticker);
+    List<Stock> getAllStocksByTickerAndWallet(Wallet wallet, String ticker);
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 // O mesmo que NotaNegociacaoDAO
 public interface IBrokerageNoteRepository {
-    public void generateNote(StockTransaction transaction);
-    public List<StockTransaction> getAllNotes();
-    public StockTransaction getNotesByStock(Stock stock);
+    void generateNote(StockTransaction transaction);
+    List<StockTransaction> getAllNotes();
+    StockTransaction getNotesByStock(Stock stock);
 }
