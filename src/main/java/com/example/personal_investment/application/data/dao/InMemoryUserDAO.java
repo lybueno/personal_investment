@@ -41,6 +41,7 @@ public class InMemoryUserDAO implements UserDAO {
         String id = user.getUsername();
         if(db.containsKey(id)){
             db.replace(id, user);
+            return true;
         }
         return false;
     }
@@ -49,6 +50,7 @@ public class InMemoryUserDAO implements UserDAO {
     public boolean deleteByKey(String key) {
         if(db.containsKey(key)){
             db.remove(key);
+            return true;
         }
         return false;
     }
