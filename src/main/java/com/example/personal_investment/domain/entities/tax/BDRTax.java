@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public abstract class BDRTax implements Tax {
 
-    private BigDecimal taxAliquot = new BigDecimal(0.15);
+    private final BigDecimal taxAliquot = new BigDecimal("0.15");
 
     @Override
     public BigDecimal calculateTaxAmount(BigDecimal profit){
