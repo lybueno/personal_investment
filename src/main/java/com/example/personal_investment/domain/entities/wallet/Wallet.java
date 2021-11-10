@@ -2,6 +2,7 @@ package com.example.personal_investment.domain.entities.wallet;
 
 import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.stock.StockType;
+import com.example.personal_investment.domain.entities.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,18 +14,20 @@ public class Wallet {
     private String name;
     private StockType type;
     private final List<Stock> stocks;
+    private User user;
 
-    public Wallet(String id, String name, StockType type, List<Stock> stocks) {
+    public Wallet(String id, String name, StockType type, List<Stock> stocks, User user) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.stocks = stocks;
+        this.user = user;
     }
-    public Wallet(String id, String name, StockType type) {
-        this(id, name, type, new ArrayList<>());
+    public Wallet(String id, String name, StockType type, User user) {
+        this(id, name, type, new ArrayList<>(), user);
     }
-    public Wallet(String name, StockType type) {
-        this(UUID.randomUUID().toString(), name, type);
+    public Wallet(String name, StockType type, User user) {
+        this(UUID.randomUUID().toString(), name, type, user);
     }
 
     public void addPurchasedStocks(Stock stock) {
@@ -62,5 +65,13 @@ public class Wallet {
 
     public void setType(StockType type) {
         this.type = type;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

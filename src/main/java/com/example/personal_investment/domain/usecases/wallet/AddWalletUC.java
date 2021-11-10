@@ -6,20 +6,15 @@ import com.example.personal_investment.domain.interfaces.IWalletRepository;
 import com.example.personal_investment.domain.utils.Validator;
 
 public class AddWalletUC {
-    private final IWalletRepository walletRepository;
+    private final WalletDAO walletDAO;
 
-    public AddWalletUC(IWalletRepository walletRepository) {
-        this.walletRepository = walletRepository;
+    public AddWalletUC(WalletDAO walletDAO) {
+        this.walletDAO = walletDAO;
     }
 
     public void insert(User user, Wallet wallet) {
         Validator.validateWallet(wallet);
-        if (user == null) {
-            throw new IllegalArgumentException("User cannot be null");
-        }
-        if (user.getUsername() == null) {
-            throw new IllegalArgumentException("Username cannot be null");
-        }
-        walletRepository.insert(user, wallet);
+
+        walletDAO.create(wallet);
     }
 }

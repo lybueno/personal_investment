@@ -12,4 +12,5 @@ public interface IMyInvestmentsRepository {
     void removeSoldStock(StockTransaction stock);
     void removeSoldStockByTickerAndWallet(Wallet wallet, String ticker);
     List<Stock> getAllStocksByTickerAndWallet(Wallet wallet, String ticker);
+    boolean isWalletEmpty(Wallet wallet, String id);
 }
