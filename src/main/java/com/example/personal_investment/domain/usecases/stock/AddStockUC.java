@@ -1,19 +1,19 @@
 package com.example.personal_investment.domain.usecases.stock;
 
 import com.example.personal_investment.domain.entities.stock.Stock;
-import com.example.personal_investment.domain.interfaces.IStockRepository;
 import com.example.personal_investment.domain.utils.Validator;
 
 public class AddStockUC {
-    private final IStockRepository stockRepository;
+    private final StockDAO stockDAO;
 
-    public AddStockUC(IStockRepository stockRepository) {
-        this.stockRepository = stockRepository;
+    public AddStockUC(StockDAO stockDAO) {
+        this.stockDAO = stockDAO;
     }
 
-    public void update(Stock stock) {
+
+    public void add(Stock stock) {
         Validator.validateStock(stock);
-        stockRepository.insert(stock);
+        stockDAO.insert(stock);
     }
 
 }

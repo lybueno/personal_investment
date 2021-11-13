@@ -6,7 +6,7 @@ import com.example.personal_investment.domain.utils.Validator;
 
 public class DeleteWalletUC {
     private final WalletDAO walletDAO;
-    private final IMyInvestmentsRepository myInvestmentsRepository;
+    private final IMyInvestmentsRepository myInvestmentsRepository; // MyInvestmentsDAO
 
     public DeleteWalletUC(WalletDAO walletDAO, IMyInvestmentsRepository myInvestmentsRepository1) {
         this.walletDAO = walletDAO;

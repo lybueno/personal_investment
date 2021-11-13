@@ -17,12 +17,12 @@ public class CreateUserUC {
     public Optional<User> signUp(User user){
         Validator.validateUser(user);
 
-        if(userDAO.findOneByKey(user.getUsername()).isPresent()){
+        if(userDAO.findByUsername(user.getUsername()).isPresent()){
             throw new EntityAlreadyExistsException("This username is already registered");
         }
 
-        String username = userDAO.create(user);
-        return userDAO.findOneByKey(username);
+        String username = userDAO.insert(user);
+        return userDAO.findByUsername(username);
     }
 }
 

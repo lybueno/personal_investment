@@ -17,7 +17,7 @@ public class AuthenticateUserUC {
     public Optional<User> login(User user){
         Validator.validateUser(user);
 
-        if(userDAO.findOneByKey(user.getUsername()).isEmpty()){
+        if(userDAO.findByUsername(user.getUsername()).isEmpty()){
             throw new EntityAlreadyExistsException("This username is not registered");
         }
 

@@ -7,7 +7,7 @@ import com.example.personal_investment.domain.utils.Validator;
 
 public class UpdateWalletUC {
     private final WalletDAO walletDAO;
-    private final IMyInvestmentsRepository myInvestmentsRepository; // trocar para possuiacaoDAO
+    private final IMyInvestmentsRepository myInvestmentsRepository; // trocar para MyInvestmentsDAO
 
     public UpdateWalletUC(WalletDAO walletDAO, IMyInvestmentsRepository myInvestmentsRepository) {
         this.walletDAO = walletDAO;

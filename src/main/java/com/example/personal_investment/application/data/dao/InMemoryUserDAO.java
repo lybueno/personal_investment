@@ -1,6 +1,7 @@
 package com.example.personal_investment.application.data.dao;
 
 import com.example.personal_investment.domain.entities.user.User;
+import com.example.personal_investment.domain.exceptions.EntityNotExistsException;
 import com.example.personal_investment.domain.usecases.user.UserDAO;
 
 import java.util.*;
@@ -10,23 +11,23 @@ public class InMemoryUserDAO implements UserDAO {
     private static final Map<String, User> db = new LinkedHashMap<>();
 
     @Override
-    public String create(User user) {
+    public String insert(User user) {
         db.put(user.getUsername(), user);
         return user.getUsername();
     }
 
     @Override
     public Optional<User> findOne(User user) {
-        if(db.containsKey(user.getUsername())){
+        if (db.containsKey(user.getUsername())) {
             return Optional.of(db.get(user.getUsername()));
         }
         return Optional.empty();
     }
 
     @Override
-    public Optional<User> findOneByKey(String key) {
-        if(db.containsKey(key)){
-            return Optional.of(db.get(key));
+    public Optional<User> findByUsername(String username) {
+        if (db.containsKey(username)) {
+            return Optional.of(db.get(username));
         }
         return Optional.empty();
     }
@@ -37,26 +38,19 @@ public class InMemoryUserDAO implements UserDAO {
     }
 
     @Override
-    public boolean update(User user) {
+    public void update(User user) {
         String id = user.getUsername();
-        if(db.containsKey(id)){
+        if (db.containsKey(id)) {
             db.replace(id, user);
-            return true;
         }
-        return false;
+        throw new EntityNotExistsException("Cannot update, user not exists");
     }
 
     @Override
-    public boolean deleteByKey(String key) {
-        if(db.containsKey(key)){
-            db.remove(key);
-            return true;
+    public void delete(User user) {
+        if (!db.containsKey(user.getUsername())) {
+            throw new EntityNotExistsException("Cannot delete, user not exists");
         }
-        return false;
-    }
-
-    @Override
-    public boolean delete(User user) {
-        return deleteByKey(user.getUsername());
+        db.remove(user.getUsername());
     }
 }
