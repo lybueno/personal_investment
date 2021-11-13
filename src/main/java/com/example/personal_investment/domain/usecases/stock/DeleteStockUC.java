@@ -1,9 +1,6 @@
 package com.example.personal_investment.domain.usecases.stock;
 
-import com.example.personal_investment.domain.entities.stock.Stock;
-import com.example.personal_investment.domain.utils.Validator;
-
-//public class DeleteStockUC {
+public class DeleteStockUC {
 //    private final StockDAO stockDAO;
 //
 //    public DeleteStockUC(StockDAO stockDAO) {
@@ -27,4 +24,4 @@ import com.example.personal_investment.domain.utils.Validator;
 //            throw new IllegalArgumentException("Id cannot be null");
 //        }
 //    }
-//}
+}

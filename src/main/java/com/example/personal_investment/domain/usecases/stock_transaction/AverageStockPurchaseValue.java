@@ -23,11 +23,11 @@ public class AverageStockPurchaseValue {
             throw new IllegalArgumentException("Wallet cannot be null");
         }
 
-        List<Stock> stocks = myInvestmentsRepository.getAllStocksByTickerAndWallet(wallet ,ticker);
+        List<Stock> myInvestments = myInvestmentsRepository.getAllStocksByTickerAndWallet(wallet ,ticker);
         
-        BigDecimal quantityStocks = new BigDecimal(Integer.toString(stocks.size()));
+        BigDecimal quantityStocks = new BigDecimal(Integer.toString(myInvestments.size()));
         BigDecimal valueOfAllStocks = new BigDecimal("0");
-        for (Stock stock : stocks) {
+        for (Stock stock : myInvestments) {
             valueOfAllStocks = valueOfAllStocks.add(stock.getStockQuote());
         }
 

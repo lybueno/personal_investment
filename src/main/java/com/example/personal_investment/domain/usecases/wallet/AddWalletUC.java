@@ -11,7 +11,7 @@ public class AddWalletUC {
         this.walletDAO = walletDAO;
     }
 
-    public void insert(User user, Wallet wallet) {
+    public void insert(Wallet wallet) {
         Validator.validateWallet(wallet);
 
         walletDAO.insert(wallet);

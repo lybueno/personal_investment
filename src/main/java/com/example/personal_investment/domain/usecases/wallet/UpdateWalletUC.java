@@ -1,40 +1,28 @@
 package com.example.personal_investment.domain.usecases.wallet;
 
-import com.example.personal_investment.domain.entities.stock.StockType;
 import com.example.personal_investment.domain.entities.wallet.Wallet;
-import com.example.personal_investment.domain.interfaces.IMyInvestmentsRepository;
+import com.example.personal_investment.domain.exceptions.EntityNotExistsException;
+import com.example.personal_investment.domain.exceptions.WalletIsNotEmptyException;
 import com.example.personal_investment.domain.utils.Validator;
 
 public class UpdateWalletUC {
     private final WalletDAO walletDAO;
-    private final IMyInvestmentsRepository myInvestmentsRepository; // trocar para MyInvestmentsDAO
 
-    public UpdateWalletUC(WalletDAO walletDAO, IMyInvestmentsRepository myInvestmentsRepository) {
+    public UpdateWalletUC(WalletDAO walletDAO) {
         this.walletDAO = walletDAO;
-        this.myInvestmentsRepository = myInvestmentsRepository;
     }
 
-
-    public void update(String id, Wallet wallet, StockType newType) {
-        if (id == null) {
+    public void update(Wallet wallet) {
+        if (wallet.getId() == null) {
             throw new IllegalArgumentException("Wallet id cannot be null");
         }
         Validator.validateWallet(wallet);
 
-        if(myInvestmentsRepository.isWalletEmpty(wallet, id)){
-            wallet.setType(newType);
-            walletDAO.update(wallet);
-        } else{
-            throw new RuntimeException("The wallet isn't empty");
-        }
-    }
+        Wallet walletFromDAO = walletDAO.findOne(wallet).orElseThrow(() -> new EntityNotExistsException("Wallet not exists"));
 
-    public void updateName(String id, Wallet wallet) {
-        if (id == null) {
-            throw new IllegalArgumentException("Wallet id cannot be null");
+        if (walletFromDAO.getType() != wallet.getType() && !walletFromDAO.isEmpty()) {
+            throw new WalletIsNotEmptyException("Tried to change type but wallet is not empty");
         }
-
-        Validator.validateWallet(wallet);
 
         walletDAO.update(wallet);
     }

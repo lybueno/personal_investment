@@ -1,7 +1,7 @@
 package com.example.personal_investment.domain.utils;
 
 import com.example.personal_investment.domain.entities.stock.Stock;
-import com.example.personal_investment.domain.entities.stock_transaction.StockTransaction;
+import com.example.personal_investment.domain.entities.brokerage_note.BrokerageNote;
 import com.example.personal_investment.domain.entities.user.User;
 import com.example.personal_investment.domain.entities.wallet.Wallet;
 import com.example.personal_investment.domain.exceptions.TypeNotMatchException;
@@ -32,9 +32,13 @@ public class Validator {
         if(wallet.getName() == null){
             throw new IllegalArgumentException("Wallet name cannot be null");
         }
+
+        if(wallet.getUser() == null){
+            throw new IllegalArgumentException("Wallet user cannot be null");
+        }
     }
 
-    public static void validateTransaction(StockTransaction transaction) {
+    public static void validateTransaction(BrokerageNote transaction) {
         if (transaction.getStock() == null) {
             throw new IllegalArgumentException("Stock cannot be null");
         }

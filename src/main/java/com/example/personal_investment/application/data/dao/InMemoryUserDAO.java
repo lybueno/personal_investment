@@ -25,14 +25,6 @@ public class InMemoryUserDAO implements UserDAO {
     }
 
     @Override
-    public Optional<User> findByUsername(String username) {
-        if (db.containsKey(username)) {
-            return Optional.of(db.get(username));
-        }
-        return Optional.empty();
-    }
-
-    @Override
     public List<User> findAll() {
         return new ArrayList<>(db.values());
     }

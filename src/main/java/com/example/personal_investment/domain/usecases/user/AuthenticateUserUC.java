@@ -1,8 +1,8 @@
 package com.example.personal_investment.domain.usecases.user;
 
 import com.example.personal_investment.domain.entities.user.User;
-import com.example.personal_investment.domain.exceptions.EntityAlreadyExistsException;
-import com.example.personal_investment.domain.utils.Validator;
+import com.example.personal_investment.domain.exceptions.EntityNotExistsException;
+import com.example.personal_investment.domain.exceptions.IncorrectPasswordException;
 
 import java.util.Optional;
 
@@ -14,13 +14,18 @@ public class AuthenticateUserUC {
         this.userDAO = userDAO;
     }
 
-    public Optional<User> login(User user){
-        Validator.validateUser(user);
-
-        if(userDAO.findByUsername(user.getUsername()).isEmpty()){
-            throw new EntityAlreadyExistsException("This username is not registered");
+    public User login(String username, String password){
+        Optional<User> optional = userDAO.findOne(new User(username,password));
+        if(optional.isEmpty()){
+            throw new EntityNotExistsException("This username is not registered");
         }
 
-        return userDAO.findOne(user);
+        User user = optional.get();
+
+        if(!user.getPassword().equals(password)){
+            throw new IncorrectPasswordException("Cannot login, password incorrect");
+        }
+
+        return optional.get();
     }
 }

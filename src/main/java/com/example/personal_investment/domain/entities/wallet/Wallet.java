@@ -1,5 +1,6 @@
 package com.example.personal_investment.domain.entities.wallet;
 
+import com.example.personal_investment.domain.entities.investment.Investment;
 import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.stock.StockType;
 import com.example.personal_investment.domain.entities.user.User;
@@ -11,40 +12,46 @@ import java.util.UUID;
 
 public class Wallet {
     private final String id;
-    private String name;
+    private final List<Investment> myInvestments;
+    private final User user;
     private StockType type;
-    private final List<Stock> stocks;
-    private User user;
+    private String name;
 
-    public Wallet(String id, String name, StockType type, List<Stock> stocks, User user) {
+    public Wallet(String id, String name, StockType type, List<Investment> myInvestments, User user) {
         this.id = id;
         this.name = name;
         this.type = type;
-        this.stocks = stocks;
+        this.myInvestments = myInvestments;
         this.user = user;
     }
+
     public Wallet(String id, String name, StockType type, User user) {
         this(id, name, type, new ArrayList<>(), user);
     }
+
     public Wallet(String name, StockType type, User user) {
         this(UUID.randomUUID().toString(), name, type, user);
     }
 
-    public void addPurchasedStocks(Stock stock) {
-        stocks.add(stock);
+    public void addInvestment(Investment investment) {
+        this.myInvestments.add(investment);
     }
 
-    public void removeSoldStocks(Stock stock) {
-        stocks.remove(stock);
+    public void removeInvestment(Investment stock) {
+        this.myInvestments.remove(stock);
     }
 
-    public void removeSoldStocksByTicker(String ticker) {
-        Optional<Stock> stock = stocks.stream()
+    public void removeInvestmentByTicker(String ticker) {
+        Optional<Investment> investment = myInvestments.stream()
                 .filter(s ->
-                        s.getTicker().equals(ticker)
+                        s.getStock().getTicker().equals(ticker)
                 )
                 .findFirst();
-        stock.ifPresent(stocks::remove);
+        investment.ifPresent(myInvestments::remove);
+    }
+
+    public boolean isEmpty() {
+        return myInvestments.isEmpty();
     }
 
     public String getId() {
@@ -63,15 +70,14 @@ public class Wallet {
         return type;
     }
 
+    // Somente altera tipo se tiver vazia
     public void setType(StockType type) {
-        this.type = type;
+        if (isEmpty()) {
+            this.type = type;
+        }
     }
 
     public User getUser() {
         return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
