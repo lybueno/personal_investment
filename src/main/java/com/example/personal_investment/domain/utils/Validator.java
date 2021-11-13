@@ -8,19 +8,19 @@ import com.example.personal_investment.domain.exceptions.TypeNotMatchException;
 
 public class Validator {
     public static void validateStock(Stock stock) {
-        if(stock.getId() == null){
+        if(stock.getId() == null || stock.getId().isBlank()){
             throw new IllegalArgumentException("Stock id cannot be null");
         }
         if(stock.getType() == null){
             throw new IllegalArgumentException("Stock type cannot be null");
         }
-        if(stock.getTicker() == null){
+        if(stock.getTicker() == null || stock.getTicker().isBlank()){
             throw new IllegalArgumentException("Stock Ticker cannot be null ");
         }
-        if(stock.getCnpj() == null){
+        if(stock.getCnpj() == null || stock.getCnpj().isBlank()){
             throw new IllegalArgumentException("Stock CNPJ cannot be null ");
         }
-        if(stock.getCompanyName() == null){
+        if(stock.getCompanyName() == null || stock.getCompanyName().isBlank()){
             throw new IllegalArgumentException("Stock Company name cannot be null ");
         }
     }

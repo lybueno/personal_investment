@@ -12,6 +12,7 @@ public class SearchStockUC {
         this.stockDAO = stockDAO;
     }
 
+
     public Optional<Stock> findByTicker(String ticker){
         if(ticker == null){
             throw new IllegalArgumentException("Ticker cannot be null");
@@ -19,14 +20,14 @@ public class SearchStockUC {
         return stockDAO.findByTicker(ticker);
     }
 
-    public List<Stock> findByCNPJ(String cnpj){
+    public Optional<Stock> findByCNPJ(String cnpj){
         if(cnpj == null){
             throw new IllegalArgumentException("Cnpj cannot be null");
         }
         return stockDAO.findByCNPJ(cnpj);
     }
 
-    public List<Stock> findByCompanyName(String companyName){
+    public Optional<Stock> findByCompanyName(String companyName){
         if(companyName == null){
             throw new IllegalArgumentException("Company name cannot be null");
         }

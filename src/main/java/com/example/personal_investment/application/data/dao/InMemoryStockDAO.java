@@ -33,6 +33,11 @@ public class InMemoryStockDAO implements StockDAO {
     }
 
     @Override
+    public Optional<Stock> findById(String id) {
+        return db.values().stream().filter(stock -> stock.getId().equals(id)).findAny();
+    }
+
+    @Override
     public Optional<Stock> findByTicker(String ticker) {
         return db.values().stream().filter(stock -> stock.getTicker().equals(ticker)).findAny();
     }

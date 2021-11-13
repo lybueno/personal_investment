@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface StockDAO extends DAO<Stock,String> {
+    Optional<Stock> findById(String id);
     Optional<Stock> findByTicker(String ticker);
     Optional<Stock> findByCNPJ(String cnpj);
     Optional<Stock> findByCompanyName(String name);
