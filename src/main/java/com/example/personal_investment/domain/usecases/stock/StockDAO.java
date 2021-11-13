@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface StockDAO extends DAO<Stock,String> {
     Optional<Stock> findByTicker(String ticker);
-    List<Stock> findByCNPJ(String cnpj);
-    List<Stock> findByCompanyName(String name);
+    Optional<Stock> findByCNPJ(String cnpj);
+    Optional<Stock> findByCompanyName(String name);
 }

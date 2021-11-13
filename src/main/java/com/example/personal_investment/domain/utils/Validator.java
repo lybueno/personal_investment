@@ -71,7 +71,7 @@ public class Validator {
             throw new IllegalArgumentException("Username cannot be null.");
         }
         if(user.getPassword() == null) {
-            throw new IllegalArgumentException("Username cannot be null.");
+            throw new IllegalArgumentException("Password cannot be null.");
         }
     }
 }
