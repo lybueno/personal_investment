@@ -42,6 +42,7 @@ public class Validator {
         if (transaction.getStock() == null) {
             throw new IllegalArgumentException("Stock cannot be null");
         }
+        // pq a nota de negociação valida carteira?
         if (transaction.getWallet() == null) {
             throw new IllegalArgumentException("Wallet cannot be null");
         }

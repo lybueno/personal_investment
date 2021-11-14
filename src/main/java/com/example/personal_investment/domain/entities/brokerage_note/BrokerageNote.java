@@ -6,6 +6,7 @@ import com.example.personal_investment.domain.entities.wallet.Wallet;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+// nota de negociação não poderia ser criada a partir de um cadastro de compra ou venda?
 public class BrokerageNote {
     private final Stock stock;
     private final Wallet wallet;
