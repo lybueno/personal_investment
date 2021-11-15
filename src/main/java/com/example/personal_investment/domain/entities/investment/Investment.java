@@ -6,6 +6,7 @@ import com.example.personal_investment.domain.entities.wallet.Wallet;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.UUID;
 
 public class Investment {
     private final String id;
@@ -22,9 +23,19 @@ public class Investment {
         this.totalAmount = totalAmount;
     }
 
+    public Investment(Wallet wallet, Stock stock, Integer quantity, BigDecimal totalAmount) {
+        this(
+                UUID.randomUUID().toString(),
+                wallet,
+                stock,
+                quantity,
+                totalAmount
+        );
+    }
+
     public Investment(StockTransaction transaction) {
         this(
-                null, transaction.getWallet(),
+                transaction.getWallet(),
                 transaction.getStock(),
                 transaction.getQuantity(),
                 transaction.calculateTransactionAmount()
