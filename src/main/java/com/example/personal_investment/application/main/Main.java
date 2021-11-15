@@ -36,8 +36,9 @@ public class Main {
         testUser();
         testStocks();
 
-      //  TestImportDataFromAPI test = new TestImportDataFromAPI("PETR4");
-       // test.getData();
+//        ImportUpdatedPriceFromAPI test = new ImportUpdatedPriceFromAPI("PETR4");
+//        BigDecimal updatedPrice = test.getData();
+//        System.out.println(updatedPrice);
 
 //        HelloApplication.main(args);
     }
