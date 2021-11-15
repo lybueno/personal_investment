@@ -114,21 +114,19 @@ public class Main {
        testFindByTickerStocks("ticker323");
        testFindByTickerStocks("ticker2");
        testFindByTickerStocks("ticker1");
-
        testFindStockByCompanyName("company2");
-
-       testFindStockByCNPJ("001/9999");
-
-
        testFindStockByCompanyName("company223");
-
+       testFindStockByCNPJ("001/9999");
        testFindStockByCNPJ("001/232323");
 
-//       searchStockUC.findByCompanyName("company2");
-//       searchStockUC.findByCompanyName("company3").toString();
-//       System.out.println( searchStockUC.findByCompanyName("company3"));
+       testDeleteStock(stock1);
+       testFindAllStocks();
+       testAddStock(stock1);
 
+       stock2 = new Stock("02",StockType.BDR,"ticker2","company22",
+               "001/8888",valorStock);
 
+       testUpdateStock(stock2);
    }
 
    private static void testAddStock(Stock stock){
@@ -152,7 +150,17 @@ public class Main {
             System.out.println("ID: "+stock.getId()+" \nEmpresa: "+stock.getCompanyName()+" \nCNPJ: "+stock.getCnpj()+" \nTicker: "+stock.getTicker()+
                     " \nValor: "+stock.getStockQuote()+" \nTipo: "+stock.getType());
             System.out.println("------------------------------");
-        } catch (EntityAlreadyExistsException e) {
+        } catch (EntityNotExistsException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void testDeleteStock(Stock stock){
+        try{
+            deleteStockUC.delete(stock);
+            System.out.println("------------------------------");
+            System.out.println("Stock deletada com sucesso");
+        } catch (EntityNotExistsException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -174,15 +182,22 @@ public class Main {
 
     private static void testFindStockByCompanyName(String companyName){
         try{
-            System.out.println("-------- Ações cadastradas da empresa: "+companyName+"--------");
-            searchStockUC.findByCompanyName(companyName).forEach(
-                    stock ->
-                    {
-                        System.out.println("ID: "+stock.getId()+" \nEmpresa: "+stock.getCompanyName()+" \nCNPJ: "+stock.getCnpj()+" \nTicker: "+stock.getTicker()+
-                                " \nValor: "+stock.getStockQuote()+" \nTipo: "+stock.getType());
-                        System.out.println("------------------------------");
-                    }
-            );
+            boolean listStock = searchStockUC.findByCompanyName(companyName).isEmpty();
+            if(!listStock){
+                System.out.println("-------- Ações cadastradas da empresa: "+companyName);
+                searchStockUC.findByCompanyName(companyName).forEach(
+                        stock ->
+                        {
+
+                            System.out.println("ID: "+stock.getId()+" \nEmpresa: "+stock.getCompanyName()+" \nCNPJ: "+stock.getCnpj()+" \nTicker: "+stock.getTicker()+
+                                    " \nValor: "+stock.getStockQuote()+" \nTipo: "+stock.getType());
+                            System.out.println("------------------------------");
+                        }
+                );
+            }else {
+                System.out.println("Não existe ação cadastrada com esse nome de empresa: "+companyName);
+            }
+
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -190,15 +205,22 @@ public class Main {
 
     private static void testFindStockByCNPJ(String cnpj){
         try{
-            System.out.println("-------- Ações cadastradas da empresa: "+cnpj+"--------");
-            searchStockUC.findByCNPJ(cnpj).forEach(
-                    stock ->
-                    {
-                        System.out.println("ID: "+stock.getId()+" \nEmpresa: "+stock.getCompanyName()+" \nCNPJ: "+stock.getCnpj()+" \nTicker: "+stock.getTicker()+
-                                " \nValor: "+stock.getStockQuote()+" \nTipo: "+stock.getType());
-                        System.out.println("------------------------------");
-                    }
-            );
+            boolean listStock = searchStockUC.findByCNPJ(cnpj).isEmpty();
+            if(!listStock){
+                System.out.println("-------- Ações cadastradas da empresa: "+cnpj);
+                searchStockUC.findByCNPJ(cnpj).forEach(
+                        stock ->
+                        {
+                            System.out.println("ID: "+stock.getId()+" \nEmpresa: "+stock.getCompanyName()+" \nCNPJ: "+stock.getCnpj()+" \nTicker: "+stock.getTicker()+
+                                    " \nValor: "+stock.getStockQuote()+" \nTipo: "+stock.getType());
+                            System.out.println("------------------------------");
+                        }
+                );
+            }else {
+                System.out.println("Não existe ação cadastrada com esse CNPJ: "+cnpj);
+            }
+
+
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
