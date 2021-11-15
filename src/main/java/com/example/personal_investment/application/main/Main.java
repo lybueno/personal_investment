@@ -36,8 +36,8 @@ public class Main {
         testUser();
         testStocks();
 
-        TestImportDataFromAPI test = new TestImportDataFromAPI("PETR4");
-        test.getData();
+      //  TestImportDataFromAPI test = new TestImportDataFromAPI("PETR4");
+       // test.getData();
 
 //        HelloApplication.main(args);
     }
@@ -121,8 +121,9 @@ public class Main {
        testAddStock(stock3);
 
        testFindAllStocks();
+       testFindByTickerStocks("ticker3");
+       testFindByTickerStocks("ticker323");
 
-//       searchStockUC.findByCompanyName("company1").isPresent();
 //       searchStockUC.findByCompanyName("company2");
 //       searchStockUC.findByCompanyName("company3").toString();
 //       System.out.println( searchStockUC.findByCompanyName("company3"));
@@ -176,10 +177,27 @@ public class Main {
                        System.out.println("------------------------------");
                    }
            );
-       }catch (Exception e){
+       }catch (EntityNotExistsException e){
            System.out.println(e.getMessage());
        }
    }
+
+    private static void testFindByTickerStocks(String ticker){
+        try{
+            searchStockUC.findByTicker(ticker).ifPresentOrElse(
+                    (stock) ->
+                    {
+                        System.out.println("------------------------------");
+                        System.out.println("ID: " + stock.getId() + " \nEmpresa: " + stock.getCompanyName() + " \nCNPJ: " + stock.getCnpj() + " \nTicker: " + stock.getTicker() +
+                                " \nValor: " + stock.getStockQuote() + " \nTipo: " + stock.getType());
+                        System.out.println("------------------------------");
+                    },
+                    () -> System.out.println("Não existe ação cadastrada com esse ticker: "+ticker)
+            );
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 
     private static void injectDependencies() {
         UserDAO userDAO = new InMemoryUserDAO();
