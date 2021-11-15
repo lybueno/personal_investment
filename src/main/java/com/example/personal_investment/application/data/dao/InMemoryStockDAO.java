@@ -19,11 +19,9 @@ public class InMemoryStockDAO implements StockDAO {
 
     @Override
     public void update(Stock stock) {
-        String id = stock.getId();
-
-        if(db.containsKey(id))
-            db.replace(id,stock);
-        throw new EntityNotExistsException("Cannot update, stock not exists");
+        if(!db.containsKey(stock.getId()))
+            throw new EntityNotExistsException("Cannot update, stock not exists");
+        db.replace(stock.getId(),stock);
     }
 
     @Override
