@@ -13,10 +13,7 @@ import com.example.personal_investment.domain.usecases.stock.*;
 import com.example.personal_investment.domain.usecases.user.AuthenticateUserUC;
 import com.example.personal_investment.domain.usecases.user.RegisterUserUC;
 import com.example.personal_investment.domain.usecases.user.UserDAO;
-import com.example.personal_investment.domain.usecases.wallet.AddWalletUC;
-import com.example.personal_investment.domain.usecases.wallet.DeleteWalletUC;
-import com.example.personal_investment.domain.usecases.wallet.UpdateWalletUC;
-import com.example.personal_investment.domain.usecases.wallet.WalletDAO;
+import com.example.personal_investment.domain.usecases.wallet.*;
 
 import java.math.BigDecimal;
 
@@ -38,6 +35,9 @@ public class Main {
 
         testUser();
         testStocks();
+
+        TestImportDataFromAPI test = new TestImportDataFromAPI("PETR4");
+        test.getData();
 
 //        HelloApplication.main(args);
     }
