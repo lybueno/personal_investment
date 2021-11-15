@@ -91,29 +91,95 @@ public class Main {
                "001/9999",valorStock);
        Stock stock2 = new Stock("02",StockType.BDR,"ticker2","company2",
                "001/8888",valorStock);
-       Stock stock3 = new Stock("03",StockType.BDR,"ticker3","company3",
-               "001/7777",valorStock);
+       Stock stock3 = new Stock("02",StockType.BDR,"ticker2","company2",
+               "001/9999",valorStock);
 
-        try{
-                addStockUC.add(stock1);
-                System.out.println("Stock "+stock1.getCompanyName()+" cadastrado com sucesso");
 
-                addStockUC.add(stock2);
-                System.out.println("Stock "+stock2.getCompanyName()+" cadastrado com sucesso");
 
-//                updateStockUC.update(stock3);
+       testAddStock(stock1);
+       testAddStock(stock2);
+       testAddStock(stock3);
 
-                addStockUC.add(stock3);
-                System.out.println("Stock "+stock3.getCompanyName()+" cadastrado com sucesso");
+       stock3 = new Stock("03",StockType.BDR,"ticker2","company2",
+               "001/9999",valorStock);
 
-                deleteStockUC.delete(stock3);
-                System.out.println("Stock "+stock3.getCompanyName()+" deletada com sucesso");
+       testAddStock(stock3);
 
-        } catch (EntityAlreadyExistsException e) {
-                System.out.println(e.getMessage());
-        }
+       stock3 = new Stock("03",StockType.BDR,"ticker3","company2",
+               "001/9999",valorStock);
+
+       testAddStock(stock3);
+
+       stock3 = new Stock("03",StockType.BDR,"ticker3","company2",
+               "001/5555",valorStock);
+
+       testAddStock(stock3);
+
+       stock3 = new Stock("03",StockType.BDR,"ticker3","company3",
+               "001/5555",valorStock);
+
+       testAddStock(stock3);
+
+       testFindAllStocks();
+
+//       searchStockUC.findByCompanyName("company1").isPresent();
+//       searchStockUC.findByCompanyName("company2");
+//       searchStockUC.findByCompanyName("company3").toString();
+//       System.out.println( searchStockUC.findByCompanyName("company3"));
+//       searchStockUC.findByTicker("ticker1");
+//       searchStockUC.findByTicker("ticker3");
+//       searchStockUC.findByTicker("ticker2");
+
    }
 
+   private static void testAddStock(Stock stock){
+       try{
+           addStockUC.add(stock);
+           System.out.println("------------------------------");
+           System.out.println("Stock cadastrado com sucesso");
+           System.out.println("ID: "+stock.getId()+" \nEmpresa: "+stock.getCompanyName()+" \nCNPJ: "+stock.getCnpj()+" \nTicker: "+stock.getTicker()+
+                   " \nValor: "+stock.getStockQuote()+" \nTipo: "+stock.getType());
+           System.out.println("------------------------------");
+       } catch (EntityAlreadyExistsException e) {
+           System.out.println(e.getMessage());
+       } catch (EntityNotExistsException e){
+           System.out.println(e.getMessage());
+       } catch (Exception e){
+           System.out.println(e.getMessage());
+       }
+   }
+
+   private static void testUpdateStock(Stock stock){
+        try{
+            updateStockUC.update(stock);
+            System.out.println("------------------------------");
+            System.out.println("Stock atualizada com sucesso");
+            System.out.println("ID: "+stock.getId()+" \nEmpresa: "+stock.getCompanyName()+" \nCNPJ: "+stock.getCnpj()+" \nTicker: "+stock.getTicker()+
+                    " \nValor: "+stock.getStockQuote()+" \nTipo: "+stock.getType());
+            System.out.println("------------------------------");
+        } catch (EntityAlreadyExistsException e) {
+            System.out.println(e.getMessage());
+        } catch (EntityNotExistsException e){
+            System.out.println(e.getMessage());
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+   private static void testFindAllStocks(){
+       try{
+           System.out.println("-------- Ações cadastradas --------");
+           searchStockUC.findAll().forEach(stock ->
+                   {
+                       System.out.println("ID: "+stock.getId()+" \nEmpresa: "+stock.getCompanyName()+" \nCNPJ: "+stock.getCnpj()+" \nTicker: "+stock.getTicker()+
+                               " \nValor: "+stock.getStockQuote()+" \nTipo: "+stock.getType());
+                       System.out.println("------------------------------");
+                   }
+           );
+       }catch (Exception e){
+           System.out.println(e.getMessage());
+       }
+   }
 
     private static void injectDependencies() {
         UserDAO userDAO = new InMemoryUserDAO();

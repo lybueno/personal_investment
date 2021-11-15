@@ -33,4 +33,8 @@ public class SearchStockUC {
         }
          return stockDAO.findByCompanyName(companyName);
     }
+
+    public List<Stock> findAll(){
+        return stockDAO.findAll();
+    }
 }
