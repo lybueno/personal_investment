@@ -3,7 +3,6 @@ package com.example.personal_investment.domain.usecases.wallet;
 import com.example.personal_investment.domain.entities.wallet.Wallet;
 import com.example.personal_investment.domain.exceptions.EntityNotExistsException;
 import com.example.personal_investment.domain.exceptions.WalletIsNotEmptyException;
-import com.example.personal_investment.domain.interfaces.IMyInvestmentsRepository;
 import com.example.personal_investment.domain.utils.Validator;
 
 public class DeleteWalletUC {
