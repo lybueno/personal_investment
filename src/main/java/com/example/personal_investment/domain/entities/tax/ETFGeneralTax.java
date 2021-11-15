@@ -2,7 +2,7 @@ package com.example.personal_investment.domain.entities.tax;
 
 import java.math.BigDecimal;
 
-public abstract class ETFGeneralTax implements Tax {
+public class ETFGeneralTax implements Tax {
 
     private final BigDecimal taxAliquot = new BigDecimal("0.15");
     @Override
