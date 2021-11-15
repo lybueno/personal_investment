@@ -8,12 +8,14 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class Investment {
+    private final String id;
     private final Wallet wallet;
     private final Stock stock;
     private Integer quantity;
     private BigDecimal totalAmount;
 
-    public Investment(Wallet wallet, Stock stock, Integer quantity, BigDecimal totalAmount) {
+    public Investment(String id, Wallet wallet, Stock stock, Integer quantity, BigDecimal totalAmount) {
+        this.id = id;
         this.wallet = wallet;
         this.stock = stock;
         this.quantity = quantity;
@@ -22,7 +24,7 @@ public class Investment {
 
     public Investment(StockTransaction transaction) {
         this(
-                transaction.getWallet(),
+                null, transaction.getWallet(),
                 transaction.getStock(),
                 transaction.getQuantity(),
                 transaction.calculateTransactionAmount()
@@ -74,4 +76,6 @@ public class Investment {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+
+    public String getId() { return id;}
 }
