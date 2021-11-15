@@ -92,8 +92,7 @@ public class Main {
        Stock stock2 = new Stock("02",StockType.BDR,"ticker2","company2",
                "001/8888",valorStock);
        Stock stock3 = new Stock("02",StockType.BDR,"ticker2","company2",
-               "001/9999",valorStock);
-
+               "001/8888",valorStock);
 
 
        testAddStock(stock1);
@@ -101,35 +100,34 @@ public class Main {
        testAddStock(stock3);
 
        stock3 = new Stock("03",StockType.BDR,"ticker2","company2",
-               "001/9999",valorStock);
+               "001/8888",valorStock);
 
        testAddStock(stock3);
 
        stock3 = new Stock("03",StockType.BDR,"ticker3","company2",
-               "001/9999",valorStock);
-
-       testAddStock(stock3);
-
-       stock3 = new Stock("03",StockType.BDR,"ticker3","company2",
-               "001/5555",valorStock);
-
-       testAddStock(stock3);
-
-       stock3 = new Stock("03",StockType.BDR,"ticker3","company3",
-               "001/5555",valorStock);
+               "001/8888",valorStock);
 
        testAddStock(stock3);
 
        testFindAllStocks();
        testFindByTickerStocks("ticker3");
        testFindByTickerStocks("ticker323");
+       testFindByTickerStocks("ticker2");
+       testFindByTickerStocks("ticker1");
+
+       testFindStockByCompanyName("company2");
+
+       testFindStockByCNPJ("001/9999");
+
+
+       testFindStockByCompanyName("company223");
+
+       testFindStockByCNPJ("001/232323");
 
 //       searchStockUC.findByCompanyName("company2");
 //       searchStockUC.findByCompanyName("company3").toString();
 //       System.out.println( searchStockUC.findByCompanyName("company3"));
-//       searchStockUC.findByTicker("ticker1");
-//       searchStockUC.findByTicker("ticker3");
-//       searchStockUC.findByTicker("ticker2");
+
 
    }
 
@@ -143,10 +141,6 @@ public class Main {
            System.out.println("------------------------------");
        } catch (EntityAlreadyExistsException e) {
            System.out.println(e.getMessage());
-       } catch (EntityNotExistsException e){
-           System.out.println(e.getMessage());
-       } catch (Exception e){
-           System.out.println(e.getMessage());
        }
    }
 
@@ -159,10 +153,6 @@ public class Main {
                     " \nValor: "+stock.getStockQuote()+" \nTipo: "+stock.getType());
             System.out.println("------------------------------");
         } catch (EntityAlreadyExistsException e) {
-            System.out.println(e.getMessage());
-        } catch (EntityNotExistsException e){
-            System.out.println(e.getMessage());
-        } catch (Exception e){
             System.out.println(e.getMessage());
         }
     }
@@ -181,6 +171,38 @@ public class Main {
            System.out.println(e.getMessage());
        }
    }
+
+    private static void testFindStockByCompanyName(String companyName){
+        try{
+            System.out.println("-------- Ações cadastradas da empresa: "+companyName+"--------");
+            searchStockUC.findByCompanyName(companyName).forEach(
+                    stock ->
+                    {
+                        System.out.println("ID: "+stock.getId()+" \nEmpresa: "+stock.getCompanyName()+" \nCNPJ: "+stock.getCnpj()+" \nTicker: "+stock.getTicker()+
+                                " \nValor: "+stock.getStockQuote()+" \nTipo: "+stock.getType());
+                        System.out.println("------------------------------");
+                    }
+            );
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void testFindStockByCNPJ(String cnpj){
+        try{
+            System.out.println("-------- Ações cadastradas da empresa: "+cnpj+"--------");
+            searchStockUC.findByCNPJ(cnpj).forEach(
+                    stock ->
+                    {
+                        System.out.println("ID: "+stock.getId()+" \nEmpresa: "+stock.getCompanyName()+" \nCNPJ: "+stock.getCnpj()+" \nTicker: "+stock.getTicker()+
+                                " \nValor: "+stock.getStockQuote()+" \nTipo: "+stock.getType());
+                        System.out.println("------------------------------");
+                    }
+            );
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 
     private static void testFindByTickerStocks(String ticker){
         try{

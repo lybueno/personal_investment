@@ -5,6 +5,7 @@ import com.example.personal_investment.domain.exceptions.EntityNotExistsExceptio
 import com.example.personal_investment.domain.usecases.stock.StockDAO;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class InMemoryStockDAO implements StockDAO {
 
@@ -43,13 +44,17 @@ public class InMemoryStockDAO implements StockDAO {
     }
 
     @Override
-    public Optional<Stock> findByCNPJ(String cnpj) {
-        return db.values().stream().filter(stock -> stock.getCnpj().equals(cnpj)).findAny();
+    public List<Stock> findByCNPJ(String cnpj) {
+        return db.values().stream().filter(
+                stock -> stock.getCnpj().equals(cnpj)
+        ).collect(Collectors.toList());
     }
 
     @Override
-    public Optional<Stock> findByCompanyName(String name) {
-        return db.values().stream().filter(stock -> stock.getCompanyName().equals(name)).findAny();
+    public List<Stock> findByCompanyName(String name) {
+        return db.values().stream().filter(
+                stock -> stock.getCompanyName().equals(name)
+        ).collect(Collectors.toList());
     }
 
     @Override

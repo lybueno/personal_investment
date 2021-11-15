@@ -20,14 +20,14 @@ public class SearchStockUC {
         return stockDAO.findByTicker(ticker);
     }
 
-    public Optional<Stock> findByCNPJ(String cnpj){
+    public List<Stock> findByCNPJ(String cnpj){
         if(cnpj == null){
             throw new IllegalArgumentException("Cnpj cannot be null");
         }
         return stockDAO.findByCNPJ(cnpj);
     }
 
-    public Optional<Stock> findByCompanyName(String companyName){
+    public List<Stock> findByCompanyName(String companyName){
         if(companyName == null){
             throw new IllegalArgumentException("Company name cannot be null");
         }
