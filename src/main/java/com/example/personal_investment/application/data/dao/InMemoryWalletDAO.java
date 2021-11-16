@@ -31,10 +31,10 @@ public class InMemoryWalletDAO implements WalletDAO {
 
     @Override
     public void update(Wallet wallet) {
-        if (db.containsKey(wallet.getId())) {
-            db.replace(wallet.getId(), wallet);
+        if (!db.containsKey(wallet.getId())) {
+            throw new EntityNotExistsException("Cannot update, wallet not exists");
         }
-        throw new EntityNotExistsException("Cannot update, wallet not exists");
+        db.replace(wallet.getId(), wallet);
     }
 
     @Override
