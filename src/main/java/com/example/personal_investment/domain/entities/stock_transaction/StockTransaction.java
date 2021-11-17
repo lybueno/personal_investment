@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class StockTransaction {
+    private final String id;
     private final Stock stock;
     private final Wallet wallet;
     private final LocalDate transactionDate;
@@ -15,7 +16,8 @@ public class StockTransaction {
     private final BigDecimal unitaryValue;
     private final TransactionType transactionType;
 
-    public StockTransaction(Stock stock, Wallet wallet, LocalDate transactionDate, Integer quantity, BigDecimal unitaryValue, TransactionType transactionType) {
+    public StockTransaction(String id, Stock stock, Wallet wallet, LocalDate transactionDate, Integer quantity, BigDecimal unitaryValue, TransactionType transactionType) {
+        this.id = id;
         this.stock = stock;
         this.wallet = wallet;
         this.transactionDate = transactionDate;
@@ -51,6 +53,8 @@ public class StockTransaction {
     public TransactionType getTransactionType() {
         return transactionType;
     }
+
+    public String getId() { return id;}
 
     @Override
     public boolean equals(Object o) {
