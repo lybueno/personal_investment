@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="darfReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5a6ea0af-76bb-4c94-a2c1-4551229c7141">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="stockType" class="java.lang.String"/>
+	<parameter name="dueDate" class="java.lang.String"/>
+	<parameter name="taxAmount" class="java.lang.String"/>
+	<parameter name="saleValue" class="java.lang.String"/>
+	<parameter name="averagePurchaseValue" class="java.lang.String"/>
+	<parameter name="nameUser" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="360" splitType="Stretch">
+			<image>
+				<reportElement x="-20" y="0" width="595" height="110" uuid="27cad09e-fd9a-4a18-a599-04678c3fe16f"/>
+				<imageExpression><![CDATA["https://gitlab.com/cantacomdevs/mevi/uploads/b66f2cbbd08d70f917af5d927e44bbca/m.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="-20" y="110" width="595" height="30" uuid="0a938ba0-5126-4880-8b1c-91af95465060"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="17"/>
+				</textElement>
+				<text><![CDATA[Modelo de Documento de Arrecadação de Receitas Federais (Darf)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="279" y="190" width="159" height="30" uuid="af5beab3-0f73-4051-97da-9c2f0314fe9d"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{stockType}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="220" width="159" height="30" uuid="b73d8511-4a0a-48aa-b99f-fa1e720769a3"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dueDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="250" width="159" height="30" uuid="7a3818a5-199f-4ad8-878a-c6c83b736296"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{taxAmount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="280" width="159" height="30" uuid="5cf43878-64a1-468e-bb0f-1a604dd8ed52"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{saleValue}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="310" width="159" height="30" uuid="fbb6b18f-074e-4194-9c2d-49d76def33f4"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{averagePurchaseValue}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="160" width="159" height="30" uuid="edc2d49f-7621-4259-8d6b-051ce5c4ef08"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nameUser}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="120" y="160" width="160" height="30" uuid="ca1c2090-6314-4b4d-a845-f6a0f8831144"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14"/>
+					<paragraph leftIndent="5" spacingBefore="0"/>
+				</textElement>
+				<text><![CDATA[Nome:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="190" width="160" height="30" uuid="dd01d9e1-446d-4817-b9ea-d9a7df46a57e"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14"/>
+					<paragraph leftIndent="5" spacingBefore="0"/>
+				</textElement>
+				<text><![CDATA[Tipo de estoque:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="220" width="160" height="30" uuid="84e46cbe-ca89-4784-ab5a-9ac93bac60ec"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14"/>
+					<paragraph leftIndent="5" spacingBefore="0"/>
+				</textElement>
+				<text><![CDATA[Data de vencimento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="310" width="160" height="30" uuid="ef4bbcce-707d-48da-8dc7-041ef0ccb707">
+					<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14"/>
+					<paragraph leftIndent="5" spacingBefore="0"/>
+				</textElement>
+				<text><![CDATA[Valor de compra médio:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="250" width="160" height="30" uuid="ff3b5ee1-ac79-4177-838e-8c1416adb418"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14"/>
+					<paragraph leftIndent="5" spacingBefore="0"/>
+				</textElement>
+				<text><![CDATA[Valor do imposto:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="280" width="160" height="30" uuid="3a3f3ba2-aac9-43c4-a3fe-5acfeac6b23d"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14"/>
+					<paragraph leftIndent="5" spacingBefore="0"/>
+				</textElement>
+				<text><![CDATA[Valor de venda:]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>
