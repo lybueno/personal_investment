@@ -1,18 +1,12 @@
 package com.example.personal_investment.domain.entities.report;
 
-
-import java.sql.ResultSet;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.example.personal_investment.domain.entities.darf.Darf;
 import com.example.personal_investment.domain.entities.user.User;
 import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.data.JRCsvDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class DarfReport {
@@ -40,5 +34,4 @@ public class DarfReport {
             e.printStackTrace();
         }
     }
-
 }

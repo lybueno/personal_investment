@@ -5,9 +5,12 @@ import com.example.personal_investment.application.data.dao.InMemoryUserDAO;
 import com.example.personal_investment.application.data.dao.InMemoryWalletDAO;
 import com.example.personal_investment.domain.entities.darf.Darf;
 import com.example.personal_investment.domain.entities.investment.Investment;
+import com.example.personal_investment.domain.entities.report.BrokerageNoteReport;
 import com.example.personal_investment.domain.entities.report.DarfReport;
 import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.stock.StockType;
+import com.example.personal_investment.domain.entities.stock_transaction.StockTransaction;
+import com.example.personal_investment.domain.entities.stock_transaction.TransactionType;
 import com.example.personal_investment.domain.entities.user.User;
 import com.example.personal_investment.domain.entities.wallet.Wallet;
 import com.example.personal_investment.domain.exceptions.EntityAlreadyExistsException;
@@ -41,8 +44,8 @@ public class Main {
 
        // testUser();
         //testStocks();
-        imprimir();
-
+       // imprimirDarf();
+        imprimirNota();
         //testWallet();
 
 //        ImportUpdatedPriceFromAPI test = new ImportUpdatedPriceFromAPI("PETR4");
@@ -53,7 +56,7 @@ public class Main {
 
     }
 
-    private static void imprimir() {
+    private static void imprimirDarf() {
         DarfReport darfReport = new DarfReport();
 
         User user = registerUserUC.signUp("mylla", "12345", "12345");
@@ -66,6 +69,30 @@ public class Main {
         Darf darf = new Darf(taxAmount,StockType.REGULAR, dueDate, saleValue, averagePurchaseValue);
         try {
             darfReport.imprimir(darf,user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void imprimirNota() {
+        BrokerageNoteReport brokerageNoteReport = new BrokerageNoteReport();
+
+        User user = registerUserUC.signUp("mylla", "12345", "12345");
+
+        LocalDate transactionDate = LocalDate.now();
+        BigDecimal valorStock = new BigDecimal("4.5");
+        BigDecimal unitaryValue = new BigDecimal("2");
+
+        Stock stock = new Stock("01",StockType.REGULAR,"ticker1","company1",
+                "001/9999",valorStock);
+
+        Wallet wallet = new Wallet("Test Wallet", StockType.REGULAR, user);
+
+        StockTransaction stockTransaction = new StockTransaction("01",stock,wallet,transactionDate,5,
+                unitaryValue, TransactionType.SALE);
+
+        try {
+            brokerageNoteReport.imprimir(stockTransaction);
         } catch (Exception e) {
             e.printStackTrace();
         }
