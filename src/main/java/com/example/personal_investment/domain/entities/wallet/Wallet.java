@@ -80,4 +80,15 @@ public class Wallet {
     public User getUser() {
         return user;
     }
+    
+    public List<Investment> getIncomeInvestments(){
+
+        List<Investment> myInvestmentsIncome = new ArrayList<>();
+        for (Investment investment: myInvestments) {
+            investment.updateTotalIncomePercentage();
+            myInvestmentsIncome.add(investment);
+        }
+
+        return myInvestmentsIncome;
+    }
 }

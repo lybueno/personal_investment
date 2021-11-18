@@ -1,5 +1,6 @@
 package com.example.personal_investment.application.data.dao;
 
+import com.example.personal_investment.domain.entities.investment.Investment;
 import com.example.personal_investment.domain.entities.wallet.Wallet;
 import com.example.personal_investment.domain.exceptions.EntityNotExistsException;
 import com.example.personal_investment.domain.usecases.wallet.WalletDAO;
@@ -45,4 +46,11 @@ public class InMemoryWalletDAO implements WalletDAO {
         db.remove(wallet.getId());
     }
 
+    @Override
+    public List<Investment> getIncome(Wallet wallet) {
+        if (!db.containsKey(wallet.getId())) {
+            throw new EntityNotExistsException("Cannot delete, wallet not exists");
+        }
+        return wallet.getIncomeInvestments();
+    }
 }
