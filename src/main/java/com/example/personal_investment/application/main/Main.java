@@ -3,7 +3,9 @@ package com.example.personal_investment.application.main;
 import com.example.personal_investment.application.data.dao.InMemoryStockDAO;
 import com.example.personal_investment.application.data.dao.InMemoryUserDAO;
 import com.example.personal_investment.application.data.dao.InMemoryWalletDAO;
+import com.example.personal_investment.domain.entities.darf.Darf;
 import com.example.personal_investment.domain.entities.investment.Investment;
+import com.example.personal_investment.domain.entities.report.DarfReport;
 import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.stock.StockType;
 import com.example.personal_investment.domain.entities.user.User;
@@ -19,6 +21,7 @@ import com.example.personal_investment.domain.usecases.user.UserDAO;
 import com.example.personal_investment.domain.usecases.wallet.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class Main {
     public static RegisterUserUC registerUserUC;
@@ -36,8 +39,10 @@ public class Main {
     public static void main(String[] args) {
         injectDependencies();
 
-        testUser();
-        testStocks();
+       // testUser();
+        //testStocks();
+        imprimir();
+
         //testWallet();
 
 //        ImportUpdatedPriceFromAPI test = new ImportUpdatedPriceFromAPI("PETR4");
@@ -46,6 +51,24 @@ public class Main {
 
 //        HelloApplication.main(args);
 
+    }
+
+    private static void imprimir() {
+        DarfReport darfReport = new DarfReport();
+
+        User user = registerUserUC.signUp("mylla", "12345", "12345");
+
+        LocalDate dueDate = LocalDate.now().plusMonths(3);
+        BigDecimal taxAmount = new BigDecimal("2.5");
+        BigDecimal saleValue = new BigDecimal("15");
+        BigDecimal averagePurchaseValue = new BigDecimal("20");
+
+        Darf darf = new Darf(taxAmount,StockType.REGULAR, dueDate, saleValue, averagePurchaseValue);
+        try {
+            darfReport.imprimir(darf,user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static void testUser() {

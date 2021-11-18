@@ -1,6 +1,8 @@
 module com.example.personal_investment {
     requires javafx.controls;
     requires javafx.fxml;
+    requires jasperreports;
+    requires java.sql;
 
     exports com.example.personal_investment.application.view;
     opens com.example.personal_investment.application.view to javafx.fxml;
