@@ -32,6 +32,10 @@ public class Darf {
         this.averagePurchaseValue = averagePurchaseValue;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public BigDecimal getAveragePurchaseValue() {
         return averagePurchaseValue;
     }
