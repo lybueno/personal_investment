@@ -1,5 +1,6 @@
 package com.example.personal_investment.domain.usecases.stock_transaction;
 
+import com.example.personal_investment.domain.entities.darf.Darf;
 import com.example.personal_investment.domain.entities.investment.Investment;
 import com.example.personal_investment.domain.entities.stock_transaction.StockTransaction;
 import com.example.personal_investment.domain.exceptions.AmountNotAllowedException;
@@ -7,6 +8,7 @@ import com.example.personal_investment.domain.exceptions.EntityNotExistsExceptio
 import com.example.personal_investment.domain.utils.Validator;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class RegisterStockSaleUC {
     private final InvestmentsDAO investmentsDAO;
@@ -30,7 +32,11 @@ public class RegisterStockSaleUC {
         brokerageNoteDAO.insert(transaction);
 
         if (tax != null && tax.doubleValue() > 0.0) {
-            // gerar darf
+            Integer id = 1;
+            LocalDate today = LocalDate.now();
+            LocalDate dueDate = LocalDate.of(today.getYear(), today.getMonth().plus(1), today.lengthOfMonth());
+            Darf darf = new Darf(id.toString(), tax, transaction.getStock().getType(), dueDate,
+                    transaction.calculateTransactionAmount(), transaction.calculateTransactionAmount());
         }
 
         investment.decrementQuantity(transaction.getQuantity());

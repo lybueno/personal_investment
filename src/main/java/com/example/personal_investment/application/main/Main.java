@@ -5,13 +5,9 @@ import com.example.personal_investment.application.data.dao.InMemoryUserDAO;
 import com.example.personal_investment.application.data.dao.InMemoryWalletDAO;
 import com.example.personal_investment.domain.entities.darf.Darf;
 import com.example.personal_investment.domain.entities.investment.Investment;
-import com.example.personal_investment.domain.entities.report.BrokerageNoteReport;
 import com.example.personal_investment.domain.entities.report.DarfReport;
-import com.example.personal_investment.domain.entities.report.IncomeTaxReport;
 import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.stock.StockType;
-import com.example.personal_investment.domain.entities.stock_transaction.StockTransaction;
-import com.example.personal_investment.domain.entities.stock_transaction.TransactionType;
 import com.example.personal_investment.domain.entities.user.User;
 import com.example.personal_investment.domain.entities.wallet.Wallet;
 import com.example.personal_investment.domain.exceptions.EntityAlreadyExistsException;
@@ -19,6 +15,9 @@ import com.example.personal_investment.domain.exceptions.EntityNotExistsExceptio
 import com.example.personal_investment.domain.exceptions.IncorrectPasswordException;
 import com.example.personal_investment.domain.exceptions.WalletIsNotEmptyException;
 import com.example.personal_investment.domain.usecases.stock.*;
+import com.example.personal_investment.domain.usecases.stock_transaction.CalculateTaxAmountUC;
+import com.example.personal_investment.domain.usecases.stock_transaction.RegisterStockPurchaseUC;
+import com.example.personal_investment.domain.usecases.stock_transaction.RegisterStockSaleUC;
 import com.example.personal_investment.domain.usecases.user.AuthenticateUserUC;
 import com.example.personal_investment.domain.usecases.user.RegisterUserUC;
 import com.example.personal_investment.domain.usecases.user.UserDAO;
@@ -40,14 +39,18 @@ public class Main {
     public static SearchStockUC searchStockUC;
     public static UpdateStockUC updateStockUC;
 
+    public static RegisterStockPurchaseUC registerStockPurchaseUC;
+    public static RegisterStockSaleUC registerStockSaleUC;
+    public static CalculateTaxAmountUC calculateTaxAmountUC;
+
+
     public static void main(String[] args) {
         injectDependencies();
 
        // testUser();
         //testStocks();
-       // imprimirDarf();
-     // imprimirNota();
-        //imprimirIR();
+        imprimir();
+
         //testWallet();
 
 //        ImportUpdatedPriceFromAPI test = new ImportUpdatedPriceFromAPI("PETR4");
@@ -58,34 +61,7 @@ public class Main {
 
     }
 
-    private static void imprimirIR() {
-        IncomeTaxReport incomeTaxReport = new IncomeTaxReport();
-
-        BigDecimal situationCurrentYear = new BigDecimal("12.9");
-        BigDecimal situationLastYear = new BigDecimal("15.3");
-
-        LocalDate transactionDate = LocalDate.now();
-        BigDecimal valorStock = new BigDecimal("4.5");
-        BigDecimal unitaryValue = new BigDecimal("2");
-
-        User user = registerUserUC.signUp("mylla", "12345", "12345");
-
-        Stock stock = new Stock("01",StockType.REGULAR,"ticker1","company1",
-                "001/9999",valorStock);
-
-        Wallet wallet = new Wallet("Test Wallet", StockType.REGULAR, user);
-
-        StockTransaction stockTransaction = new StockTransaction("01",stock,wallet,transactionDate,5,
-                unitaryValue, TransactionType.SALE);
-
-        try {
-            incomeTaxReport.imprimir(stockTransaction,situationCurrentYear,situationLastYear);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void imprimirDarf() {
+    private static void imprimir() {
         DarfReport darfReport = new DarfReport();
 
         User user = registerUserUC.signUp("mylla", "12345", "12345");
@@ -95,33 +71,9 @@ public class Main {
         BigDecimal saleValue = new BigDecimal("15");
         BigDecimal averagePurchaseValue = new BigDecimal("20");
 
-        Darf darf = new Darf(taxAmount,StockType.REGULAR, dueDate, saleValue, averagePurchaseValue);
+        Darf darf = new Darf(StockType.REGULAR, dueDate, taxAmount, saleValue, averagePurchaseValue);
         try {
             darfReport.imprimir(darf,user);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void imprimirNota() {
-        BrokerageNoteReport brokerageNoteReport = new BrokerageNoteReport();
-
-        User user = registerUserUC.signUp("mylla", "12345", "12345");
-
-        LocalDate transactionDate = LocalDate.now();
-        BigDecimal valorStock = new BigDecimal("4.5");
-        BigDecimal unitaryValue = new BigDecimal("2");
-
-        Stock stock = new Stock("01",StockType.REGULAR,"ticker1","company1",
-                "001/9999",valorStock);
-
-        Wallet wallet = new Wallet("Test Wallet", StockType.REGULAR, user);
-
-        StockTransaction stockTransaction = new StockTransaction("01",stock,wallet,transactionDate,5,
-                unitaryValue, TransactionType.SALE);
-
-        try {
-            brokerageNoteReport.imprimir(stockTransaction);
         } catch (Exception e) {
             e.printStackTrace();
         }
