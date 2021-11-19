@@ -4,36 +4,32 @@ import com.example.personal_investment.domain.entities.stock.StockType;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class Darf {
-
-    private String id;
+    private final String id;
     private final StockType stockType;
     private final LocalDate dueDate;
     private final BigDecimal taxAmount;
     private final BigDecimal saleValue;
     private final BigDecimal averagePurchaseValue;
 
-    public Darf(String id, BigDecimal taxAmount, StockType stockType, LocalDate dueDate, BigDecimal saleValue,
-                BigDecimal averagePurchaseValue) {
+    public Darf(String id, StockType stockType, LocalDate dueDate, BigDecimal taxAmount, BigDecimal saleValue, BigDecimal averagePurchaseValue) {
         this.id = id;
-        this.taxAmount = taxAmount;
         this.stockType = stockType;
         this.dueDate = dueDate;
+        this.taxAmount = taxAmount;
         this.saleValue = saleValue;
         this.averagePurchaseValue = averagePurchaseValue;
     }
 
     public Darf(StockType stockType, LocalDate dueDate, BigDecimal taxAmount, BigDecimal saleValue, BigDecimal averagePurchaseValue) {
+        this.id = UUID.randomUUID().toString();
         this.stockType = stockType;
         this.dueDate = dueDate;
         this.taxAmount = taxAmount;
         this.saleValue = saleValue;
         this.averagePurchaseValue = averagePurchaseValue;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public BigDecimal getAveragePurchaseValue() {

@@ -46,7 +46,7 @@ public class Main {
        // testUser();
         //testStocks();
        // imprimirDarf();
-         imprimirNota();
+      imprimirNota();
         //imprimirIR();
         //testWallet();
 

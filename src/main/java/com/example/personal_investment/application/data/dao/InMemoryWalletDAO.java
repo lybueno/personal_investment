@@ -51,6 +51,6 @@ public class InMemoryWalletDAO implements WalletDAO {
         if (!db.containsKey(wallet.getId())) {
             throw new EntityNotExistsException("Cannot delete, wallet not exists");
         }
-        return wallet.getIncomeInvestments();
+        return wallet.getMyInvestments();
     }
 }

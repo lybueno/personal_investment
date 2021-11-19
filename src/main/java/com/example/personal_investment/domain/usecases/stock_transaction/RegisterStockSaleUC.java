@@ -32,11 +32,9 @@ public class RegisterStockSaleUC {
         brokerageNoteDAO.insert(transaction);
 
         if (tax != null && tax.doubleValue() > 0.0) {
-            Integer id = 1;
             LocalDate today = LocalDate.now();
             LocalDate dueDate = LocalDate.of(today.getYear(), today.getMonth().plus(1), today.lengthOfMonth());
-            Darf darf = new Darf(id.toString(), tax, transaction.getStock().getType(), dueDate,
-                    transaction.calculateTransactionAmount(), transaction.calculateTransactionAmount());
+            Darf darf = new Darf(transaction.getStock().getType(), dueDate, tax, transaction.getUnitaryValue(), investment.calculateAverageValue());
         }
 
         investment.decrementQuantity(transaction.getQuantity());
