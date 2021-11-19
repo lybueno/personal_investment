@@ -3,6 +3,7 @@ package com.example.personal_investment.domain.entities.wallet;
 import com.example.personal_investment.domain.entities.investment.Investment;
 import com.example.personal_investment.domain.entities.stock.StockType;
 import com.example.personal_investment.domain.entities.user.User;
+import com.example.personal_investment.domain.exceptions.WalletIsNotEmptyException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,25 +70,18 @@ public class Wallet {
         return type;
     }
 
-    // Somente altera tipo se tiver vazia
     public void setType(StockType type) {
         if (isEmpty()) {
             this.type = type;
         }
+        throw new WalletIsNotEmptyException("Tried to change type but wallet is not empty");
     }
 
     public User getUser() {
         return user;
     }
     
-    public List<Investment> getIncomeInvestments(){
-
-        List<Investment> myInvestmentsIncome = new ArrayList<>();
-        for (Investment investment: myInvestments) {
-            investment.updateTotalIncomePercentage();
-            myInvestmentsIncome.add(investment);
-        }
-
-        return myInvestmentsIncome;
+    public List<Investment> getMyInvestments(){
+        return List.copyOf(myInvestments);
     }
 }
