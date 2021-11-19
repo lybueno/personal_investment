@@ -7,6 +7,7 @@ import com.example.personal_investment.domain.entities.darf.Darf;
 import com.example.personal_investment.domain.entities.investment.Investment;
 import com.example.personal_investment.domain.entities.report.BrokerageNoteReport;
 import com.example.personal_investment.domain.entities.report.DarfReport;
+import com.example.personal_investment.domain.entities.report.IncomeTaxReport;
 import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.stock.StockType;
 import com.example.personal_investment.domain.entities.stock_transaction.StockTransaction;
@@ -45,7 +46,8 @@ public class Main {
        // testUser();
         //testStocks();
        // imprimirDarf();
-        imprimirNota();
+     // imprimirNota();
+        //imprimirIR();
         //testWallet();
 
 //        ImportUpdatedPriceFromAPI test = new ImportUpdatedPriceFromAPI("PETR4");
@@ -54,6 +56,33 @@ public class Main {
 
 //        HelloApplication.main(args);
 
+    }
+
+    private static void imprimirIR() {
+        IncomeTaxReport incomeTaxReport = new IncomeTaxReport();
+
+        BigDecimal situationCurrentYear = new BigDecimal("12.9");
+        BigDecimal situationLastYear = new BigDecimal("15.3");
+
+        LocalDate transactionDate = LocalDate.now();
+        BigDecimal valorStock = new BigDecimal("4.5");
+        BigDecimal unitaryValue = new BigDecimal("2");
+
+        User user = registerUserUC.signUp("mylla", "12345", "12345");
+
+        Stock stock = new Stock("01",StockType.REGULAR,"ticker1","company1",
+                "001/9999",valorStock);
+
+        Wallet wallet = new Wallet("Test Wallet", StockType.REGULAR, user);
+
+        StockTransaction stockTransaction = new StockTransaction("01",stock,wallet,transactionDate,5,
+                unitaryValue, TransactionType.SALE);
+
+        try {
+            incomeTaxReport.imprimir(stockTransaction,situationCurrentYear,situationLastYear);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static void imprimirDarf() {

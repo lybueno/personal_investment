@@ -1,7 +1,6 @@
 package com.example.personal_investment.domain.entities.wallet;
 
 import com.example.personal_investment.domain.entities.investment.Investment;
-import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.stock.StockType;
 import com.example.personal_investment.domain.entities.user.User;
 

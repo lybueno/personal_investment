@@ -1,7 +1,6 @@
 package com.example.personal_investment.domain.usecases.stock_transaction;
 
 import com.example.personal_investment.domain.entities.investment.Investment;
-import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.stock.StockType;
 import com.example.personal_investment.domain.entities.stock_transaction.StockTransaction;
 import com.example.personal_investment.domain.exceptions.EntityNotExistsException;

@@ -1,8 +1,6 @@
 package com.example.personal_investment.domain.entities.report;
 
-import com.example.personal_investment.domain.entities.darf.Darf;
 import com.example.personal_investment.domain.entities.stock_transaction.StockTransaction;
-import com.example.personal_investment.domain.entities.user.User;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
 
@@ -15,18 +13,28 @@ public class BrokerageNoteReport {
         try {
             Map<String, Object> parametros = new HashMap();
 
-            parametros.put("ticker", stockTransaction.getStock().getTicker());
-            parametros.put("transactionAmount", stockTransaction.calculateTransactionAmount().toString());
-            parametros.put("transactionDate", stockTransaction.getTransactionDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-            parametros.put("quantity", stockTransaction.getQuantity().toString());
-            parametros.put("unitaryValue", stockTransaction.getUnitaryValue().toString());
-            parametros.put("transactionType", stockTransaction.getTransactionType().toString());
-            parametros.put("cnpj", stockTransaction.getStock().getCnpj());
-            parametros.put("companyName", stockTransaction.getStock().getCompanyName());
-            parametros.put("nameUser", stockTransaction.getWallet().getUser().getUsername());
+            String ticker = stockTransaction.getStock().getTicker();
+            String transactionAmount = stockTransaction.calculateTransactionAmount().toString();
+            String transactionDate = stockTransaction.getTransactionDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String quantity = stockTransaction.getQuantity().toString();
+            String unitaryValue = stockTransaction.getUnitaryValue().toString();
+            String transactionType = stockTransaction.getTransactionType().toString();
+            String cnpj = stockTransaction.getStock().getCnpj();
+            String companyName = stockTransaction.getStock().getCompanyName();
+            String nameUser = stockTransaction.getWallet().getUser().getUsername();
+
+            parametros.put("ticker", ticker);
+            parametros.put("transactionAmount", transactionAmount);
+            parametros.put("transactionDate", transactionDate);
+            parametros.put("quantity", quantity);
+            parametros.put("unitaryValue", unitaryValue);
+            parametros.put("transactionType", transactionType);
+            parametros.put("cnpj", cnpj);
+            parametros.put("companyName", companyName);
+            parametros.put("nameUser", nameUser);
 
             JasperReport report = JasperCompileManager
-                    .compileReport("src/main/java/com/example/personal_investment/domain/jasper/" + "notaNegociacao.jrxml");
+                    .compileReport("src/main/java/com/example/personal_investment/domain/jasper/notaNegociacao.jrxml");
 
             JasperPrint printer2 = JasperFillManager.fillReport(report,
                     parametros, new JREmptyDataSource());

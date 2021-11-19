@@ -14,15 +14,22 @@ public class DarfReport {
         try {
             Map<String, Object> parametros = new HashMap();
 
-            parametros.put("nameUser", user.getUsername());
-            parametros.put("stockType", darf.getStockType().toString());
-            parametros.put("dueDate", darf.getDueDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-            parametros.put("taxAmount", darf.getTaxAmount().toString());
-            parametros.put("saleValue", darf.getSaleValue().toString());
-            parametros.put("averagePurchaseValue", darf.getAveragePurchaseValue().toString());
+            String nameUser = user.getUsername();
+            String stockType = darf.getStockType().toString();
+            String dueDate = darf.getDueDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String taxAmount = darf.getTaxAmount().toString();
+            String saleValue = darf.getSaleValue().toString();
+            String averagePurchaseValue = darf.getAveragePurchaseValue().toString();
+
+            parametros.put("nameUser", nameUser);
+            parametros.put("stockType", stockType);
+            parametros.put("dueDate", dueDate);
+            parametros.put("taxAmount", taxAmount);
+            parametros.put("saleValue", saleValue);
+            parametros.put("averagePurchaseValue", averagePurchaseValue);
 
             JasperReport report = JasperCompileManager
-                    .compileReport("src/main/java/com/example/personal_investment/domain/jasper/" + "darf.jrxml");
+                    .compileReport("src/main/java/com/example/personal_investment/domain/jasper/darf.jrxml");
 
             JasperPrint printer2 = JasperFillManager.fillReport(report,
                     parametros,new JREmptyDataSource());
