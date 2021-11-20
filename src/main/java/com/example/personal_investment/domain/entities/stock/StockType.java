@@ -30,7 +30,7 @@ public enum StockType {
     ETF_GENERAL {
         @Override
         public Tax getTax() {
-            return new ETFRealEstateTax();
+            return new ETFGeneralTax();
         }
     };
 

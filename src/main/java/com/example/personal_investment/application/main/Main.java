@@ -1,8 +1,6 @@
 package com.example.personal_investment.application.main;
 
-import com.example.personal_investment.application.data.dao.InMemoryStockDAO;
-import com.example.personal_investment.application.data.dao.InMemoryUserDAO;
-import com.example.personal_investment.application.data.dao.InMemoryWalletDAO;
+import com.example.personal_investment.application.data.dao.*;
 import com.example.personal_investment.domain.entities.darf.Darf;
 import com.example.personal_investment.domain.entities.investment.Investment;
 import com.example.personal_investment.domain.entities.report.BrokerageNoteReport;
@@ -19,6 +17,7 @@ import com.example.personal_investment.domain.exceptions.EntityNotExistsExceptio
 import com.example.personal_investment.domain.exceptions.IncorrectPasswordException;
 import com.example.personal_investment.domain.exceptions.WalletIsNotEmptyException;
 import com.example.personal_investment.domain.usecases.stock.*;
+import com.example.personal_investment.domain.usecases.stock_transaction.*;
 import com.example.personal_investment.domain.usecases.user.AuthenticateUserUC;
 import com.example.personal_investment.domain.usecases.user.RegisterUserUC;
 import com.example.personal_investment.domain.usecases.user.UserDAO;
@@ -40,15 +39,23 @@ public class Main {
     public static SearchStockUC searchStockUC;
     public static UpdateStockUC updateStockUC;
 
+    public static RegisterStockSaleUC registerStockSaleUC;
+    public static RegisterStockPurchaseUC registerStockPurchaseUC;
+    public static CalculateTaxAmountUC calculateTaxAmountUC;
+
+
     public static void main(String[] args) {
         injectDependencies();
 
-       // testUser();
+
+        //testUser();
         //testStocks();
-        printDarf();
-        printTradingNote();
-        printIR();
+        //printDarf();
+        //printTradingNote();
+        //printIR();
         //testWallet();
+
+        testCalculateTax();
 
 //        ImportUpdatedPriceFromAPI test = new ImportUpdatedPriceFromAPI("PETR4");
 //        BigDecimal updatedPrice = test.getData();
@@ -426,10 +433,120 @@ public class Main {
         }
     }
 
+    private static void testCalculateTax(){
+        Stock stockFII = new Stock(
+                StockType.FII,
+                "tickerFII",
+                "company",
+                "001/9999",
+                new BigDecimal("100.0")
+        );
+
+        Stock stockBDR = new Stock(
+                StockType.BDR,
+                "tickerBDR",
+                "company",
+                "001/9999",
+                new BigDecimal("100.0")
+        );
+
+        Stock stockETFGENERAL = new Stock(
+                StockType.ETF_GENERAL,
+                "tickerETFGENERAL",
+                "company",
+                "001/9999",
+                new BigDecimal("100.0")
+        );
+
+        Stock stockETFREALESTATE = new Stock(
+                StockType.ETF_REAL_ESTATE,
+                "tickerETFREALSTATE",
+                "company",
+                "001/9999",
+                new BigDecimal("100.0")
+        );
+
+        Stock stockREGULAR = new Stock(
+                StockType.REGULAR,
+                "tickerREGULAR",
+                "company",
+                "001/9999",
+                new BigDecimal("100.0")
+        );
+
+        String username = "RENAN";
+        String password = "123456";
+        String confirmPassword = "123456";
+        User user = registerUserUC.signUp(username, password, confirmPassword);
+
+        Wallet walletFI = new Wallet("Wallet FI", StockType.FII, user);
+        Wallet walletBDR = new Wallet("Wallet BDR", StockType.BDR, user);
+        Wallet walletETFGENERAL = new Wallet("Wallet ETF GENERAL", StockType.ETF_GENERAL, user);
+        Wallet walletETFREALESTATE = new Wallet("Wallet ETF REAL ESTATE", StockType.ETF_REAL_ESTATE, user);
+        Wallet walletREGULAR = new Wallet("Wallet ETF REAL ESTATE", StockType.REGULAR, user);
+
+        printTaxValue(stockFII, walletFI, 2, 1, "200.00");
+
+        System.out.println("----------------------");
+
+        printTaxValue(stockBDR, walletBDR, 2, 2, "200.00");
+
+        System.out.println("----------------------");
+
+        printTaxValue(stockETFGENERAL, walletETFGENERAL, 2, 1, "200.00");
+
+        System.out.println("----------------------");
+
+        printTaxValue(stockETFREALESTATE, walletETFREALESTATE, 2, 2,"200.00");
+
+        System.out.println("----------------------");
+
+        printTaxValue(stockREGULAR, walletREGULAR, 2, 1,"200.00");
+
+
+    }
+
+    private static void printTaxValue(Stock stock, Wallet wallet, Integer quantityPurchase, Integer quantitySale, String newStockValue){
+        try {
+            StockTransaction transactionPurchase = new StockTransaction(
+                    "1",
+                    stock,
+                    wallet,
+                    LocalDate.now(),
+                    quantityPurchase,
+                    stock.getStockQuote(),
+                    TransactionType.PURCHASE
+            );
+
+            StockTransaction transactionSale = new StockTransaction(
+                    "2",
+                    stock,
+                    wallet,
+                    LocalDate.now(),
+                    quantitySale,
+                    new BigDecimal(newStockValue),
+                    TransactionType.SALE
+            );
+
+            registerStockPurchaseUC.purchase(transactionPurchase);
+
+            BigDecimal valuteTax =  calculateTaxAmountUC.calculate(transactionSale);
+            System.out.println("Tipo ação: " + stock.getType()+
+                    " | Valor ação na compra: R$ " + stock.getStockQuote()
+                    + " | Valor ação na venda: R$ " + newStockValue
+                    + "\nQuantidade vendida: " + quantitySale
+                    + " | Total Imposto: R$: " + valuteTax.setScale(2));
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
     private static void injectDependencies() {
         UserDAO userDAO = new InMemoryUserDAO();
         WalletDAO walletDAO = new InMemoryWalletDAO();
         StockDAO stockDAO = new InMemoryStockDAO();
+        BrokerageNoteDAO brokerageNoteDAO = new InMemoryStockTransactionDAO();
+        InvestmentsDAO investmentsDAO = new InMemoryInvestmentDAO();
 
         registerUserUC = new RegisterUserUC(userDAO);
         authenticateUserUC = new AuthenticateUserUC(userDAO);
@@ -442,6 +559,11 @@ public class Main {
         addWalletUC = new AddWalletUC(walletDAO);
         updateWalletUC = new UpdateWalletUC(walletDAO);
         deleteWalletUC = new DeleteWalletUC(walletDAO);
+
+        registerStockPurchaseUC = new RegisterStockPurchaseUC(brokerageNoteDAO, investmentsDAO);
+        registerStockSaleUC = new RegisterStockSaleUC(investmentsDAO, brokerageNoteDAO);
+        calculateTaxAmountUC = new CalculateTaxAmountUC(brokerageNoteDAO, investmentsDAO);
     }
+
 
 }
