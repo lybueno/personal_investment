@@ -55,6 +55,9 @@ public class Validator {
         if (transaction.getTransactionType() == null) {
             throw new IllegalArgumentException("Transaction Type cannot be null");
         }
+        if(transaction.getQuantity() == null){
+            throw new IllegalArgumentException("Stock's quantity cannot be null");
+        }
 
         Validator.validateStock(transaction.getStock());
         Validator.validateWallet(transaction.getWallet());

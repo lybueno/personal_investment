@@ -55,7 +55,8 @@ public class Main {
         //printIR();
         //testWallet();
 
-        testCalculateTax();
+        //testCalculateTax();
+        testTransactionPurchase();
 
 //        ImportUpdatedPriceFromAPI test = new ImportUpdatedPriceFromAPI("PETR4");
 //        BigDecimal updatedPrice = test.getData();
@@ -541,12 +542,43 @@ public class Main {
         }
     }
 
+    private static void testTransactionPurchase(){
+        User user = new User("Hedy Lamarr", "ladyTech");
+        Stock stock = new Stock(StockType.BDR,"1",  "PEPB34", "PEPSICO Inc", new BigDecimal("61.08"));
+        Wallet wallet = new Wallet("MyBDRs", StockType.BDR, user);
+        LocalDate date = LocalDate.of(2021, 9, 10);
+//        StockTransaction transactionPurchase = new StockTransaction("1", null, wallet, date,200, new BigDecimal("52" +
+//                ".20"), TransactionType.PURCHASE);
+//        StockTransaction transactionPurchase = new StockTransaction("1", stock, null, date,200, new BigDecimal("52" +
+//                ".20"), TransactionType.PURCHASE);
+//        StockTransaction transactionPurchase = new StockTransaction("1", stock, wallet, null,200, new BigDecimal("52" +
+//                ".20"), TransactionType.PURCHASE);
+//        StockTransaction transactionPurchase = new StockTransaction("1", stock, wallet, date,null, new BigDecimal("52" +
+//                ".20"), TransactionType.PURCHASE);
+//        StockTransaction transactionPurchase = new StockTransaction("1", stock, wallet, date,200, null,
+//                TransactionType.PURCHASE);
+//        StockTransaction transactionPurchase = new StockTransaction("1", stock, wallet, date,200, new BigDecimal
+//         ("52.20"), null);
+        StockTransaction transactionPurchase = new StockTransaction("1", stock, wallet, date,200, new BigDecimal
+                ("52.20"), TransactionType.PURCHASE);
+        try {
+            registerStockPurchaseUC.purchase(transactionPurchase);
+            System.out.println("Compra efetuada com sucesso");
+        } catch (EntityNotExistsException e){
+            System.out.println(e.getMessage());
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+
     private static void injectDependencies() {
         UserDAO userDAO = new InMemoryUserDAO();
         WalletDAO walletDAO = new InMemoryWalletDAO();
         StockDAO stockDAO = new InMemoryStockDAO();
         BrokerageNoteDAO brokerageNoteDAO = new InMemoryStockTransactionDAO();
         InvestmentsDAO investmentsDAO = new InMemoryInvestmentDAO();
+        DarfDAO darfDAO = new InMemoryDarfDAO();
 
         registerUserUC = new RegisterUserUC(userDAO);
         authenticateUserUC = new AuthenticateUserUC(userDAO);
@@ -561,7 +593,7 @@ public class Main {
         deleteWalletUC = new DeleteWalletUC(walletDAO);
 
         registerStockPurchaseUC = new RegisterStockPurchaseUC(brokerageNoteDAO, investmentsDAO);
-        registerStockSaleUC = new RegisterStockSaleUC(investmentsDAO, brokerageNoteDAO);
+        registerStockSaleUC = new RegisterStockSaleUC(investmentsDAO, brokerageNoteDAO, darfDAO);
         calculateTaxAmountUC = new CalculateTaxAmountUC(brokerageNoteDAO, investmentsDAO);
     }
 

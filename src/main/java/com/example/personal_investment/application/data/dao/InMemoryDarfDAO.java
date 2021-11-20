@@ -6,7 +6,7 @@ import com.example.personal_investment.domain.usecases.stock_transaction.DarfDAO
 
 import java.util.*;
 
-public class inMemoryDarfDAO implements DarfDAO {
+public class InMemoryDarfDAO implements DarfDAO {
 
     private static final Map<String, Darf> db = new LinkedHashMap<>();
 

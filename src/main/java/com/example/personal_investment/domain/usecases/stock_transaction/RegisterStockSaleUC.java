@@ -13,10 +13,12 @@ import java.time.LocalDate;
 public class RegisterStockSaleUC {
     private final InvestmentsDAO investmentsDAO;
     private final BrokerageNoteDAO brokerageNoteDAO;
+    private final DarfDAO darfDAO;
 
-    public RegisterStockSaleUC(InvestmentsDAO investmentsDAO, BrokerageNoteDAO brokerageNoteDAO) {
+    public RegisterStockSaleUC(InvestmentsDAO investmentsDAO, BrokerageNoteDAO brokerageNoteDAO, DarfDAO darfDAO) {
         this.investmentsDAO = investmentsDAO;
         this.brokerageNoteDAO = brokerageNoteDAO;
+        this.darfDAO = darfDAO;
     }
 
     public void sell(StockTransaction transaction, BigDecimal tax) {
@@ -35,6 +37,7 @@ public class RegisterStockSaleUC {
             LocalDate today = LocalDate.now();
             LocalDate dueDate = LocalDate.of(today.getYear(), today.getMonth().plus(1), today.lengthOfMonth());
             Darf darf = new Darf(transaction.getStock().getType(), dueDate, tax, transaction.getUnitaryValue(), investment.calculateAverageValue());
+            darfDAO.insert(darf);
         }
 
         investment.decrementQuantity(transaction.getQuantity());
