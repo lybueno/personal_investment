@@ -63,6 +63,7 @@ public class Main {
         //testTransactionPurchase();
         //testBrokerageNote();
         testTransactionSale();
+        testInvestment();
 
 //        ImportUpdatedPriceFromAPI test = new ImportUpdatedPriceFromAPI("PETR4");
 //        BigDecimal updatedPrice = test.getData();
@@ -632,6 +633,41 @@ public class Main {
             addBrokerageNoteUC.add(stockTransaction);
             System.out.println("Nota criada, abrindo relatório..");
             printTradingNote(stockTransaction);
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void testInvestment() {
+        BigDecimal stockValue = new BigDecimal("0.5");
+        BigDecimal totalAmount = new BigDecimal("12");
+
+        Stock stock1 = new Stock("01",StockType.REGULAR,"ticker1","company1",
+                "001/9999",stockValue);
+
+        String username = "usuário 2";
+        String password = "123456";
+        String confirmPassword = "123456";
+        User user = registerUserUC.signUp(username, password, confirmPassword);
+
+        Wallet wallet = new Wallet("Test Wallet", StockType.REGULAR, user);
+
+        Investment investment = new Investment(wallet,stock1,10,totalAmount);
+
+        addInvestment(investment);
+
+    }
+
+    public static void addInvestment(Investment investment){
+        try{
+            addInvestmentUC.add(investment);
+            System.out.println("Investimento cadastrado:"
+                  + "\nID:" + investment.getId()
+                    + "\nCarteira:" + investment.getWallet().getName()
+                    + "\nTotal:" + investment.getTotalAmount()
+                    + "\nQuantidade:" + investment.getQuantity()
+                    + "\nStock:" +investment.getStock().getCompanyName());
+
         }catch (Exception e) {
             System.out.println(e.getMessage());
         }
