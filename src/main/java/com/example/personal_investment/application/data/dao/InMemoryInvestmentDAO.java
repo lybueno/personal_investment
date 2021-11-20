@@ -47,6 +47,10 @@ public class InMemoryInvestmentDAO implements InvestmentsDAO {
         return db.values().stream().filter(investment -> investment.getStock().getTicker().equals(ticker)).findAny();
     }
 
+    @Override
+    public Optional<Investment> findById(String id) {
+        return Optional.empty();
+    }
 
 
 }

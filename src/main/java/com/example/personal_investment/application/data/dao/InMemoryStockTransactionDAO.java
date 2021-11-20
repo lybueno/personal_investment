@@ -33,6 +33,11 @@ public class InMemoryStockTransactionDAO implements BrokerageNoteDAO {
     }
 
     @Override
+    public Optional<StockTransaction> findById(String id) {
+        return Optional.empty();
+    }
+
+    @Override
     public Optional<StockTransaction> findByStock(String ticker) {
         return db.values().stream().filter(stockTransaction -> stockTransaction.getStock().getTicker().equals(ticker)).findAny();
     }
