@@ -56,7 +56,8 @@ public class Main {
         //testWallet();
 
         //testCalculateTax();
-        testTransactionPurchase();
+        //testTransactionPurchase();
+        testTransactionSale();
 
 //        ImportUpdatedPriceFromAPI test = new ImportUpdatedPriceFromAPI("PETR4");
 //        BigDecimal updatedPrice = test.getData();
@@ -563,13 +564,37 @@ public class Main {
                 ("52.20"), TransactionType.PURCHASE);
         try {
             registerStockPurchaseUC.purchase(transactionPurchase);
-            System.out.println("Compra efetuada com sucesso");
+            System.out.println("Compra no valor de " + transactionPurchase.calculateTransactionAmount() + " efetuada com sucesso");
         } catch (EntityNotExistsException e){
             System.out.println(e.getMessage());
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
 
+    }
+
+    public static void testTransactionSale(){
+        User user = new User("Hedy Lamarr", "ladyTech");
+        Stock stock = new Stock(StockType.BDR,"1",  "PEPB34", "PEPSICO Inc", new BigDecimal("61.08"));
+        Wallet wallet = new Wallet("MyBDRs", StockType.BDR, user);
+        LocalDate date = LocalDate.of(2021, 9, 10);
+        StockTransaction transactionPurchase = new StockTransaction("1", stock, wallet, date,200, new BigDecimal
+                ("52.20"), TransactionType.PURCHASE);
+        registerStockPurchaseUC.purchase(transactionPurchase);
+//        StockTransaction transactionSale = new StockTransaction("1", stock,null, LocalDate.now(), 100, new BigDecimal(
+//                "61.08"), TransactionType.SALE);
+        StockTransaction transactionSale = new StockTransaction("1", stock,wallet, LocalDate.now(), 100, new BigDecimal(
+                "61.08"), TransactionType.SALE);
+        BigDecimal valuteTax =  calculateTaxAmountUC.calculate(transactionSale);
+        try {
+            System.out.println("Venda no valor de " + transactionSale.calculateTransactionAmount() + " efetuada com " +
+                    "sucesso");
+            System.out.println("Imposto a pagar: " + valuteTax.setScale(2));
+        } catch (EntityNotExistsException e){
+            System.out.println(e.getMessage());
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     private static void injectDependencies() {
