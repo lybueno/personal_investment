@@ -25,6 +25,8 @@ import com.example.personal_investment.domain.usecases.wallet.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static RegisterUserUC registerUserUC;
@@ -59,8 +61,8 @@ public class Main {
 
         //testCalculateTax();
         //testTransactionPurchase();
-        testBrokerageNote();
-       // testTransactionSale();
+        //testBrokerageNote();
+        testTransactionSale();
 
 //        ImportUpdatedPriceFromAPI test = new ImportUpdatedPriceFromAPI("PETR4");
 //        BigDecimal updatedPrice = test.getData();
@@ -577,6 +579,7 @@ public class Main {
     }
 
     public static void testTransactionSale(){
+        DarfDAO darfDAO = new InMemoryDarfDAO();
         User user = new User("Hedy Lamarr", "ladyTech");
         Stock stock = new Stock(StockType.BDR,"1",  "PEPB34", "PEPSICO Inc", new BigDecimal("61.08"));
         Wallet wallet = new Wallet("MyBDRs", StockType.BDR, user);
@@ -590,9 +593,14 @@ public class Main {
                 "61.08"), TransactionType.SALE);
         BigDecimal valuteTax =  calculateTaxAmountUC.calculate(transactionSale);
         try {
+            registerStockSaleUC.sell(transactionSale, valuteTax);
             System.out.println("Venda no valor de " + transactionSale.calculateTransactionAmount() + " efetuada com " +
                     "sucesso");
             System.out.println("Imposto a pagar: " + valuteTax.setScale(2));
+            List<Darf> darfs = darfDAO.findAll();
+            for (Darf darf: darfs) {
+                System.out.println(darf);
+            }
         } catch (EntityNotExistsException e){
             System.out.println(e.getMessage());
         } catch (Exception e){

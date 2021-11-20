@@ -55,4 +55,16 @@ public class Darf {
     public BigDecimal getSaleValue() {
         return saleValue;
     }
+
+    @Override
+    public String toString() {
+        return "Darf{" +
+                "id='" + id + '\'' +
+                ", stockType=" + stockType +
+                ", dueDate=" + dueDate +
+                ", taxAmount=" + taxAmount +
+                ", saleValue=" + saleValue +
+                ", averagePurchaseValue=" + averagePurchaseValue +
+                '}';
+    }
 }
