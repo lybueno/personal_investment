@@ -11,9 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class IncomeTaxReport {
-    public void imprimir(StockTransaction stockTransaction, BigDecimal situationCurrentYear,  BigDecimal situationLastYear) {
+    public void printIR(StockTransaction stockTransaction, BigDecimal situationCurrentYear,  BigDecimal situationLastYear) {
         try {
-            Map<String, Object> parametros = new HashMap();
+            Map<String, Object> parameters = new HashMap();
 
             String currentYear =  "R$ "+situationCurrentYear.toString();
             String lastYear = "R$ "+situationLastYear.toString();
@@ -21,25 +21,24 @@ public class IncomeTaxReport {
             String lastDate = LocalDate.now().minusYears(1).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             String discrimination = "Empresa: "+stockTransaction.getStock().getCompanyName()+
                     ", Ticker: "+stockTransaction.getStock().getTicker()+
-                    ", Quantidade: "+stockTransaction.getQuantity()+
-                    ", Custo total: "+stockTransaction.calculateTransactionAmount(); //TODO verificar com o grupo sobre o custo total de aquisição
+                    "\nQuantidade: "+stockTransaction.getQuantity()+
+                    ", Custo total: "+stockTransaction.calculateTransactionAmount();
             String cnpj = stockTransaction.getStock().getCnpj();
 
-            parametros.put("currentYear", currentYear);
-            parametros.put("lastYear", lastYear);
-            parametros.put("currentDate",currentDate);
-            parametros.put("lastDate", lastDate);
-            parametros.put("discrimination", discrimination);
-            parametros.put("cnpj", cnpj);
+            parameters.put("currentYear", currentYear);
+            parameters.put("lastYear", lastYear);
+            parameters.put("currentDate",currentDate);
+            parameters.put("lastDate", lastDate);
+            parameters.put("discrimination", discrimination);
+            parameters.put("cnpj", cnpj);
 
-            JasperReport report = JasperCompileManager
-                    .compileReport("src/main/java/com/example/personal_investment/domain/jasper/impostoRenda.jrxml");
+            JasperReport report = JasperCompileManager.compileReport("src/main/java/com/example/personal_investment/domain/jasper/impostoRenda.jrxml");
 
-            JasperPrint printer2 = JasperFillManager.fillReport(report,
-                    parametros,new JREmptyDataSource());
+            JasperPrint printer = JasperFillManager.fillReport(report, parameters ,new JREmptyDataSource());
 
-            JasperViewer jv = new JasperViewer(printer2, false);
+            JasperViewer jv = new JasperViewer(printer, false);
             jv.setVisible(true);
+
 
         } catch (Exception e) {
             e.printStackTrace();

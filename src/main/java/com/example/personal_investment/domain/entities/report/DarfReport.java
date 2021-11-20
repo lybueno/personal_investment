@@ -10,31 +10,29 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class DarfReport {
-    public void imprimir(Darf darf, User user) {
+    public void printDarf(Darf darf, User user) {
         try {
-            Map<String, Object> parametros = new HashMap();
+            Map<String, Object> parameters = new HashMap();
 
             String nameUser = user.getUsername();
             String stockType = darf.getStockType().toString();
             String dueDate = darf.getDueDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             String taxAmount = darf.getTaxAmount().toString();
-            String saleValue = darf.getSaleValue().toString();
-            String averagePurchaseValue = darf.getAveragePurchaseValue().toString();
+            String saleValue = "R$ " + darf.getSaleValue().toString();
+            String averagePurchaseValue = "R$ " + darf.getAveragePurchaseValue().toString();
 
-            parametros.put("nameUser", nameUser);
-            parametros.put("stockType", stockType);
-            parametros.put("dueDate", dueDate);
-            parametros.put("taxAmount", taxAmount);
-            parametros.put("saleValue", saleValue);
-            parametros.put("averagePurchaseValue", averagePurchaseValue);
+            parameters.put("nameUser", nameUser);
+            parameters.put("stockType", stockType);
+            parameters.put("dueDate", dueDate);
+            parameters.put("taxAmount", taxAmount);
+            parameters.put("saleValue", saleValue);
+            parameters.put("averagePurchaseValue", averagePurchaseValue);
 
-            JasperReport report = JasperCompileManager
-                    .compileReport("src/main/java/com/example/personal_investment/domain/jasper/darf.jrxml");
+            JasperReport report = JasperCompileManager.compileReport("src/main/java/com/example/personal_investment/domain/jasper/darf.jrxml");
 
-            JasperPrint printer2 = JasperFillManager.fillReport(report,
-                    parametros,new JREmptyDataSource());
+            JasperPrint printer = JasperFillManager.fillReport(report, parameters,new JREmptyDataSource());
 
-            JasperViewer jv = new JasperViewer(printer2, false);
+            JasperViewer jv = new JasperViewer(printer, false);
             jv.setVisible(true);
 
         } catch (Exception e) {
