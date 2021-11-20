@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface InvestmentsDAO extends DAO<Investment, String> {
    Optional<Investment> findOneByTicker(String ticker);
+   Optional<Investment> findById(String id);
 }

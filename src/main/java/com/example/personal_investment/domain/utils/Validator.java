@@ -1,5 +1,6 @@
 package com.example.personal_investment.domain.utils;
 
+import com.example.personal_investment.domain.entities.investment.Investment;
 import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.stock_transaction.StockTransaction;
 import com.example.personal_investment.domain.entities.user.User;
@@ -22,6 +23,23 @@ public class Validator {
         }
         if(stock.getCompanyName() == null || stock.getCompanyName().isBlank()){
             throw new IllegalArgumentException("Stock Company name cannot be null ");
+        }
+    }
+    public static void validateInvestment(Investment investment) {
+        if(investment.getId() == null || investment.getId().isBlank()){
+            throw new IllegalArgumentException("investment id cannot be null");
+        }
+        if(investment.getStock() == null){
+            throw new IllegalArgumentException("investment stock cannot be null");
+        }
+        if(investment.getQuantity() == null){
+            throw new IllegalArgumentException("investment quantity cannot be null ");
+        }
+        if(investment.getTotalAmount() == null){
+            throw new IllegalArgumentException("investment total amount cannot be null ");
+        }
+        if(investment.getWallet() == null ){
+            throw new IllegalArgumentException("investment wallet cannot be null ");
         }
     }
     public static void validateWallet(Wallet wallet){
