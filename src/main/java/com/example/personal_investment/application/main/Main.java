@@ -166,65 +166,65 @@ public class Main {
         }
     }
 
-   private static void testStocks(){
-       BigDecimal valorStock = new BigDecimal("0.5");
+    private static void testStocks(){
+        BigDecimal valorStock = new BigDecimal("0.5");
 
-       Stock stock1 = new Stock("01",StockType.REGULAR,"ticker1","company1",
-               "001/9999",valorStock);
-       Stock stock2 = new Stock("02",StockType.BDR,"ticker2","company2",
-               "001/8888",valorStock);
-       Stock stock3 = new Stock("02",StockType.BDR,"ticker2","company2",
-               "001/8888",valorStock);
+        Stock stock1 = new Stock("01",StockType.REGULAR,"ticker1","company1",
+                "001/9999",valorStock);
+        Stock stock2 = new Stock("02",StockType.BDR,"ticker2","company2",
+                "001/8888",valorStock);
+        Stock stock3 = new Stock("02",StockType.BDR,"ticker2","company2",
+                "001/8888",valorStock);
 
 
-       testAddStock(stock1);
-       testAddStock(stock2);
-       testAddStock(stock3);
+        testAddStock(stock1);
+        testAddStock(stock2);
+        testAddStock(stock3);
 
-       stock3 = new Stock("03",StockType.BDR,"ticker2","company2",
-               "001/8888",valorStock);
+        stock3 = new Stock("03",StockType.BDR,"ticker2","company2",
+                "001/8888",valorStock);
 
-       testAddStock(stock3);
+        testAddStock(stock3);
 
-       stock3 = new Stock("03",StockType.BDR,"ticker3","company2",
-               "001/8888",valorStock);
+        stock3 = new Stock("03",StockType.BDR,"ticker3","company2",
+                "001/8888",valorStock);
 
-       testAddStock(stock3);
+        testAddStock(stock3);
 
-       testFindAllStocks();
-       testFindByTickerStocks("ticker3");
-       testFindByTickerStocks("ticker323");
-       testFindByTickerStocks("ticker2");
-       testFindByTickerStocks("ticker1");
-       testFindStockByCompanyName("company2");
-       testFindStockByCompanyName("company223");
-       testFindStockByCNPJ("001/9999");
-       testFindStockByCNPJ("001/232323");
+        testFindAllStocks();
+        testFindByTickerStocks("ticker3");
+        testFindByTickerStocks("ticker323");
+        testFindByTickerStocks("ticker2");
+        testFindByTickerStocks("ticker1");
+        testFindStockByCompanyName("company2");
+        testFindStockByCompanyName("company223");
+        testFindStockByCNPJ("001/9999");
+        testFindStockByCNPJ("001/232323");
 
-       testDeleteStock(stock1);
-       testFindAllStocks();
-       testAddStock(stock1);
+        testDeleteStock(stock1);
+        testFindAllStocks();
+        testAddStock(stock1);
 
-       stock2 = new Stock("02",StockType.BDR,"ticker2","company22",
-               "001/8888",valorStock);
+        stock2 = new Stock("02",StockType.BDR,"ticker2","company22",
+                "001/8888",valorStock);
 
-       testUpdateStock(stock2);
-   }
+        testUpdateStock(stock2);
+    }
 
-   private static void testAddStock(Stock stock){
-       try{
-           addStockUC.add(stock);
-           System.out.println("------------------------------");
-           System.out.println("Stock cadastrado com sucesso");
-           System.out.println("ID: "+stock.getId()+" \nEmpresa: "+stock.getCompanyName()+" \nCNPJ: "+stock.getCnpj()+" \nTicker: "+stock.getTicker()+
-                   " \nValor: "+stock.getStockQuote()+" \nTipo: "+stock.getType());
-           System.out.println("------------------------------");
-       } catch (EntityAlreadyExistsException e) {
-           System.out.println(e.getMessage());
-       }
-   }
+    private static void testAddStock(Stock stock){
+        try{
+            addStockUC.add(stock);
+            System.out.println("------------------------------");
+            System.out.println("Stock cadastrado com sucesso");
+            System.out.println("ID: "+stock.getId()+" \nEmpresa: "+stock.getCompanyName()+" \nCNPJ: "+stock.getCnpj()+" \nTicker: "+stock.getTicker()+
+                    " \nValor: "+stock.getStockQuote()+" \nTipo: "+stock.getType());
+            System.out.println("------------------------------");
+        } catch (EntityAlreadyExistsException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
-   private static void testUpdateStock(Stock stock){
+    private static void testUpdateStock(Stock stock){
         try{
             updateStockUC.update(stock);
             System.out.println("------------------------------");
@@ -247,20 +247,20 @@ public class Main {
         }
     }
 
-   private static void testFindAllStocks(){
-       try{
-           System.out.println("-------- Ações cadastradas --------");
-           searchStockUC.findAll().forEach(stock ->
-                   {
-                       System.out.println("ID: "+stock.getId()+" \nEmpresa: "+stock.getCompanyName()+" \nCNPJ: "+stock.getCnpj()+" \nTicker: "+stock.getTicker()+
-                               " \nValor: "+stock.getStockQuote()+" \nTipo: "+stock.getType());
-                       System.out.println("------------------------------");
-                   }
-           );
-       }catch (EntityNotExistsException e){
-           System.out.println(e.getMessage());
-       }
-   }
+    private static void testFindAllStocks(){
+        try{
+            System.out.println("-------- Ações cadastradas --------");
+            searchStockUC.findAll().forEach(stock ->
+                    {
+                        System.out.println("ID: "+stock.getId()+" \nEmpresa: "+stock.getCompanyName()+" \nCNPJ: "+stock.getCnpj()+" \nTicker: "+stock.getTicker()+
+                                " \nValor: "+stock.getStockQuote()+" \nTipo: "+stock.getType());
+                        System.out.println("------------------------------");
+                    }
+            );
+        }catch (EntityNotExistsException e){
+            System.out.println(e.getMessage());
+        }
+    }
 
     private static void testFindStockByCompanyName(String companyName){
         try{
