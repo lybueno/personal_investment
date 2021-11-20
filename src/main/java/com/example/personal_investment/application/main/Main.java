@@ -43,6 +43,8 @@ public class Main {
     public static RegisterStockPurchaseUC registerStockPurchaseUC;
     public static CalculateTaxAmountUC calculateTaxAmountUC;
 
+    public static AddBrokerageNoteUC addBrokerageNoteUC;
+    public static AddInvestmentUC addInvestmentUC;
 
     public static void main(String[] args) {
         injectDependencies();
@@ -57,7 +59,8 @@ public class Main {
 
         //testCalculateTax();
         //testTransactionPurchase();
-        testTransactionSale();
+        testBrokerageNote();
+       // testTransactionSale();
 
 //        ImportUpdatedPriceFromAPI test = new ImportUpdatedPriceFromAPI("PETR4");
 //        BigDecimal updatedPrice = test.getData();
@@ -105,22 +108,22 @@ public class Main {
         darfReport.printDarf(darf,user);
     }
 
-    private static void printTradingNote() {
+    private static void printTradingNote(StockTransaction stockTransaction) {
         BrokerageNoteReport brokerageNoteReport = new BrokerageNoteReport();
 
-        User user = registerUserUC.signUp("Usuário teste", "12345", "12345");
-
-        LocalDate transactionDate = LocalDate.now();
-        BigDecimal valorStock = new BigDecimal("4.5");
-        BigDecimal unitaryValue = new BigDecimal("2");
-
-        Stock stock = new Stock("01",StockType.REGULAR,"PETR4","Petrobras",
-                "33.000.167/0661-29",valorStock);
-
-        Wallet wallet = new Wallet("Test Wallet", StockType.REGULAR, user);
-
-        StockTransaction stockTransaction = new StockTransaction("01",stock,wallet,transactionDate,5,
-                unitaryValue, TransactionType.SALE);
+//        User user = registerUserUC.signUp("Usuário teste", "12345", "12345");
+//
+//        LocalDate transactionDate = LocalDate.now();
+//        BigDecimal valorStock = new BigDecimal("4.5");
+//        BigDecimal unitaryValue = new BigDecimal("2");
+//
+//        Stock stock = new Stock("01",StockType.REGULAR,"PETR4","Petrobras",
+//                "33.000.167/0661-29",valorStock);
+//
+//        Wallet wallet = new Wallet("Test Wallet", StockType.REGULAR, user);
+//
+//        StockTransaction stockTransaction = new StockTransaction("01",stock,wallet,transactionDate,5,
+//                unitaryValue, TransactionType.SALE);
 
         brokerageNoteReport.printTradingNote(stockTransaction);
     }
@@ -597,6 +600,35 @@ public class Main {
         }
     }
 
+    public static void testBrokerageNote(){
+                User user = registerUserUC.signUp("Usuário teste", "12345", "12345");
+
+        LocalDate transactionDate = LocalDate.now();
+        BigDecimal valorStock = new BigDecimal("4.5");
+        BigDecimal unitaryValue = new BigDecimal("2");
+
+        Stock stock = new Stock("01",StockType.REGULAR,"PETR4","Petrobras",
+                "33.000.167/0661-29",valorStock);
+
+        Wallet wallet = new Wallet("Test Wallet", StockType.REGULAR, user);
+
+        StockTransaction stockTransaction = new StockTransaction("01",stock,wallet,transactionDate,5,
+                unitaryValue, TransactionType.SALE);
+
+        addBrokerageNote(stockTransaction);
+
+    }
+
+    public static void addBrokerageNote(StockTransaction stockTransaction) {
+        try{
+            addBrokerageNoteUC.add(stockTransaction);
+            System.out.println("Nota criada, abrindo relatório..");
+            printTradingNote(stockTransaction);
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private static void injectDependencies() {
         UserDAO userDAO = new InMemoryUserDAO();
         WalletDAO walletDAO = new InMemoryWalletDAO();
@@ -620,6 +652,10 @@ public class Main {
         registerStockPurchaseUC = new RegisterStockPurchaseUC(brokerageNoteDAO, investmentsDAO);
         registerStockSaleUC = new RegisterStockSaleUC(investmentsDAO, brokerageNoteDAO, darfDAO);
         calculateTaxAmountUC = new CalculateTaxAmountUC(brokerageNoteDAO, investmentsDAO);
+
+        addBrokerageNoteUC = new AddBrokerageNoteUC(brokerageNoteDAO);
+
+        addInvestmentUC = new AddInvestmentUC(investmentsDAO);
     }
 
 
