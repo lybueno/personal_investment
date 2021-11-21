@@ -49,6 +49,8 @@ public class Main {
     public static AddBrokerageNoteUC addBrokerageNoteUC;
     public static AddInvestmentUC addInvestmentUC;
 
+    public static CalculateStockIncomeUC calculateStockIncomeUC;
+
     public static void main(String[] args) {
         injectDependencies();
 
@@ -101,6 +103,8 @@ public class Main {
         addBrokerageNoteUC = new AddBrokerageNoteUC(brokerageNoteDAO);
 
         addInvestmentUC = new AddInvestmentUC(investmentsDAO);
+
+        calculateStockIncomeUC =  new CalculateStockIncomeUC(walletDAO, brokerageNoteDAO);
     }
 
 
