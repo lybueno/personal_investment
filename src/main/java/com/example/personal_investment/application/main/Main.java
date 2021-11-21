@@ -57,13 +57,12 @@ public class Main {
         Reports.printDarf();
         Reports.printIR();
         Reports.printTradingNote();
-        TestWallet.testWallet();
-
         TestCalculateTax.testCalculateTax();
         TestTransactionPurchaseAndSale.testTransactionPurchase();
         TestBrokerageNote.testBrokerageNote();
         TestTransactionPurchaseAndSale.testTransactionSale();
         TestInvestment.testInvestment();
+        TestWallet.testWallet();
 
 //        ImportUpdatedPriceFromAPI test = new ImportUpdatedPriceFromAPI("PETR4");
 //        BigDecimal updatedPrice = test.getData();

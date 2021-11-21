@@ -20,7 +20,7 @@ import static com.example.personal_investment.application.main.Main.*;
 public class TestTransactionPurchaseAndSale {
     public static void testTransactionPurchase(){
         User user = new User("Hedy Lamarr", "ladyTech");
-        Stock stock = new Stock(StockType.BDR,"1",  "PEPB34", "PEPSICO Inc", new BigDecimal("61.08"));
+        Stock stock = new Stock(StockType.BDR,"1",  "PEPB34", "PEPSICO Inc", new BigDecimal("60"));
         Wallet wallet = new Wallet("MyBDRs", StockType.BDR, user);
         LocalDate date = LocalDate.of(2021, 9, 10);
 //        StockTransaction transactionPurchase = new StockTransaction("1", null, wallet, date,200, new BigDecimal("52" +
@@ -40,6 +40,8 @@ public class TestTransactionPurchaseAndSale {
         try {
             registerStockPurchaseUC.purchase(transactionPurchase);
             System.out.println("Compra no valor de " + transactionPurchase.calculateTransactionAmount() + " efetuada com sucesso");
+            System.out.println("Rendimento no periodo: " + calculateStockIncomeUC.calculate(2, new BigDecimal("66"),
+                    stock) + "%");
         } catch (EntityNotExistsException e){
             System.out.println(e.getMessage());
         } catch (Exception e){
