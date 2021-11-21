@@ -15,7 +15,7 @@ import static com.example.personal_investment.application.main.Main.registerUser
 
 public class TestBrokerageNote {
     public static void testBrokerageNote(){
-        User user = registerUserUC.signUp("Usuário teste", "12345", "12345");
+        User user = registerUserUC.signUp("Usuário 1000", "12345", "12345");
 
         LocalDate transactionDate = LocalDate.now();
         BigDecimal valorStock = new BigDecimal("4.5");
