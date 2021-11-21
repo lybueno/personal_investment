@@ -38,6 +38,12 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.18.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -61,7 +67,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.example.personal_investment/com.example.personal_investment.HelloApplication
+                                com.example.personal_investment.application.main.Main
                             </mainClass>
                         </configuration>
                     </execution>
