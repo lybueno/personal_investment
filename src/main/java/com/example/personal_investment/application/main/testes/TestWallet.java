@@ -14,7 +14,7 @@ import static com.example.personal_investment.application.main.Main.*;
 
 public class TestWallet {
     public static void testWallet(){
-        String username = "RENAN";
+        String username = "TESTEUSER";
         String password = "123456";
         String confirmPassword = "123456";
         User user = registerUserUC.signUp(username, password, confirmPassword);
@@ -34,7 +34,11 @@ public class TestWallet {
 
         System.out.println("Atualizando nome e tipo de carteira(carteira esta vazia)");
         wallet.setName("New Test Name");
-        wallet.setType(StockType.BDR);
+        try {
+            wallet.setType(StockType.BDR);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
         testUpdateWallet(wallet);
 
