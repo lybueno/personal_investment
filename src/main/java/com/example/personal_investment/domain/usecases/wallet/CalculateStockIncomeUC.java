@@ -26,7 +26,9 @@ public class CalculateStockIncomeUC {
         List<StockTransaction> transactions = brokerageNoteDAO.findTransactionsBetween(initialDate, endDate);
         for (StockTransaction st: transactions) {
             if (st.getStock().equals(stock)){
-                return stock.getStockQuote().divide(currentValue, RoundingMode.HALF_EVEN);
+                return ((currentValue.divide(stock.getStockQuote(), 2, RoundingMode.HALF_EVEN))
+                        .subtract(new BigDecimal("1"))
+                        .multiply(new BigDecimal("100")));
             }
         }
         return null;
