@@ -49,7 +49,7 @@ public class InMemoryInvestmentDAO implements InvestmentsDAO {
 
     @Override
     public Optional<Investment> findById(String id) {
-        return Optional.empty();
+        return db.values().stream().filter(investment -> investment.getId().equals(id)).findAny();
     }
 
 
