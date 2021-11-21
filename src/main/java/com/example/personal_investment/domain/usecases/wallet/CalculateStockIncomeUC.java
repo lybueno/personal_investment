@@ -5,8 +5,8 @@ import com.example.personal_investment.domain.entities.stock_transaction.StockTr
 import com.example.personal_investment.domain.usecases.stock_transaction.BrokerageNoteDAO;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 
 public class CalculateStockIncomeUC {
@@ -19,16 +19,16 @@ public class CalculateStockIncomeUC {
         this.brokerageNoteDAO = brokerageNoteDAO;
     }
 
-    public BigDecimal calculate(int time, BigDecimal currentValue){
+    public BigDecimal calculate(int time, BigDecimal currentValue, Stock stock){
         LocalDate today = LocalDate.now().withDayOfMonth(1);
         LocalDate initialDate = today.minusMonths(time);
         LocalDate endDate = initialDate.withDayOfMonth(initialDate.lengthOfMonth());
         List<StockTransaction> transactions = brokerageNoteDAO.findTransactionsBetween(initialDate, endDate);
-        if(transactions.isEmpty()){
-            return null;
+        for (StockTransaction st: transactions) {
+            if (st.getStock().equals(stock)){
+                return stock.getStockQuote().divide(currentValue, RoundingMode.HALF_EVEN);
+            }
         }
-        BigDecimal lastValue = transactions.get(1).getUnitaryValue();
-        BigDecimal income = lastValue.divide(currentValue);
-        return income;
+        return null;
     }
 }
