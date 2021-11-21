@@ -62,7 +62,7 @@ public class Main {
         //testCalculateTax();
         //testTransactionPurchase();
         //testBrokerageNote();
-        testTransactionSale();
+        //testTransactionSale();
         testInvestment();
 
 //        ImportUpdatedPriceFromAPI test = new ImportUpdatedPriceFromAPI("PETR4");

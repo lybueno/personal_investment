@@ -49,7 +49,7 @@ public class InMemoryWalletDAO implements WalletDAO {
     @Override
     public List<Investment> getIncome(Wallet wallet) {
         if (!db.containsKey(wallet.getId())) {
-            throw new EntityNotExistsException("Cannot delete, wallet not exists");
+            throw new EntityNotExistsException("Cannot view income, wallet not exists");
         }
         return wallet.getMyInvestments();
     }

@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface BrokerageNoteDAO extends DAO<StockTransaction, String> {
     Optional<StockTransaction> findById(String id);
     Optional<StockTransaction> findByStock(String ticker);
-    List<StockTransaction> findSalesBetween(LocalDate initialDate, LocalDate finalDate);
+    List<StockTransaction> findTransactionsBetween(LocalDate initialDate, LocalDate finalDate);
 }

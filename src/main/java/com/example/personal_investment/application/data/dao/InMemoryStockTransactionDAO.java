@@ -43,12 +43,13 @@ public class InMemoryStockTransactionDAO implements BrokerageNoteDAO {
     }
 
     @Override
-    public List<StockTransaction> findSalesBetween(LocalDate initialDate, LocalDate finalDate) {
+    public List<StockTransaction> findTransactionsBetween(LocalDate initialDate, LocalDate finalDate) {
         return db.values().stream().filter(
                 stockTransaction ->
                 stockTransaction.getTransactionDate().isAfter(initialDate) &&
                         stockTransaction.getTransactionDate().isBefore(finalDate)).collect(Collectors.toList());
     }
+
 
     @Override
     public Optional<StockTransaction> findOne(StockTransaction stockTransaction) {

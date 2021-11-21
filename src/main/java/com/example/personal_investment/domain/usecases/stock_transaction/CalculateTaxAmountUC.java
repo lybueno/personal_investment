@@ -59,6 +59,6 @@ public class CalculateTaxAmountUC {
     private List<StockTransaction> getStockTransactionsByDate() {
         LocalDate today = LocalDate.now();
         LocalDate initial = LocalDate.of(today.getYear(), today.getMonthValue(), 1);
-        return brokerageNoteDAO.findSalesBetween(initial, today);
+        return brokerageNoteDAO.findTransactionsBetween(initial, today);
     }
 }
