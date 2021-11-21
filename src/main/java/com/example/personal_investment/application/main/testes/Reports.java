@@ -55,22 +55,28 @@ public class Reports {
         darfReport.printDarf(darf,user);
     }
 
-     public static void printTradingNote(StockTransaction stockTransaction) {
+     public static void printTradingNote() {
         BrokerageNoteReport brokerageNoteReport = new BrokerageNoteReport();
 
-//        User user = registerUserUC.signUp("Usuário teste", "12345", "12345");
-//
-//        LocalDate transactionDate = LocalDate.now();
-//        BigDecimal valorStock = new BigDecimal("4.5");
-//        BigDecimal unitaryValue = new BigDecimal("2");
-//
-//        Stock stock = new Stock("01",StockType.REGULAR,"PETR4","Petrobras",
-//                "33.000.167/0661-29",valorStock);
-//
-//        Wallet wallet = new Wallet("Test Wallet", StockType.REGULAR, user);
-//
-//        StockTransaction stockTransaction = new StockTransaction("01",stock,wallet,transactionDate,5,
-//                unitaryValue, TransactionType.SALE);
+        User user = registerUserUC.signUp("Usuário teste", "12345", "12345");
+
+        LocalDate transactionDate = LocalDate.now();
+        BigDecimal valorStock = new BigDecimal("4.5");
+        BigDecimal unitaryValue = new BigDecimal("2");
+
+        Stock stock = new Stock("01",StockType.REGULAR,"PETR4","Petrobras",
+                "33.000.167/0661-29",valorStock);
+
+        Wallet wallet = new Wallet("Test Wallet", StockType.REGULAR, user);
+
+        StockTransaction stockTransaction = new StockTransaction("01",stock,wallet,transactionDate,5,
+                unitaryValue, TransactionType.SALE);
+
+        brokerageNoteReport.printTradingNote(stockTransaction);
+    }
+
+    public static void printTradingNoteWhenAddBrokerageNote(StockTransaction stockTransaction) {
+        BrokerageNoteReport brokerageNoteReport = new BrokerageNoteReport();
 
         brokerageNoteReport.printTradingNote(stockTransaction);
     }
