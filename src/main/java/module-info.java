@@ -3,6 +3,7 @@ module com.example.personal_investment {
     requires javafx.fxml;
     requires jasperreports;
     requires java.sql;
+    requires sqlite.jdbc;
 
     exports com.example.personal_investment.application.view;
     opens com.example.personal_investment.application.view to javafx.fxml;

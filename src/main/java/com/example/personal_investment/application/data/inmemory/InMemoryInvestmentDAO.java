@@ -1,4 +1,4 @@
-package com.example.personal_investment.application.data.dao;
+package com.example.personal_investment.application.data.inmemory;
 
 import com.example.personal_investment.domain.entities.investment.Investment;
 import com.example.personal_investment.domain.exceptions.EntityNotExistsException;

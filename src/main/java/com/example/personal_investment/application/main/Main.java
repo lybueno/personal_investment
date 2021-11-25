@@ -1,33 +1,13 @@
 package com.example.personal_investment.application.main;
 
-import com.example.personal_investment.application.data.dao.*;
+import com.example.personal_investment.application.data.inmemory.*;
 import com.example.personal_investment.application.main.testes.*;
-import com.example.personal_investment.domain.entities.darf.Darf;
-import com.example.personal_investment.domain.entities.investment.Investment;
-import com.example.personal_investment.domain.entities.report.BrokerageNoteReport;
-import com.example.personal_investment.domain.entities.report.DarfReport;
-import com.example.personal_investment.domain.entities.report.IncomeTaxReport;
-import com.example.personal_investment.domain.entities.stock.Stock;
-import com.example.personal_investment.domain.entities.stock.StockType;
-import com.example.personal_investment.domain.entities.stock_transaction.StockTransaction;
-import com.example.personal_investment.domain.entities.stock_transaction.TransactionType;
-import com.example.personal_investment.domain.entities.user.User;
-import com.example.personal_investment.domain.entities.wallet.Wallet;
-import com.example.personal_investment.domain.exceptions.EntityAlreadyExistsException;
-import com.example.personal_investment.domain.exceptions.EntityNotExistsException;
-import com.example.personal_investment.domain.exceptions.IncorrectPasswordException;
-import com.example.personal_investment.domain.exceptions.WalletIsNotEmptyException;
 import com.example.personal_investment.domain.usecases.stock.*;
 import com.example.personal_investment.domain.usecases.stock_transaction.*;
 import com.example.personal_investment.domain.usecases.user.AuthenticateUserUC;
 import com.example.personal_investment.domain.usecases.user.RegisterUserUC;
 import com.example.personal_investment.domain.usecases.user.UserDAO;
 import com.example.personal_investment.domain.usecases.wallet.*;
-
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
     public static RegisterUserUC registerUserUC;

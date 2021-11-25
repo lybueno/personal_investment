@@ -1,6 +1,6 @@
 package com.example.personal_investment.application.main.testes;
 
-import com.example.personal_investment.application.data.dao.InMemoryDarfDAO;
+import com.example.personal_investment.application.data.inmemory.InMemoryDarfDAO;
 import com.example.personal_investment.domain.entities.darf.Darf;
 import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.stock.StockType;
