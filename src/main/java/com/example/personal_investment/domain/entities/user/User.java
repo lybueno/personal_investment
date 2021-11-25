@@ -30,7 +30,7 @@ public class User {
     }
 
     public List<Wallet> getWallets() {
-        return wallets;
+        return List.copyOf(wallets);
     }
 
     public void setWallets(List<Wallet> wallets) {
