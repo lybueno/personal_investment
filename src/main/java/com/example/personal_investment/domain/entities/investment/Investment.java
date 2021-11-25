@@ -89,30 +89,4 @@ public class Investment {
     }
 
     public String getId() { return id;}
-
-//    //calcular rendimento
-//    public double calculateIncome(){
-//        double oldOneStockValue = calculateUnitaryValueInThePurchase().doubleValue();
-//        //caculo de redimento da ação antiga para a atual
-//
-//        //estava em mente com o calculo de redimento diferente
-//
-//        /*negativo a acao deu prejuizo, calcular valor total que a acao vai valer com o tempo
-//        double totalIncomeValue;
-//        if(incomePercentage>=1) {
-//            totalIncomeValue = oldOneStockValue * (Math.pow(incomePercentage, periodTime));
-//        }else{
-//            totalIncomeValue = oldOneStockValue * (Math.pow( incomePercentage, periodTime));
-//        }*/
-//
-//        /*double totalIncomePercentage;
-//        totalIncomePercentage = (totalIncomeValue / oldOneStockValue - 1) * 100;*/
-//
-//        return ( (stock.getStockQuote().doubleValue()) /oldOneStockValue -1) * 100;
-//    }
-//
-//    //atualiza a porcertagem total do rendimento do investimento
-//    public void updateTotalIncomePercentage(){
-//        this.totalIncomePercentage = calculateIncome() + "%";
-//    }
 }
