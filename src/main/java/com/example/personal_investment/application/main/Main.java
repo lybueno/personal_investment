@@ -1,7 +1,7 @@
 package com.example.personal_investment.application.main;
 
 import com.example.personal_investment.application.data.inmemory.*;
-import com.example.personal_investment.application.main.testes.*;
+import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.domain.usecases.stock.*;
 import com.example.personal_investment.domain.usecases.stock_transaction.*;
 import com.example.personal_investment.domain.usecases.user.AuthenticateUserUC;
@@ -34,26 +34,25 @@ public class Main {
     public static void main(String[] args) {
         injectDependencies();
 
-        TestUser.testUser();
-        TestStock.testStocks();
-        Reports.printDarf();
-        Reports.printIR();
-        Reports.printTradingNote();
-        TestCalculateTax.testCalculateTax();
-        TestTransactionPurchaseAndSale.testTransactionPurchase();
-        TestBrokerageNote.testBrokerageNote();
-        TestTransactionPurchaseAndSale.testTransactionSale();
-        TestInvestment.testInvestment();
-        TestWallet.testWallet();
+//        TestUser.testUser();
+//        TestStock.testStocks();
+//        Reports.printDarf();
+//        Reports.printIR();
+//        Reports.printTradingNote();
+//        TestCalculateTax.testCalculateTax();
+//        TestTransactionPurchaseAndSale.testTransactionPurchase();
+//        TestBrokerageNote.testBrokerageNote();
+//        TestTransactionPurchaseAndSale.testTransactionSale();
+//        TestInvestment.testInvestment();
+//        TestWallet.testWallet();
 
 //        ImportUpdatedPriceFromAPI test = new ImportUpdatedPriceFromAPI("PETR4");
 //        BigDecimal updatedPrice = test.getData();
 //        System.out.println(updatedPrice);
 
-//        HelloApplication.main(args);
+        Window.main(args);
 
     }
-
 
 
     private static void injectDependencies() {
@@ -84,7 +83,7 @@ public class Main {
 
         addInvestmentUC = new AddInvestmentUC(investmentsDAO);
 
-        calculateStockIncomeUC =  new CalculateStockIncomeUC(walletDAO, brokerageNoteDAO);
+        calculateStockIncomeUC = new CalculateStockIncomeUC(walletDAO, brokerageNoteDAO);
     }
 
 
