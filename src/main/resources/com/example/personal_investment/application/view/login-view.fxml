@@ -14,5 +14,7 @@
       <TextField fx:id="txtPassword" layoutX="150.0" layoutY="214.0" prefHeight="30.0" prefWidth="249.0" promptText="Senha" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
       <Button fx:id="btnLogin" layoutX="150.0" layoutY="262.0" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="249.0" style="-fx-background-color: #7B68EE;" text="Entrar" textFill="WHITE" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
       <Button fx:id="btnRegister" layoutX="150.0" layoutY="306.0" mnemonicParsing="false" onAction="#register" prefHeight="30.0" prefWidth="249.0" style="-fx-background-color: #7B68EE;" text="Cadastrar" textFill="WHITE" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
+      <HBox prefHeight="100.0" prefWidth="200.0" />
+      <Label fx:id="systemMessage" layoutX="150.0" layoutY="401.0" prefHeight="17.0" prefWidth="249.0" textFill="#e80808" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
    </children>
 </AnchorPane>

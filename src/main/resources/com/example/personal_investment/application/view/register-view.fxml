@@ -12,9 +12,10 @@
             <Font size="24.0" />
          </font></Label>
         <TextField fx:id="txtPassword" layoutX="150.0" layoutY="207.0" prefHeight="30.0" prefWidth="249.0" promptText="Senha" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
-        <Button fx:id="btnRegister" layoutX="150.0" layoutY="300.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="249.0" style="-fx-background-color: #7B68EE;" text="Cadastrar" textFill="WHITE" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
-        <Button fx:id="btnCancel" layoutX="150.0" layoutY="339.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="249.0" style="-fx-background-color: #7B68EE;" text="Cancelar" textFill="WHITE" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
+        <Button fx:id="btnRegister" layoutX="150.0" layoutY="300.0" mnemonicParsing="false" onAction="#signup" prefHeight="30.0" prefWidth="249.0" style="-fx-background-color: #7B68EE;" text="Cadastrar" textFill="WHITE" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
+        <Button fx:id="btnCancel" layoutX="150.0" layoutY="339.0" mnemonicParsing="false" onAction="#cancelRegister" prefHeight="30.0" prefWidth="249.0" style="-fx-background-color: #7B68EE;" text="Cancelar" textFill="WHITE" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
       <TextField fx:id="txtConfirmPassword" layoutX="150.0" layoutY="252.0" prefHeight="30.0" prefWidth="249.0" promptText="Confirmar Senha" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
+      <Label fx:id="systemMessage" layoutX="150.0" layoutY="411.0" prefHeight="30.0" prefWidth="249.0" textFill="#ee0b0b" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
     </children>
 
 </AnchorPane>
