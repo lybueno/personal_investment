@@ -20,12 +20,12 @@ public class AuthenticateUserUC {
             throw new EntityNotExistsException("This username is not registered");
         }
 
-        User user = optional.get();
+        User user = optional.orElseThrow(() -> new RuntimeException("Something went wrong"));
 
         if(!user.getPassword().equals(password)){
             throw new IncorrectPasswordException("Cannot login, password incorrect");
         }
 
-        return optional.get();
+        return user;
     }
 }
