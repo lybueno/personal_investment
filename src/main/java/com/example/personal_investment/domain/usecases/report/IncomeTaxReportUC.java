@@ -1,4 +1,4 @@
-package com.example.personal_investment.domain.entities.report;
+package com.example.personal_investment.domain.usecases.report;
 
 import com.example.personal_investment.domain.entities.stock_transaction.StockTransaction;
 import net.sf.jasperreports.engine.*;
@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class IncomeTaxReport {
+public class IncomeTaxReportUC {
     public void printIR(StockTransaction stockTransaction, BigDecimal situationCurrentYear,  BigDecimal situationLastYear) {
         try {
             Map<String, Object> parameters = new HashMap();

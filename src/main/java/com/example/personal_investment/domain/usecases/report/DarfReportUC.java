@@ -1,4 +1,4 @@
-package com.example.personal_investment.domain.entities.report;
+package com.example.personal_investment.domain.usecases.report;
 
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -9,7 +9,7 @@ import com.example.personal_investment.domain.entities.user.User;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
 
-public class DarfReport {
+public class DarfReportUC {
     public void printDarf(Darf darf, User user) {
         try {
             Map<String, Object> parameters = new HashMap();

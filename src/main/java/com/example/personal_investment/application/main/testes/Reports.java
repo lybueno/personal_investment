@@ -1,9 +1,9 @@
 package com.example.personal_investment.application.main.testes;
 
 import com.example.personal_investment.domain.entities.darf.Darf;
-import com.example.personal_investment.domain.entities.report.BrokerageNoteReport;
-import com.example.personal_investment.domain.entities.report.DarfReport;
-import com.example.personal_investment.domain.entities.report.IncomeTaxReport;
+import com.example.personal_investment.domain.usecases.report.BrokerageNoteReportUC;
+import com.example.personal_investment.domain.usecases.report.DarfReportUC;
+import com.example.personal_investment.domain.usecases.report.IncomeTaxReportUC;
 import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.stock.StockType;
 import com.example.personal_investment.domain.entities.stock_transaction.StockTransaction;
@@ -18,7 +18,7 @@ import static com.example.personal_investment.application.main.Main.registerUser
 
 public class Reports {
     public static void printIR() {
-        IncomeTaxReport incomeTaxReport = new IncomeTaxReport();
+        IncomeTaxReportUC incomeTaxReport = new IncomeTaxReportUC();
 
         BigDecimal situationCurrentYear = new BigDecimal("12.9");
         BigDecimal situationLastYear = new BigDecimal("15.3");
@@ -41,7 +41,7 @@ public class Reports {
     }
 
     public static void printDarf() {
-        DarfReport darfReport = new DarfReport();
+        DarfReportUC darfReport = new DarfReportUC();
 
         User user = registerUserUC.signUp("Mylla", "12345", "12345");
 
@@ -56,7 +56,7 @@ public class Reports {
     }
 
      public static void printTradingNote() {
-        BrokerageNoteReport brokerageNoteReport = new BrokerageNoteReport();
+        BrokerageNoteReportUC brokerageNoteReport = new BrokerageNoteReportUC();
 
         User user = registerUserUC.signUp("Usuário teste", "12345", "12345");
 
@@ -76,7 +76,7 @@ public class Reports {
     }
 
     public static void printTradingNoteWhenAddBrokerageNote(StockTransaction stockTransaction) {
-        BrokerageNoteReport brokerageNoteReport = new BrokerageNoteReport();
+        BrokerageNoteReportUC brokerageNoteReport = new BrokerageNoteReportUC();
 
         brokerageNoteReport.printTradingNote(stockTransaction);
     }
