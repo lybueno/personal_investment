@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<AnchorPane prefHeight="505.0" prefWidth="720.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.personal_investment.application.view.StockManagementView">
+<AnchorPane prefHeight="505.0" prefWidth="720.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.personal_investment.application.controllers.StockManagementController">
    <children>
       <Pane prefHeight="73.0" prefWidth="720.0" style="-fx-background-color: #D9D9D9;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -18,9 +14,13 @@
                </font>
             </Label>
             <TextField fx:id="tfSearchStock" layoutX="106.0" layoutY="24.0" prefHeight="25.0" prefWidth="300.0" promptText="Buscar ação (ticker, cnpj, nome)" />
-            <Button layoutX="521.0" layoutY="24.0" mnemonicParsing="false" onAction="#addStock" style="-fx-background-color: #7B68EE;" text="Adicionar" textFill="WHITE" />
-            <Button layoutX="595.0" layoutY="24.0" mnemonicParsing="false" onAction="#updateStock" style="-fx-background-color: #7B68EE;" text="Editar" textFill="WHITE" />
-            <Button layoutX="651.0" layoutY="24.0" mnemonicParsing="false" onAction="#deleteStock" style="-fx-background-color: #7B68EE;" text="Deletar" textFill="WHITE" />
+            <Pane layoutX="521.0" layoutY="24.0" prefHeight="25.0" prefWidth="183.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#addStock" style="-fx-background-color: #7B68EE;" text="Adicionar" textFill="WHITE" />
+                  <Button layoutX="74.0" mnemonicParsing="false" onAction="#updateStock" style="-fx-background-color: #7B68EE;" text="Editar" textFill="WHITE" />
+                  <Button layoutX="130.0" mnemonicParsing="false" onAction="#deleteStock" style="-fx-background-color: #7B68EE;" text="Deletar" textFill="WHITE" />
+               </children>
+            </Pane>
             <Button layoutX="412.0" layoutY="24.0" mnemonicParsing="false" onAction="#searchStock" style="-fx-background-color: #7B68EE;" text="Buscar" textFill="WHITE" />
             <Separator layoutX="487.0" layoutY="14.0" orientation="VERTICAL" prefHeight="46.0" prefWidth="5.0" />
          </children>
@@ -34,7 +34,7 @@
             <Label fx:id="username" layoutX="537.0" layoutY="28.0" text="Nome usuario" />
          </children>
       </Pane>
-      <TableView layoutY="73.0" prefHeight="363.0" prefWidth="720.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <TableView layoutY="73.0" prefHeight="363.0" prefWidth="720.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
         <columns>
           <TableColumn fx:id="cTicker" prefWidth="117.0" text="Ticker" />
           <TableColumn fx:id="cCompanyName" prefWidth="153.0" text="Empresa" />
