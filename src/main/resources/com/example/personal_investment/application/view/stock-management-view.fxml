@@ -34,7 +34,7 @@
             <Label fx:id="username" layoutX="537.0" layoutY="28.0" text="Nome usuario" />
          </children>
       </Pane>
-      <TableView layoutY="73.0" prefHeight="363.0" prefWidth="720.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
+      <TableView fx:id="tbStocks" layoutY="73.0" prefHeight="363.0" prefWidth="720.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
         <columns>
           <TableColumn fx:id="cTicker" prefWidth="117.0" text="Ticker" />
           <TableColumn fx:id="cCompanyName" prefWidth="153.0" text="Empresa" />
