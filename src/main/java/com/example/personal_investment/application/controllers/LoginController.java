@@ -36,7 +36,8 @@ public class LoginController {
         if (isFilledInputs()) {
             try {
                 User user = authenticateUserUC.login(txtUserName.getText(), txtPassword.getText());
-                // TODO: Mover para tela inicial e talvez criar um singleton com classe user
+                Window.setRoot(Routes.stockManagementPage);
+                setUserInController(user);
             } catch (IncorrectPasswordException __) {
                 systemMessage.setText("Senha incorreta");
             } catch (EntityNotExistsException __) {
@@ -47,6 +48,11 @@ public class LoginController {
         } else {
             systemMessage.setText("Por favor, preencha todos os campos!");
         }
+    }
+
+    private void setUserInController(User user) throws IOException {
+        StockManagementController controller = (StockManagementController) Window.getController();
+        controller.setData(user);
     }
 
     private boolean isFilledInputs() {

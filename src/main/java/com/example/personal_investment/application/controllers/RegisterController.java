@@ -35,7 +35,8 @@ public class RegisterController {
         if (isFilledInputs()) {
             try {
                 User user = registerUserUC.signUp(txtUserName.getText(), txtPassword.getText(), txtConfirmPassword.getText());
-                // TODO: Mover usuario para tela inicial e talvez salvar usuario em singleton
+                Window.setRoot(Routes.stockManagementPage);
+                setUserInController(user);
             } catch (IncorrectPasswordException __) {
                 systemMessage.setText("Senhas diferentes! Verifique se digitou as senhas corretamente");
             } catch (EntityAlreadyExistsException __) {
@@ -47,6 +48,11 @@ public class RegisterController {
         } else {
             systemMessage.setText("Por favor, preencha todos os campos!");
         }
+    }
+
+    private void setUserInController(User user) throws IOException {
+        StockManagementController controller = (StockManagementController) Window.getController();
+        controller.setData(user);
     }
 
     public void cancelRegister(ActionEvent actionEvent) throws IOException {
