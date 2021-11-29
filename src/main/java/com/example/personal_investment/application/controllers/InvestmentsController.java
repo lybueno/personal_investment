@@ -15,8 +15,7 @@ public class InvestmentsController {
     private Button btnLogout;
 
     public void backPreviousScreen(ActionEvent actionEvent) throws IOException {
-        //TODO adicionar rota da tela inicial quando ela for criada
-        //Window.setRoot(Routes.);
+        Window.setRoot(Routes.walletPage);
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {
