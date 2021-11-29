@@ -56,9 +56,9 @@ public class InMemoryStockDAO implements StockDAO {
     }
 
     @Override
-    public Optional<Stock> findOne(Stock stock) {
-        if(db.containsKey(stock.getId()))
-            return Optional.of(db.get(stock.getId()));
+    public Optional<Stock> findOne(String key) {
+        if(db.containsKey(key))
+            return Optional.of(db.get(key));
         return Optional.empty();
     }
 

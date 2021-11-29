@@ -14,7 +14,7 @@ public class RegisterUserUC {
 
     public User signUp(String username, String password, String confirmPassword) {
         User user = new User(username, password);
-        if (userDAO.findOne(user).isPresent()) {
+        if (userDAO.findByUsername(username).isPresent()) {
             throw new EntityAlreadyExistsException("This username is already registered");
         }
         if (!password.equals(confirmPassword)) {

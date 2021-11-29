@@ -1,10 +1,15 @@
 package com.example.personal_investment.application.main;
 
 import com.example.personal_investment.application.data.inmemory.*;
+import com.example.personal_investment.application.data.sql.SqliteStockDAO;
+import com.example.personal_investment.application.data.sql.SqliteUserDAO;
+import com.example.personal_investment.application.data.sql.SqliteWalletDAO;
+import com.example.personal_investment.application.main.testes.*;
 import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.domain.usecases.stock.*;
 import com.example.personal_investment.domain.usecases.stock_transaction.*;
 import com.example.personal_investment.domain.usecases.user.AuthenticateUserUC;
+import com.example.personal_investment.domain.usecases.user.FindUserUseCase;
 import com.example.personal_investment.domain.usecases.user.RegisterUserUC;
 import com.example.personal_investment.domain.usecases.user.UserDAO;
 import com.example.personal_investment.domain.usecases.wallet.*;
@@ -12,6 +17,7 @@ import com.example.personal_investment.domain.usecases.wallet.*;
 public class Main {
     public static RegisterUserUC registerUserUC;
     public static AuthenticateUserUC authenticateUserUC;
+    public static FindUserUseCase findUserUseCase;
 
     public static AddWalletUC addWalletUC;
     public static UpdateWalletUC updateWalletUC;
@@ -57,14 +63,18 @@ public class Main {
 
     private static void injectDependencies() {
         UserDAO userDAO = new InMemoryUserDAO();
+        //UserDAO userDAO = new SqliteUserDAO();
         WalletDAO walletDAO = new InMemoryWalletDAO();
+        //WalletDAO walletDAO = new SqliteWalletDAO();
         StockDAO stockDAO = new InMemoryStockDAO();
+        //StockDAO stockDAO = new SqliteStockDAO();
         BrokerageNoteDAO brokerageNoteDAO = new InMemoryStockTransactionDAO();
         InvestmentsDAO investmentsDAO = new InMemoryInvestmentDAO();
         DarfDAO darfDAO = new InMemoryDarfDAO();
 
         registerUserUC = new RegisterUserUC(userDAO);
         authenticateUserUC = new AuthenticateUserUC(userDAO);
+        findUserUseCase = new FindUserUseCase(userDAO);
 
         addStockUC = new AddStockUC(stockDAO);
         searchStockUC = new SearchStockUC(stockDAO);

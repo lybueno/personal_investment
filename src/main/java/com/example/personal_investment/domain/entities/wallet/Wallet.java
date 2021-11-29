@@ -33,6 +33,7 @@ public class Wallet {
         this(UUID.randomUUID().toString(), name, type, user);
     }
 
+
     public void addInvestment(Investment investment) {
         this.myInvestments.add(investment);
     }

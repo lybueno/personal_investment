@@ -12,14 +12,14 @@ public class InMemoryUserDAO implements UserDAO {
 
     @Override
     public String insert(User user) {
-        db.put(user.getUsername(), user);
+        db.put(user.getId(), user);
         return user.getUsername();
     }
 
     @Override
-    public Optional<User> findOne(User user) {
-        if (db.containsKey(user.getUsername())) {
-            return Optional.of(db.get(user.getUsername()));
+    public Optional<User> findOne(String id) {
+        if (db.containsKey(id)) {
+            return Optional.of(db.get(id));
         }
         return Optional.empty();
     }
@@ -31,7 +31,7 @@ public class InMemoryUserDAO implements UserDAO {
 
     @Override
     public void update(User user) {
-        String id = user.getUsername();
+        String id = user.getId();
         if (db.containsKey(id)) {
             db.replace(id, user);
         }
@@ -40,9 +40,18 @@ public class InMemoryUserDAO implements UserDAO {
 
     @Override
     public void delete(User user) {
-        if (!db.containsKey(user.getUsername())) {
+        if (!db.containsKey(user.getId())) {
             throw new EntityNotExistsException("Cannot delete, user not exists");
         }
         db.remove(user.getUsername());
+    }
+
+
+    @Override
+    public Optional<User> findByUsername(String username) {
+        if(db.containsValue(username)){
+            return Optional.of(db.get(username));
+        }
+        return Optional.empty();
     }
 }

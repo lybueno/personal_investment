@@ -31,9 +31,9 @@ public class InMemoryInvestmentDAO implements InvestmentsDAO {
     }
 
     @Override
-    public Optional<Investment> findOne(Investment investment) {
-        if(db.containsKey(investment.getId()))
-            return Optional.of(db.get(investment.getId()));
+    public Optional<Investment> findOne(String key) {
+        if(db.containsKey(key))
+            return Optional.of(db.get(key));
         return Optional.empty();
     }
 

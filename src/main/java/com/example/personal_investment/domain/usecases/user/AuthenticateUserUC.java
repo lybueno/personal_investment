@@ -15,7 +15,7 @@ public class AuthenticateUserUC {
     }
 
     public User login(String username, String password){
-        Optional<User> optional = userDAO.findOne(new User(username,password));
+        Optional<User> optional = userDAO.findByUsername(username);
         if(optional.isEmpty()){
             throw new EntityNotExistsException("This username is not registered");
         }

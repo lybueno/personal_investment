@@ -23,8 +23,7 @@ public class ConnectionFactory implements AutoCloseable{
 
     private static void instantiateConnectionIfNull() throws SQLException {
         SQLiteDataSource ds = new SQLiteDataSource();
-        // TODO criar database
-        //ds.setUrl("jdbc:sqlite:name_bd.db");
+        ds.setUrl("jdbc:sqlite:personalInvestmentDatabase.db");
         if(connection == null)
             connection = ds.getConnection();
     }

@@ -1,6 +1,7 @@
 package com.example.personal_investment.application.data.inmemory;
 
 import com.example.personal_investment.domain.entities.investment.Investment;
+import com.example.personal_investment.domain.entities.user.User;
 import com.example.personal_investment.domain.entities.wallet.Wallet;
 import com.example.personal_investment.domain.exceptions.EntityNotExistsException;
 import com.example.personal_investment.domain.usecases.wallet.WalletDAO;
@@ -18,9 +19,9 @@ public class InMemoryWalletDAO implements WalletDAO {
     }
 
     @Override
-    public Optional<Wallet> findOne(Wallet wallet) {
-        if (db.containsKey(wallet.getId())) {
-            return Optional.of(db.get(wallet.getId()));
+    public Optional<Wallet> findOne(String id) {
+        if (db.containsKey(id)) {
+            return Optional.of(db.get(id));
         }
         return Optional.empty();
     }
@@ -52,5 +53,16 @@ public class InMemoryWalletDAO implements WalletDAO {
             throw new EntityNotExistsException("Cannot view income, wallet not exists");
         }
         return wallet.getMyInvestments();
+    }
+
+    @Override
+    public List<Wallet> findAllByUser(User user) {
+        List<Wallet> userWallets = new ArrayList<>();
+        for(Wallet w : db.values()){
+            if(w.getUser().equals(user)){
+                userWallets.add(w);
+            }
+        }
+        return userWallets;
     }
 }

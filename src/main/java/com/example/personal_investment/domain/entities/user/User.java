@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class User {
+
     private final String username;
     private final String password;
     private List<Wallet> wallets;
+    private String id;
 
     public User(String username, String password, List<Wallet> wallets) {
         this.username = username;
@@ -19,6 +21,12 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public User(String id, String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.id = id;
     }
 
     public void addWallet(Wallet wallet){
@@ -39,6 +47,10 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getId() {
+        return id;
     }
 
     @Override

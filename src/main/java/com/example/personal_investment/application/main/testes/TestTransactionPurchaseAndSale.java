@@ -52,7 +52,7 @@ public class TestTransactionPurchaseAndSale {
 
     public static void testTransactionSale(){
         DarfDAO darfDAO = new InMemoryDarfDAO();
-        User user = new User("Hedy Lamarr", "ladyTech");
+        User user = new User("Ada Lovelace", "girlsInTech");
         Stock stock = new Stock(StockType.BDR,"1",  "PEPB34", "PEPSICO Inc", new BigDecimal("61.08"));
         Wallet wallet = new Wallet("MyBDRs", StockType.BDR, user);
         LocalDate date = LocalDate.of(2021, 9, 10);

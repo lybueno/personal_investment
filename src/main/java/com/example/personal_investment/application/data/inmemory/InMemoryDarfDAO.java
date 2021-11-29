@@ -17,9 +17,9 @@ public class InMemoryDarfDAO implements DarfDAO {
     }
 
     @Override
-    public Optional<Darf> findOne(Darf darf) {
-        if(db.containsKey(darf.getId()))
-            return Optional.of(db.get(darf.getId()));
+    public Optional<Darf> findOne(String key) {
+        if(db.containsKey(key))
+            return Optional.of(db.get(key));
         return Optional.empty();
     }
 

@@ -19,6 +19,13 @@ public class InMemoryStockTransactionDAO implements BrokerageNoteDAO {
     }
 
     @Override
+    public Optional<StockTransaction> findOne(String key) {
+        if(db.containsKey(key))
+            return Optional.of(db.get(key));
+        return Optional.empty();
+    }
+
+    @Override
     public void update(StockTransaction stockTransaction) {
         if(!db.containsKey(stockTransaction.getId()))
             throw new EntityNotExistsException("Cannot update, stock transaction not exists");
@@ -50,13 +57,6 @@ public class InMemoryStockTransactionDAO implements BrokerageNoteDAO {
                         stockTransaction.getTransactionDate().isBefore(finalDate)).collect(Collectors.toList());
     }
 
-
-    @Override
-    public Optional<StockTransaction> findOne(StockTransaction stockTransaction) {
-        if(db.containsKey(stockTransaction.getId()))
-            return Optional.of(db.get(stockTransaction.getId()));
-        return Optional.empty();
-    }
 
     @Override
     public List<StockTransaction> findAll()  {
