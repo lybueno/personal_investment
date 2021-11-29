@@ -14,14 +14,13 @@ public class SqliteUserDAO implements UserDAO {
 
     @Override
     public String insert(User user) {
-        String sql = "INSERT INTO User(id, username, password) values (?, ?, ?)";
+        String sql = "INSERT INTO User(username, password) values (?, ?)";
 
         try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
-            stmt.setString(1, user.getId());
-            stmt.setString(2, user.getUsername());
-            stmt.setString(3, user.getPassword());
+            stmt.setString(1, user.getUsername());
+            stmt.setString(2, user.getPassword());
             stmt.execute();
-            return user.getId();
+            return user.getUsername();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -32,16 +31,10 @@ public class SqliteUserDAO implements UserDAO {
 
     @Override
     public Optional<User> findOne(String key) {
-        return findOneByAttribute("id", key);
-    }
-
-    private Optional<User> findOneByAttribute(String attribute, String value) {
-
-        String sql = "SELECT * FROM User WHERE " + attribute + "  = ?";
+        String sql = "SELECT * FROM User WHERE id = ?";
         User user = null;
-
         try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
-            stmt.setString(1, value);
+            stmt.setInt(1, Integer.parseInt(key));
             ResultSet resultSet = stmt.executeQuery();
             if (resultSet.next()) {
                 user = resultSetToEntity(resultSet);
@@ -51,6 +44,7 @@ public class SqliteUserDAO implements UserDAO {
         }
         return Optional.ofNullable(user);
     }
+
 
     private User resultSetToEntity(ResultSet rs) throws SQLException {
         String id = rs.getString("id");
@@ -109,6 +103,17 @@ public class SqliteUserDAO implements UserDAO {
 
     @Override
     public Optional<User> findByUsername(String username) {
-        return findOneByAttribute("username", username);
+        String sql = "SELECT * FROM User WHERE username = ?";
+        User user = null;
+        try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
+            stmt.setString(1, username);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                user = resultSetToEntity(resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Optional.ofNullable(user);
     }
 }

@@ -4,10 +4,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="505.0" prefWidth="549.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.personal_investment.application.controllers.LoginController">
+<AnchorPane prefHeight="505.0" prefWidth="549.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.personal_investment.application.controllers.LoginController">
    <children>
       <TextField fx:id="txtUserName" layoutX="204.0" layoutY="160.0" prefHeight="30.0" prefWidth="341.0" promptText="Usuario" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
-      <Label layoutX="247.0" layoutY="77.0" prefHeight="17.0" prefWidth="171.0" text="Personal Investments" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0">
+      <Label layoutX="247.0" layoutY="77.0" prefHeight="17.0" prefWidth="171.0" text="Personal Investments" AnchorPane.bottomAnchor="392.6666666666667" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="76.99999999999997">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Label>

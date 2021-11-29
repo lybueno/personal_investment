@@ -15,7 +15,7 @@ public class DatabaseBuilder {
     }
 
     private boolean isDatabaseMissing() {
-        return !Files.exists(Paths.get("name_bd.db"));
+        return !Files.exists(Paths.get("database.db"));
     }
 
     private void buildTables() {
@@ -44,7 +44,7 @@ public class DatabaseBuilder {
         builder.append("CREATE TABLE IF NOT EXISTS User (\n");
         builder.append("id INTEGER PRIMARY KEY AUTOINCREMENT, \n");
         builder.append("username TEXT NOT NULL, \n");
-        builder.append("password TEXT NOT NULL, \n");
+        builder.append("password TEXT NOT NULL\n");
 
         builder.append("); \n");
 
@@ -57,7 +57,7 @@ public class DatabaseBuilder {
 
         builder.append("CREATE TABLE IF NOT EXISTS StockType (\n");
         builder.append("id TEXT PRIMARY KEY, \n");
-        builder.append("name TEXT NOT NULL, \n");
+        builder.append("name TEXT NOT NULL\n");
         builder.append("); \n");
 
         System.out.println(builder.toString());
@@ -74,7 +74,7 @@ public class DatabaseBuilder {
         builder.append("companyName TEXT NOT NULL, \n");
         builder.append("cnpj TEXT NOT NULL, \n");
         builder.append("stockQuote NUMERIC NOT NULL, \n");
-        builder.append("FOREIGN KEY(stockType) REFERENCES StockType(name),\n");
+        builder.append("FOREIGN KEY(stockType) REFERENCES StockType(name)\n");
         builder.append("); \n");
 
         System.out.println(builder.toString());
@@ -90,7 +90,7 @@ public class DatabaseBuilder {
         builder.append("user INTEGER NOT NULL, \n");
         builder.append("stockType TEXT NOT NULL, \n");
         builder.append("FOREIGN KEY(user) REFERENCES User(id),\n");
-        builder.append("FOREIGN KEY(stockType) REFERENCES StockType(name),\n");
+        builder.append("FOREIGN KEY(stockType) REFERENCES StockType(name)\n");
         builder.append("); \n");
 
         System.out.println(builder.toString());
@@ -105,7 +105,7 @@ public class DatabaseBuilder {
         builder.append("wallet TEXT NOT NULL, \n");
         builder.append("PRIMARY KEY(user, wallet), \n");
         builder.append("FOREIGN KEY(user) REFERENCES User(id),\n");
-        builder.append("FOREIGN KEY(wallet) REFERENCES Wallet(id),\n");
+        builder.append("FOREIGN KEY(wallet) REFERENCES Wallet(id)\n");
         builder.append("); \n");
 
         System.out.println(builder.toString());
@@ -122,7 +122,7 @@ public class DatabaseBuilder {
         builder.append("quantity INTEGER NOT NULL, \n");
         builder.append("totalAmount NUMERIC NOT NULL, \n");
         builder.append("FOREIGN KEY(wallet) REFERENCES Wallet(id),\n");
-        builder.append("FOREIGN KEY(stock) REFERENCES Stock(id),\n");
+        builder.append("FOREIGN KEY(stock) REFERENCES Stock(id)\n");
         builder.append("); \n");
 
         System.out.println(builder.toString());
@@ -137,7 +137,7 @@ public class DatabaseBuilder {
         builder.append("investment TEXT NOT NULL, \n");
         builder.append("PRIMARY KEY(wallet, investment), \n");
         builder.append("FOREIGN KEY(wallet) REFERENCES Wallet(id),\n");
-        builder.append("FOREIGN KEY(investment) REFERENCES Investment(id),\n");
+        builder.append("FOREIGN KEY(investment) REFERENCES Investment(id)\n");
         builder.append("); \n");
 
         System.out.println(builder.toString());
@@ -149,7 +149,7 @@ public class DatabaseBuilder {
 
         builder.append("CREATE TABLE IF NOT EXISTS TransactionType (\n");
         builder.append("id TEXT PRIMARY KEY, \n");
-        builder.append("name TEXT NOT NULL, \n");
+        builder.append("name TEXT NOT NULL\n");
         builder.append("); \n");
 
         System.out.println(builder.toString());
@@ -169,7 +169,7 @@ public class DatabaseBuilder {
         builder.append("transactionType TEXT NOT NULL, \n");
         builder.append("FOREIGN KEY(wallet) REFERENCES Wallet(id),\n");
         builder.append("FOREIGN KEY(stock) REFERENCES Stock(id),\n");
-        builder.append("FOREIGN KEY(transactionType) REFERENCES TransactionType(name),\n");
+        builder.append("FOREIGN KEY(transactionType) REFERENCES TransactionType(name)\n");
         builder.append("); \n");
 
         System.out.println(builder.toString());
@@ -186,7 +186,7 @@ public class DatabaseBuilder {
         builder.append("taxAmount NUMERIC NOT NULL, \n");
         builder.append("saleValue NUMERIC NOT NULL, \n");
         builder.append("averagePurchaseValue NUMERIC NOT NULL, \n");
-        builder.append("FOREIGN KEY(transactionType) REFERENCES TransactionType(name),\n");
+        builder.append("FOREIGN KEY(transactionType) REFERENCES TransactionType(name)\n");
         builder.append("); \n");
 
         System.out.println(builder.toString());

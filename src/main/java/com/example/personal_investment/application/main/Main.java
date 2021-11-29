@@ -1,6 +1,7 @@
 package com.example.personal_investment.application.main;
 
 import com.example.personal_investment.application.data.inmemory.*;
+import com.example.personal_investment.application.data.sql.DatabaseBuilder;
 import com.example.personal_investment.application.data.sql.SqliteStockDAO;
 import com.example.personal_investment.application.data.sql.SqliteUserDAO;
 import com.example.personal_investment.application.data.sql.SqliteWalletDAO;
@@ -39,6 +40,7 @@ public class Main {
 
     public static void main(String[] args) {
         injectDependencies();
+        setupDatabase();
 
 //        TestUser.testUser();
 //        TestStock.testStocks();
@@ -60,12 +62,16 @@ public class Main {
 
     }
 
+    private static void setupDatabase() {
+        DatabaseBuilder dbBuilder = new DatabaseBuilder();
+        dbBuilder.buildDatabaseIfMissing();
+    }
 
     private static void injectDependencies() {
-        UserDAO userDAO = new InMemoryUserDAO();
-        //UserDAO userDAO = new SqliteUserDAO();
-        WalletDAO walletDAO = new InMemoryWalletDAO();
-        //WalletDAO walletDAO = new SqliteWalletDAO();
+        //UserDAO userDAO = new InMemoryUserDAO();
+        UserDAO userDAO = new SqliteUserDAO();
+        //WalletDAO walletDAO = new InMemoryWalletDAO();
+        WalletDAO walletDAO = new SqliteWalletDAO();
         StockDAO stockDAO = new InMemoryStockDAO();
         //StockDAO stockDAO = new SqliteStockDAO();
         BrokerageNoteDAO brokerageNoteDAO = new InMemoryStockTransactionDAO();
