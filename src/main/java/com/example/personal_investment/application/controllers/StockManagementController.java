@@ -1,5 +1,11 @@
 package com.example.personal_investment.application.controllers;
 
+import com.example.personal_investment.application.common.Routes;
+import com.example.personal_investment.application.view.Window;
+import com.example.personal_investment.application.viewmodel.StockVM;
+import com.example.personal_investment.domain.entities.user.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -16,9 +22,67 @@ import static com.example.personal_investment.application.main.Main.searchStockU
 
 public class StockManagementController {
     @FXML
-    public TextField tfSearchStock;
+    private Label username;
+
     @FXML
-    public Label username;
+    private TableView<StockVM> tbStocks;
+
+    @FXML
+    private TextField tfSearchStock;
+
+    @FXML
+    private TableColumn<StockVM, String> cTicker;
+
+    @FXML
+    private TableColumn<StockVM, String> cCompanyName;
+
+    @FXML
+    private TableColumn<StockVM, String> cCNPJ;
+
+    @FXML
+    private TableColumn<StockVM, String> cStockType;
+
+    @FXML
+    private TableColumn<StockVM, String> cStockValue;
+
+    ObservableList<StockVM> snapshot;
+
+    private User user;
+
+    public void setData(User user) throws IOException {
+        if(user == null){
+            Window.setRoot(Routes.loginPage);
+        }
+        this.user = user;
+    }
+
+    @FXML
+    private void initialize() {
+        bindTableViewToItemsList();
+        bindColumnsToValueSources();
+        loadList();
+    }
+
+    private void bindColumnsToValueSources() {
+        cTicker.setCellValueFactory(new PropertyValueFactory<>("ticker"));
+        cCNPJ.setCellValueFactory(new PropertyValueFactory<>("cnpj"));
+        cCompanyName.setCellValueFactory(new PropertyValueFactory<>("companyName"));
+        cStockType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        cStockValue.setCellValueFactory(new PropertyValueFactory<>("stockQuote"));
+    }
+
+    private void bindTableViewToItemsList() {
+        snapshot = FXCollections.observableArrayList();
+        tbStocks.setItems(snapshot);
+    }
+
+    private void loadList() {
+        List<StockVM> stocks = searchStockUC.findAll().stream().map(
+                StockVM::new
+        ).collect(Collectors.toList());
+        snapshot.clear();
+        snapshot.addAll(stocks);
+    }
 
     public void addStock(ActionEvent actionEvent) {
 
