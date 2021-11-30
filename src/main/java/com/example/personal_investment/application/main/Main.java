@@ -34,9 +34,12 @@ public class Main {
     public static CalculateTaxAmountUC calculateTaxAmountUC;
 
     public static AddBrokerageNoteUC addBrokerageNoteUC;
+    public static SearchBrokerageNoteUC searchBrokerageNoteUC;
     public static AddInvestmentUC addInvestmentUC;
 
     public static CalculateStockIncomeUC calculateStockIncomeUC;
+
+    public static SearchDarfUC searchDarfUC;
 
     public static void main(String[] args) {
         injectDependencies();
@@ -96,10 +99,13 @@ public class Main {
         calculateTaxAmountUC = new CalculateTaxAmountUC(brokerageNoteDAO, investmentsDAO);
 
         addBrokerageNoteUC = new AddBrokerageNoteUC(brokerageNoteDAO);
+        searchBrokerageNoteUC = new SearchBrokerageNoteUC(brokerageNoteDAO);
 
         addInvestmentUC = new AddInvestmentUC(investmentsDAO);
 
         calculateStockIncomeUC = new CalculateStockIncomeUC(walletDAO, brokerageNoteDAO);
+
+        searchDarfUC = new SearchDarfUC(darfDAO);
     }
 
 
