@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -15,7 +16,10 @@
                 </Label>
                 <Pane layoutX="521.0" layoutY="24.0" prefHeight="25.0" prefWidth="183.0">
                     <children>
-                        <Button mnemonicParsing="false" onAction="#addWallet" style="-fx-background-color: #7B68EE;" text="Adicionar" textFill="WHITE" />
+                        <Button mnemonicParsing="false" onAction="#addWallet" style="-fx-background-color: #7B68EE;" text="Adicionar" textFill="WHITE">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets></Button>
                         <Button layoutX="74.0" mnemonicParsing="false" onAction="#updateWallet" style="-fx-background-color: #7B68EE;" text="Editar" textFill="WHITE" />
                         <Button layoutX="130.0" mnemonicParsing="false" onAction="#deleteWallet" style="-fx-background-color: #7B68EE;" text="Deletar" textFill="WHITE" />
                     </children>

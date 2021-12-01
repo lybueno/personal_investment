@@ -55,7 +55,7 @@ public class Reports {
         darfReport.printDarf(darf,user);
     }
 
-     public static void printTradingNote() {
+    public static void printTradingNote() {
         BrokerageNoteReportUC brokerageNoteReport = new BrokerageNoteReportUC();
 
         User user = registerUserUC.signUp("Usuário teste", "12345", "12345");

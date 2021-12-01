@@ -84,8 +84,8 @@ public class StockManagementController {
         snapshot.addAll(stocks);
     }
 
-    public void addStock(ActionEvent actionEvent) {
-
+    public void addStock(ActionEvent actionEvent) throws IOException {
+        Window.setRoot(Routes.addStockPage);
     }
 
     public void updateStock(ActionEvent actionEvent) {
