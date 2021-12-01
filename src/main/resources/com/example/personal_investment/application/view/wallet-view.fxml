@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="505.0" prefWidth="720.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.personal_investment.application.controllers.WalletController">
+<AnchorPane prefHeight="505.0" prefWidth="720.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.personal_investment.application.controllers.WalletController">
     <children>
         <Pane prefHeight="73.0" prefWidth="720.0" style="-fx-background-color: #D9D9D9;" AnchorPane.bottomAnchor="431.6666666666667" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -16,25 +16,26 @@
                 </Label>
                 <Pane layoutX="521.0" layoutY="24.0" prefHeight="25.0" prefWidth="183.0">
                     <children>
-                        <Button mnemonicParsing="false" onAction="#addWallet" style="-fx-background-color: #7B68EE;" text="Adicionar" textFill="WHITE">
+                        <Button fx:id="btnAddWallet" mnemonicParsing="false" onAction="#addWallet" style="-fx-background-color: #7B68EE;" text="Adicionar" textFill="WHITE">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets></Button>
-                        <Button layoutX="74.0" mnemonicParsing="false" onAction="#updateWallet" style="-fx-background-color: #7B68EE;" text="Editar" textFill="WHITE" />
-                        <Button layoutX="130.0" mnemonicParsing="false" onAction="#deleteWallet" style="-fx-background-color: #7B68EE;" text="Deletar" textFill="WHITE" />
+                        <Button fx:id="btnEditWallet" layoutX="74.0" mnemonicParsing="false" onAction="#updateWallet" style="-fx-background-color: #7B68EE;" text="Editar" textFill="WHITE" />
+                        <Button fx:id="btnDeleteWallet" layoutX="130.0" mnemonicParsing="false" onAction="#deleteWallet" style="-fx-background-color: #7B68EE;" text="Deletar" textFill="WHITE" />
                     </children>
                 </Pane>
             </children>
         </Pane>
         <Pane layoutY="431.0" prefHeight="73.0" prefWidth="720.0" style="-fx-background-color: #D9D9D9;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <children>
-                <Button layoutX="14.0" layoutY="24.0" mnemonicParsing="false" onAction="#backPreviousScreen" style="-fx-background-color: #7B68EE;" text="Voltar" textFill="WHITE" />
-                <Button layoutX="75.0" layoutY="24.0" mnemonicParsing="false" onAction="#seeWallet" style="-fx-background-color: #7B68EE;" text="Acessar" textFill="WHITE" />
-                <Button layoutX="619.0" layoutY="21.0" mnemonicParsing="false" onAction="#logout" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #54565B;" text="Sair" textFill="WHITE" />
+                <Button fx:id="btnPreviousScreen" layoutX="14.0" layoutY="24.0" mnemonicParsing="false" onAction="#backPreviousScreen" style="-fx-background-color: #7B68EE;" text="Voltar" textFill="WHITE" />
+                <Button fx:id="btnSeeWallet" layoutX="75.0" layoutY="24.0" mnemonicParsing="false" onAction="#seeWallet" style="-fx-background-color: #7B68EE;" text="Acessar" textFill="WHITE" />
+                <Button fx:id="btnLogout" layoutX="619.0" layoutY="21.0" mnemonicParsing="false" onAction="#logout" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #54565B;" text="Sair" textFill="WHITE" />
                 <Label fx:id="username" layoutX="537.0" layoutY="28.0" text="Nome usuário" />
+            <Label fx:id="systemMessage" layoutX="170.0" layoutY="28.0" textFill="#fc0000" />
             </children>
         </Pane>
-        <TableView fx:id="tbStocks" layoutY="73.0" prefHeight="363.0" prefWidth="720.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
+        <TableView fx:id="tbWallets" layoutY="73.0" prefHeight="363.0" prefWidth="720.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
             <columns>
                 <TableColumn fx:id="cName" prefWidth="268.0" text="Nome" />
                 <TableColumn fx:id="cType" prefWidth="228.0" text="Tipo" />

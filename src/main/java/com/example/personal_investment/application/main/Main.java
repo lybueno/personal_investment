@@ -23,6 +23,7 @@ public class Main {
     public static AddWalletUC addWalletUC;
     public static UpdateWalletUC updateWalletUC;
     public static DeleteWalletUC deleteWalletUC;
+    public static SearchWalletUC searchWalletUC;
 
     public static AddStockUC addStockUC;
     public static DeleteStockUC deleteStockUC;
@@ -92,6 +93,7 @@ public class Main {
 
         addWalletUC = new AddWalletUC(walletDAO);
         updateWalletUC = new UpdateWalletUC(walletDAO);
+        searchWalletUC = new SearchWalletUC(walletDAO);
         deleteWalletUC = new DeleteWalletUC(walletDAO);
 
         registerStockPurchaseUC = new RegisterStockPurchaseUC(brokerageNoteDAO, investmentsDAO);

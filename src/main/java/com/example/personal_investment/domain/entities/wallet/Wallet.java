@@ -5,6 +5,7 @@ import com.example.personal_investment.domain.entities.stock.StockType;
 import com.example.personal_investment.domain.entities.user.User;
 import com.example.personal_investment.domain.exceptions.WalletIsNotEmptyException;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -84,5 +85,13 @@ public class Wallet {
     
     public List<Investment> getMyInvestments(){
         return List.copyOf(myInvestments);
+    }
+
+    public BigDecimal getTotalInvestmentsValue(){
+        BigDecimal sum = new BigDecimal("0.00");
+        for (Investment investment : myInvestments) {
+            sum = sum.add(investment.getTotalAmount());
+        }
+        return sum;
     }
 }

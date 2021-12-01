@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class DarfVM {
+public final class DarfVM {
     private final String id;
     private final String stockType;
     private final String dueDate;
