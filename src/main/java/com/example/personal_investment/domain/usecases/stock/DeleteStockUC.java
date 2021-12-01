@@ -25,5 +25,6 @@ public class DeleteStockUC {
       if(id == null){
             throw new IllegalArgumentException("Id cannot be null");
        }
+        stockDAO.deleteById(id);
     }
 }

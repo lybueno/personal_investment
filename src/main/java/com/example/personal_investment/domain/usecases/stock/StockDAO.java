@@ -11,4 +11,5 @@ public interface StockDAO extends DAO<Stock,String> {
     Optional<Stock> findByTicker(String ticker);
     List<Stock> findByCNPJ(String cnpj);
     List<Stock> findByCompanyName(String name);
+    void deleteById(String id);
 }
