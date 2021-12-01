@@ -31,6 +31,18 @@ public class InMemoryStockDAO implements StockDAO {
         db.remove(stock.getId());
     }
 
+    public void deleteById(String id) {
+        db.values().stream().filter(stock -> stock.getId().equals(id)).findAny().ifPresentOrElse(
+                (stock) ->
+                {
+                    db.remove(stock.getId());
+                },
+                () -> {
+                    throw new EntityNotExistsException("Cannot delete, stock not exists");
+                }
+        );
+    }
+
     @Override
     public Optional<Stock> findById(String id) {
         return db.values().stream().filter(stock -> stock.getId().equals(id)).findAny();

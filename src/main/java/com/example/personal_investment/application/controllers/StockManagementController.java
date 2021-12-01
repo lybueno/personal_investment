@@ -3,6 +3,7 @@ package com.example.personal_investment.application.controllers;
 import com.example.personal_investment.application.common.Routes;
 import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.application.viewmodel.StockVM;
+import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.user.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.example.personal_investment.application.main.Main.deleteStockUC;
 import static com.example.personal_investment.application.main.Main.searchStockUC;
 
 public class StockManagementController {
@@ -92,6 +94,12 @@ public class StockManagementController {
     }
 
     public void deleteStock(ActionEvent actionEvent) {
+        StockVM selectedStock = tbStocks.getSelectionModel().getSelectedItem();
+        if (selectedStock != null) {
+            String id = selectedStock.getId();
+            deleteStockUC.deleteById(id);
+        }
+        loadList();
     }
 
     public void searchStock(ActionEvent actionEvent) {
