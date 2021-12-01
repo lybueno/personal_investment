@@ -27,7 +27,18 @@ public class SqliteWalletDAO implements WalletDAO {
     public List<Wallet> findAllByUser(User user) {
         List<Wallet> wallets = new ArrayList<>();
         String sql = "SELECT * FROM Wallet WHERE user = ?";
-        return null;
+
+        try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
+            stmt.setString(1, user.getId());
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                Wallet wallet = resultSetToEntity(rs);
+                wallets.add(wallet);
+            }
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+        return wallets;
     }
 
     @Override
@@ -37,7 +48,7 @@ public class SqliteWalletDAO implements WalletDAO {
         try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
             stmt.setString(1, wallet.getId());
             stmt.setString(2, wallet.getName());
-            stmt.setString(3, String.valueOf(wallet.getUser()));
+            stmt.setString(3, String.valueOf(wallet.getUser().getId()));
             stmt.setString(4, String.valueOf(wallet.getType()));
             stmt.execute();
             return wallet.getId();
@@ -70,7 +81,7 @@ public class SqliteWalletDAO implements WalletDAO {
     @Override
     public List<Wallet> findAll() {
         List<Wallet> wallets = new ArrayList<>();
-        String sql = "SELECT * FROM Wallet WHERE user = ?";
+        String sql = "SELECT * FROM Wallet ";
 
         try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
             ResultSet rs = stmt.executeQuery();
@@ -96,12 +107,30 @@ public class SqliteWalletDAO implements WalletDAO {
     }
 
     @Override
-    public void update(Wallet type) {
+    public void update(Wallet wallet) {
+        String sql = "UPDATE Wallet SET name = ?, stockType = ? WHERE id = ?";
 
+        try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
+            stmt.setString(1, wallet.getName());
+            stmt.setString(2, String.valueOf(wallet.getType()));
+            stmt.setString(3, wallet.getId());
+            stmt.execute();
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void delete(Wallet type) {
+    public void delete(Wallet wallet) {
+        String sql = "DELETE FROM Wallet WHERE id = ?";
 
+        try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
+            stmt.setString(1, wallet.getId());
+            stmt.execute();
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }
