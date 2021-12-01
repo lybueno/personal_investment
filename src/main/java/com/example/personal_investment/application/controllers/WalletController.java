@@ -119,8 +119,8 @@ public class WalletController {
         }
     }
 
-    public void backPreviousScreen(ActionEvent actionEvent) {
-        //qual e a tela anterior?
+    public void backPreviousScreen(ActionEvent actionEvent) throws IOException {
+        Window.setRoot(Routes.stockManagementPage);
     }
 
     public void seeWallet(ActionEvent actionEvent) {
