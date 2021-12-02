@@ -4,22 +4,22 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.example.personal_investment.domain.entities.darf.Darf;
+import com.example.personal_investment.application.viewmodel.DarfVM;
 import com.example.personal_investment.domain.entities.user.User;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class DarfReportUC {
-    public void printDarf(Darf darf, User user) {
+    public void printDarf(DarfVM darf, User user) {
         try {
             Map<String, Object> parameters = new HashMap();
 
             String nameUser = user.getUsername();
-            String stockType = darf.getStockType().toString();
+            String stockType = darf.getStockType();
             String dueDate = darf.getDueDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            String taxAmount = darf.getTaxAmount().toString();
-            String saleValue = "R$ " + darf.getSaleValue().toString();
-            String averagePurchaseValue = "R$ " + darf.getAveragePurchaseValue().toString();
+            String taxAmount = darf.getTaxAmount();
+            String saleValue = "R$ " + darf.getSaleValue();
+            String averagePurchaseValue = "R$ " + darf.getAveragePurchaseValue();
 
             parameters.put("nameUser", nameUser);
             parameters.put("stockType", stockType);
@@ -38,5 +38,6 @@ public class DarfReportUC {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 }

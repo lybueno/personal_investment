@@ -15,6 +15,8 @@ import com.example.personal_investment.domain.usecases.user.RegisterUserUC;
 import com.example.personal_investment.domain.usecases.user.UserDAO;
 import com.example.personal_investment.domain.usecases.wallet.*;
 
+import java.util.concurrent.CompletableFuture;
+
 public class Main {
     public static RegisterUserUC registerUserUC;
     public static AuthenticateUserUC authenticateUserUC;
@@ -42,7 +44,7 @@ public class Main {
 
     public static SearchDarfUC searchDarfUC;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         injectDependencies();
         setupDatabase();
 
@@ -57,6 +59,10 @@ public class Main {
 //        TestTransactionPurchaseAndSale.testTransactionSale();
 //        TestInvestment.testInvestment();
 //        TestWallet.testWallet();
+            TestDarf.testDarf();
+
+
+
 
 //        ImportUpdatedPriceFromAPI test = new ImportUpdatedPriceFromAPI("PETR4");
 //        BigDecimal updatedPrice = test.getData();

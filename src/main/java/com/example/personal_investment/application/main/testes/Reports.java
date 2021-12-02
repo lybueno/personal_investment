@@ -13,7 +13,9 @@ import com.example.personal_investment.domain.entities.wallet.Wallet;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Optional;
 
+import static com.example.personal_investment.application.main.Main.findUserUseCase;
 import static com.example.personal_investment.application.main.Main.registerUserUC;
 
 public class Reports {
@@ -43,7 +45,7 @@ public class Reports {
     public static void printDarf() {
         DarfReportUC darfReport = new DarfReportUC();
 
-        User user = registerUserUC.signUp("Mylla", "12345", "12345");
+        Optional<User> user = findUserUseCase.findOneByUsername("mylla");
 
         LocalDate dueDate = LocalDate.now().plusMonths(1);
         BigDecimal taxAmount = new BigDecimal("2.5");
@@ -52,7 +54,7 @@ public class Reports {
 
         Darf darf = new Darf(StockType.REGULAR, dueDate,taxAmount, saleValue, averagePurchaseValue);
 
-        darfReport.printDarf(darf,user);
+       // darfReport.printDarf(darf,user);
     }
 
     public static void printTradingNote() {

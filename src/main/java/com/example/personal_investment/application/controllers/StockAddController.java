@@ -5,7 +5,6 @@ import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.stock.StockType;
 import com.example.personal_investment.domain.exceptions.EntityAlreadyExistsException;
-import com.example.personal_investment.domain.exceptions.IncorrectPasswordException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -42,16 +41,6 @@ public class StockAddController {
        loadListStockType();
     }
 
-    private void bindComboBoxToStockType(){
-        stockTypes = FXCollections.observableArrayList();
-        cBoxStockType.setItems(stockTypes);
-    }
-
-    private void loadListStockType() {
-        stockTypes.clear();
-        stockTypes.addAll(StockType.values());
-    }
-
     public void registerStock(ActionEvent actionEvent) {
         if (isFilledInputs()) {
             try {
@@ -68,6 +57,16 @@ public class StockAddController {
         } else {
            systemMessage.setText("Por favor, preencha todos os campos!");
         }
+    }
+
+    private void bindComboBoxToStockType(){
+        stockTypes = FXCollections.observableArrayList();
+        cBoxStockType.setItems(stockTypes);
+    }
+
+    private void loadListStockType() {
+        stockTypes.clear();
+        stockTypes.addAll(StockType.values());
     }
 
     private boolean isFilledInputs() {

@@ -10,14 +10,14 @@ import java.time.format.DateTimeFormatter;
 public final class DarfVM {
     private final String id;
     private final String stockType;
-    private final String dueDate;
+    private final LocalDate dueDate;
     private final String taxAmount;
     private final String saleValue;
     private final String averagePurchaseValue;
 
     public DarfVM(String id,
                   String stockType,
-                  String dueDate,
+                  LocalDate dueDate,
                   String taxAmount,
                   String saleValue,
                   String averagePurchaseValue) {
@@ -32,7 +32,7 @@ public final class DarfVM {
     public DarfVM(Darf darf){
         this.id = darf.getId();
         this.stockType = darf.getStockType().toString();
-        this.dueDate = darf.getDueDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        this.dueDate = darf.getDueDate();
         this.taxAmount = darf.getTaxAmount().toString();
         this.saleValue = darf.getSaleValue().toString();
         this.averagePurchaseValue = darf.getAveragePurchaseValue().toString();
@@ -46,7 +46,7 @@ public final class DarfVM {
         return stockType;
     }
 
-    public String getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 

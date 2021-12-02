@@ -5,7 +5,8 @@ import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.application.viewmodel.BrokerageNoteVM;
 import com.example.personal_investment.application.viewmodel.DarfVM;
 import com.example.personal_investment.application.viewmodel.IncomeTaxVM;
-import com.example.personal_investment.domain.entities.darf.Darf;
+import com.example.personal_investment.domain.entities.user.User;
+import com.example.personal_investment.domain.usecases.report.DarfReportUC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,12 +16,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import static com.example.personal_investment.application.main.Main.searchDarfUC;
-import static com.example.personal_investment.application.main.Main.searchBrokerageNoteUC;
-
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.example.personal_investment.application.main.Main.*;
 
 public class ReportsController {
 
@@ -57,16 +58,14 @@ public class ReportsController {
     private TableColumn<DarfVM, String> cDarfTaxAmount;
 
     @FXML
-    private TableColumn<DarfVM, String> cDarfSaleAmount;
-
-    @FXML
     private TableColumn<DarfVM, String> cDarfSaleValue;
 
     @FXML
-    private TableColumn<DarfVM, String> cDarfAvaragePurchaseValue;
+    private TableColumn<DarfVM, String> cDarfDueDate;
 
     @FXML
-    private TableColumn<DarfVM, String> cDarfDueDate;
+    private TableColumn<DarfVM, String> cDarfAveragePurchaseValue;
+
 
     //table brokerage notes
     @FXML
@@ -115,8 +114,8 @@ public class ReportsController {
     }
 
     private void loadLists() {
-        loadListDarf();
-        loadListNote();
+      loadListDarf();
+      //  loadListNote();
         //falta loadIR
     }
 
@@ -142,8 +141,8 @@ public class ReportsController {
     }
 
     private void bindColumnsToValueSources() {
-        bindColumsToValuesSourcesIR();
-        bindColumsToValuesSourcesNote();
+   //     bindColumsToValuesSourcesIR();
+     //   bindColumsToValuesSourcesNote();
         bindColumsToValuesSourcesDarf();
     }
 
@@ -159,10 +158,9 @@ public class ReportsController {
     private void bindColumsToValuesSourcesDarf(){
         cDarfType.setCellValueFactory(new PropertyValueFactory<>("stockType"));
         cDarfTaxAmount.setCellValueFactory(new PropertyValueFactory<>("taxAmount"));
-        cDarfSaleAmount.setCellValueFactory(new PropertyValueFactory<>("saleAmount"));
         cDarfSaleValue.setCellValueFactory(new PropertyValueFactory<>("saleValue"));
-        cDarfAvaragePurchaseValue.setCellValueFactory(new PropertyValueFactory<>("averagePurchaseValue"));
-        cDarfDueDate.setCellValueFactory(new PropertyValueFactory<>("dueData"));
+        cDarfAveragePurchaseValue.setCellValueFactory(new PropertyValueFactory<>("averagePurchaseValue"));
+        cDarfDueDate.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
     }
 
     private void bindColumsToValuesSourcesNote(){
@@ -178,8 +176,8 @@ public class ReportsController {
     }
 
     private void bindTableViewToItemsList() {
-        bindTableViewToItemsListIR();
-        bindTableViewToItemsListNote();
+       // bindTableViewToItemsListIR();
+     //   bindTableViewToItemsListNote();
         bindTableViewToItemsListDarf();
     }
 
@@ -198,7 +196,16 @@ public class ReportsController {
         tbDarf.setItems(snapshotDarf);
     }
 
-    public void seeReport(ActionEvent actionEvent) {
+    public void seeReport(ActionEvent actionEvent) throws InterruptedException {
+        DarfReportUC darfReportUC = new DarfReportUC();
+        DarfVM selectedDarf = tbDarf.getSelectionModel().getSelectedItem();
+
+        // TODO user usado so para teste, mudar depois
+        Optional<User> user = findUserUseCase.findOneByUsername("mylla");
+
+        if (selectedDarf != null) {
+            darfReportUC.printDarf(selectedDarf,user.get()) ;
+        }
     }
 
     public void backPreviousScreen(ActionEvent actionEvent) throws IOException {
