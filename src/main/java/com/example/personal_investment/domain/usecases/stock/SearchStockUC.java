@@ -37,4 +37,11 @@ public class SearchStockUC {
     public List<Stock> findAll(){
         return stockDAO.findAll();
     }
+
+    public Optional<Stock> findById(String stockId) {
+        if(stockId == null){
+            throw new IllegalArgumentException("Stock ID cannot be null");
+        }
+        return stockDAO.findById(stockId);
+    }
 }

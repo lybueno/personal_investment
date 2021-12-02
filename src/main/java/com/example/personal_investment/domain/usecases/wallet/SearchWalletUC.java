@@ -5,6 +5,7 @@ import com.example.personal_investment.domain.entities.wallet.Wallet;
 import com.example.personal_investment.domain.utils.Validator;
 
 import java.util.List;
+import java.util.Optional;
 
 public class SearchWalletUC {
 
@@ -21,5 +22,12 @@ public class SearchWalletUC {
     public List<Wallet> findWalleyByUser(User user){
         Validator.validateUser(user);
         return walletDAO.findAllByUser(user);
+    }
+
+    public Optional<Wallet> findById(String id) {
+        if(id == null){
+            throw new IllegalArgumentException("Wallet ID cannot be null");
+        }
+        return walletDAO.findOne(id);
     }
 }
