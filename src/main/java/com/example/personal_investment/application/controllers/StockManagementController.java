@@ -1,17 +1,17 @@
 package com.example.personal_investment.application.controllers;
 
 import com.example.personal_investment.application.common.Routes;
+import com.example.personal_investment.application.common.UIMode;
 import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.application.viewmodel.StockVM;
+import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.user.User;
+import com.example.personal_investment.domain.exceptions.WalletIsNotEmptyException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
@@ -22,36 +22,27 @@ import static com.example.personal_investment.application.main.Main.deleteStockU
 import static com.example.personal_investment.application.main.Main.searchStockUC;
 
 public class StockManagementController {
+    ObservableList<StockVM> snapshot;
     @FXML
     private Label username;
-
     @FXML
     private TableView<StockVM> tbStocks;
-
     @FXML
     private TextField tfSearchStock;
-
     @FXML
     private TableColumn<StockVM, String> cTicker;
-
     @FXML
     private TableColumn<StockVM, String> cCompanyName;
-
     @FXML
     private TableColumn<StockVM, String> cCNPJ;
-
     @FXML
     private TableColumn<StockVM, String> cStockType;
-
     @FXML
     private TableColumn<StockVM, String> cStockValue;
-
-    ObservableList<StockVM> snapshot;
-
     private User user;
 
     public void setData(User user) throws IOException {
-        if(user == null){
+        if (user == null) {
             Window.setRoot(Routes.loginPage);
         }
         this.user = user;
@@ -87,21 +78,44 @@ public class StockManagementController {
 
     public void addStock(ActionEvent actionEvent) throws IOException {
         Window.setRoot(Routes.stockPage);
+        setStockInController(null, UIMode.INSERT);
     }
 
-    public void updateStock(ActionEvent actionEvent) {
+    public void updateStock(ActionEvent actionEvent) throws IOException {
+        StockVM selectedStock = tbStocks.getSelectionModel().getSelectedItem();
+        if (selectedStock != null) {
+            Window.setRoot(Routes.stockPage);
+            setStockInController(selectedStock.toStockEntity(), UIMode.UPDATE);
+        }
+    }
+
+    private void setStockInController(Stock stock, UIMode uiMode) throws IOException {
+        StockController controller = (StockController) Window.getController();
+        controller.setData(stock, uiMode);
     }
 
     public void deleteStock(ActionEvent actionEvent) {
         StockVM selectedStock = tbStocks.getSelectionModel().getSelectedItem();
         if (selectedStock != null) {
-            String id = selectedStock.getId();
-            deleteStockUC.deleteById(id);
+            try {
+
+                deleteStockUC.deleteById(selectedStock.getId());
+            } catch (WalletIsNotEmptyException __) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Gerenciamento de Ações");
+                alert.setHeaderText("Erro, não foi possivel deletar a ação");
+                alert.setContentText("Possuem investimentos cadastrados com essa ação, caso deseje realmente exclui-la, venda todos os investimentos antes.");
+
+                alert.showAndWait();
+            }
         }
         loadList();
     }
 
     public void searchStock(ActionEvent actionEvent) {
+        if(tfSearchStock.getText() != null && !tfSearchStock.getText().equals("")) {
+//            searchStockUC.findByCNPJ()
+        }
     }
 
     public void registerPurchaseStock(ActionEvent actionEvent) {

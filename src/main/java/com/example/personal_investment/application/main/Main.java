@@ -91,7 +91,7 @@ public class Main {
 
         addStockUC = new AddStockUC(stockDAO);
         searchStockUC = new SearchStockUC(stockDAO);
-        deleteStockUC = new DeleteStockUC(stockDAO);
+        deleteStockUC = new DeleteStockUC(stockDAO,investmentsDAO);
         updateStockUC = new UpdateStockUC(stockDAO);
 
         addWalletUC = new AddWalletUC(walletDAO);
