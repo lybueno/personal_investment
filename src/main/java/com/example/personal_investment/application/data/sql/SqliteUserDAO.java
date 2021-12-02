@@ -20,6 +20,9 @@ public class SqliteUserDAO implements UserDAO {
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getPassword());
             stmt.execute();
+
+            ResultSet resultSet = stmt.getGeneratedKeys();
+            int generatedId = resultSet.getInt(1);
             return user.getUsername();
 
         } catch (SQLException e) {

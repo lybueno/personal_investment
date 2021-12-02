@@ -34,7 +34,7 @@ public class StockTransaction {
         return stock;
     }
 
-    public Wallet getWallet() {
+    public String getWallet() {
         return wallet;
     }
 
