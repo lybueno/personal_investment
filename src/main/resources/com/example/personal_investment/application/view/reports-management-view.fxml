@@ -20,20 +20,20 @@
         <Button fx:id="btnLogout" layoutX="619.0" layoutY="21.0" mnemonicParsing="false" onAction="#logout" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #54565B;" text="Sair" textFill="WHITE" />
         <Label fx:id="username" layoutX="537.0" layoutY="28.0" text="Nome usuário" />
     </Pane>
-   <TabPane prefHeight="362.0" prefWidth="720.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.topAnchor="70.0">
+   <TabPane prefHeight="362.0" prefWidth="720.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
      <tabs>
        <Tab text="Imposto de renda">
          <content>
-           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="382.0">
+           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="382.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
                   <children>
-                     <TableView fx:id="tbIncomeTax"  prefHeight="330.0" prefWidth="720.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                     <TableView fx:id="tbIncomeTax" prefHeight="330.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <columns>
                                <TableColumn fx:id="cIRCnpj" prefWidth="95.0" text="CNPJ" />
                                <TableColumn fx:id="cIRDiscrimination" prefWidth="171.0" text="Discriminação" />
                                <TableColumn fx:id="cIRCurrentYear" minWidth="0.0" prefWidth="108.0" text="Situação atual" />
                                <TableColumn fx:id="cIRLastYear" prefWidth="112.0" text="Situação anterior" />
                                <TableColumn fx:id="cIRCurrentDate" prefWidth="112.0" text="Data atual" />
-                               <TableColumn fx:id="cIRLastDate" prefWidth="111.0" text="Data anterior" />
+                               <TableColumn fx:id="cIRLastDate" prefWidth="121.0" text="Data anterior" />
                         </columns>
                      </TableView>
                   </children></AnchorPane>
@@ -41,15 +41,15 @@
        </Tab>
          <Tab text="DARF">
              <content>
-                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="382.0">
+                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="382.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
                      <children>
-                         <TableView fx:id="tbDarf" prefHeight="330.0" prefWidth="720.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                         <TableView fx:id="tbDarf" prefHeight="330.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                              <columns>
                                  <TableColumn fx:id="cDarfType" prefWidth="83.0" text="Tipo" />
                                  <TableColumn fx:id="cDarfTaxAmount" prefWidth="150.0" text="Valor do imposto" />
                                  <TableColumn fx:id="cDarfSaleValue" prefWidth="136.0" text="Valor de venda" />
                                  <TableColumn fx:id="cDarfAveragePurchaseValue" minWidth="0.0" prefWidth="175.0" text="Valor de compra médio" />
-                                 <TableColumn fx:id="cDarfDueDate" minWidth="3.0" prefWidth="163.0" text="Data de vencimento" />
+                                 <TableColumn fx:id="cDarfDueDate" minWidth="3.0" prefWidth="175.0" text="Data de vencimento" />
                              </columns>
                          </TableView>
                      </children></AnchorPane>
@@ -57,9 +57,9 @@
          </Tab>
        <Tab text="Notas de negociação">
            <content>
-               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="382.0">
+               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="382.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
                    <children>
-                       <TableView fx:id="tbBrokerageNote" prefHeight="330.0" prefWidth="720.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                       <TableView fx:id="tbBrokerageNote" prefHeight="330.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <columns>
                                <TableColumn fx:id="cNoteTicker" prefWidth="75.0" text="Ticker" />
                                <TableColumn fx:id="cNoteCnpj" prefWidth="86.0" text="CNPJ" />
@@ -68,7 +68,7 @@
                                <TableColumn fx:id="cNoteUnitaryValue" prefWidth="92.0" text="Valor unitário" />
                                <TableColumn fx:id="cNoteValue" prefWidth="78.0" text="Valor" />
                                <TableColumn fx:id="cNoteType" prefWidth="96.0" text="Tipo" />
-                               <TableColumn fx:id="cNoteDate" prefWidth="103.0" text="Data" />
+                               <TableColumn fx:id="cNoteDate" prefWidth="116.0" text="Data" />
                            </columns>
                        </TableView>
                    </children></AnchorPane>
