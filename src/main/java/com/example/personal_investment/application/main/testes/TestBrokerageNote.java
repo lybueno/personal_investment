@@ -9,13 +9,13 @@ import com.example.personal_investment.domain.entities.wallet.Wallet;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Optional;
 
-import static com.example.personal_investment.application.main.Main.addBrokerageNoteUC;
-import static com.example.personal_investment.application.main.Main.registerUserUC;
+import static com.example.personal_investment.application.main.Main.*;
 
 public class TestBrokerageNote {
     public static void testBrokerageNote(){
-        User user = registerUserUC.signUp("Usuário 1000", "12345", "12345");
+        Optional<User> user = findUserUseCase.findOneByUsername("mylla");
 
         LocalDate transactionDate = LocalDate.now();
         BigDecimal valorStock = new BigDecimal("4.5");
@@ -24,7 +24,7 @@ public class TestBrokerageNote {
         Stock stock = new Stock("01", StockType.REGULAR,"PETR4","Petrobras",
                 "33.000.167/0661-29",valorStock);
 
-        Wallet wallet = new Wallet("Test Wallet", StockType.REGULAR, user);
+        Wallet wallet = new Wallet("Test Wallet", StockType.REGULAR, user.get());
 
         StockTransaction stockTransaction = new StockTransaction("01",stock,wallet,transactionDate,5,
                 unitaryValue, TransactionType.SALE);
@@ -37,7 +37,7 @@ public class TestBrokerageNote {
         try{
             addBrokerageNoteUC.add(stockTransaction);
             System.out.println("Nota criada, abrindo relatório..");
-            Reports.printTradingNoteWhenAddBrokerageNote(stockTransaction);
+          //  Reports.printTradingNoteWhenAddBrokerageNote(stockTransaction);
         }catch (Exception e) {
             System.out.println(e.getMessage());
         }

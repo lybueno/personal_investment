@@ -6,6 +6,7 @@ import com.example.personal_investment.application.viewmodel.BrokerageNoteVM;
 import com.example.personal_investment.application.viewmodel.DarfVM;
 import com.example.personal_investment.application.viewmodel.IncomeTaxVM;
 import com.example.personal_investment.domain.entities.user.User;
+import com.example.personal_investment.domain.usecases.report.BrokerageNoteReportUC;
 import com.example.personal_investment.domain.usecases.report.DarfReportUC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -115,7 +116,7 @@ public class ReportsController {
 
     private void loadLists() {
       loadListDarf();
-      //  loadListNote();
+      loadListNote();
         //falta loadIR
     }
 
@@ -142,7 +143,7 @@ public class ReportsController {
 
     private void bindColumnsToValueSources() {
    //     bindColumsToValuesSourcesIR();
-     //   bindColumsToValuesSourcesNote();
+        bindColumsToValuesSourcesNote();
         bindColumsToValuesSourcesDarf();
     }
 
@@ -165,19 +166,18 @@ public class ReportsController {
 
     private void bindColumsToValuesSourcesNote(){
         cNoteTicker.setCellValueFactory(new PropertyValueFactory<>("ticker"));
+        cNoteValue.setCellValueFactory(new PropertyValueFactory<>("transactionAmount"));
+        cNoteDate.setCellValueFactory(new PropertyValueFactory<>("transactionDate"));
+        cNoteQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        cNoteUnitaryValue.setCellValueFactory(new PropertyValueFactory<>("unitaryValue"));
+        cNoteType.setCellValueFactory(new PropertyValueFactory<>("transactionType"));
         cNoteCnpj.setCellValueFactory(new PropertyValueFactory<>("cnpj"));
         cNoteCompany.setCellValueFactory(new PropertyValueFactory<>("companyName"));
-        cNoteQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        cNoteCnpj.setCellValueFactory(new PropertyValueFactory<>("cnpj"));
-        cNoteUnitaryValue.setCellValueFactory(new PropertyValueFactory<>("unitaryValue"));
-        cNoteValue.setCellValueFactory(new PropertyValueFactory<>("transactionAmount"));
-        cNoteType.setCellValueFactory(new PropertyValueFactory<>("transactionType"));
-        cNoteDate.setCellValueFactory(new PropertyValueFactory<>("transactionDate"));
     }
 
     private void bindTableViewToItemsList() {
        // bindTableViewToItemsListIR();
-     //   bindTableViewToItemsListNote();
+        bindTableViewToItemsListNote();
         bindTableViewToItemsListDarf();
     }
 
@@ -196,15 +196,29 @@ public class ReportsController {
         tbDarf.setItems(snapshotDarf);
     }
 
-    public void seeReport(ActionEvent actionEvent) throws InterruptedException {
-        DarfReportUC darfReportUC = new DarfReportUC();
+    public void seeReport(ActionEvent actionEvent) {
         DarfVM selectedDarf = tbDarf.getSelectionModel().getSelectedItem();
+        BrokerageNoteVM selectedNote = tbBrokerageNote.getSelectionModel().getSelectedItem();
 
+        seeDarf(selectedDarf);
+        seeNote(selectedNote);
+    }
+
+    public void seeDarf(DarfVM selectedDarf){
+        DarfReportUC darfReportUC = new DarfReportUC();
         // TODO user usado so para teste, mudar depois
         Optional<User> user = findUserUseCase.findOneByUsername("mylla");
 
         if (selectedDarf != null) {
             darfReportUC.printDarf(selectedDarf,user.get()) ;
+        }
+    }
+
+    public void seeNote(BrokerageNoteVM selectedNote){
+        BrokerageNoteReportUC brokerageNoteReportUC = new BrokerageNoteReportUC();
+
+        if (selectedNote != null) {
+            brokerageNoteReportUC.printTradingNote(selectedNote);
         }
     }
 

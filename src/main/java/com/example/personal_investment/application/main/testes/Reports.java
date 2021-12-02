@@ -74,12 +74,12 @@ public class Reports {
         StockTransaction stockTransaction = new StockTransaction("01",stock,wallet,transactionDate,5,
                 unitaryValue, TransactionType.SALE);
 
-        brokerageNoteReport.printTradingNote(stockTransaction);
+     //   brokerageNoteReport.printTradingNote(stockTransaction);
     }
 
     public static void printTradingNoteWhenAddBrokerageNote(StockTransaction stockTransaction) {
         BrokerageNoteReportUC brokerageNoteReport = new BrokerageNoteReportUC();
 
-        brokerageNoteReport.printTradingNote(stockTransaction);
+     //   brokerageNoteReport.printTradingNote(stockTransaction);
     }
 }

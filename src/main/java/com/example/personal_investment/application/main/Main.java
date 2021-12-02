@@ -55,11 +55,11 @@ public class Main {
 //        Reports.printTradingNote();
 //        TestCalculateTax.testCalculateTax();
 //        TestTransactionPurchaseAndSale.testTransactionPurchase();
-//        TestBrokerageNote.testBrokerageNote();
+          TestBrokerageNote.testBrokerageNote();
 //        TestTransactionPurchaseAndSale.testTransactionSale();
 //        TestInvestment.testInvestment();
 //        TestWallet.testWallet();
-            TestDarf.testDarf();
+          TestDarf.testDarf();
 
 
 
