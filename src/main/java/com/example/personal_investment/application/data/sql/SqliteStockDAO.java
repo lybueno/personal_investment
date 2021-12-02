@@ -50,7 +50,7 @@ public class SqliteStockDAO implements StockDAO {
 
     @Override
     public String insert(Stock stock) {
-        String sql = "INSERTT INTO Stock(id, stockType, ticker, companyName, cnpj, stockQuote) " +
+        String sql = "INSERT INTO Stock(id, stockType, ticker, companyName, cnpj, stockQuote) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
@@ -146,7 +146,7 @@ public class SqliteStockDAO implements StockDAO {
 
     @Override
     public void update(Stock stock) {
-        String sql = "UPDATE Stock WHERE stockType = ?, ticker = ?, companyName = ?," +
+        String sql = "UPDATE Stock SET stockType = ?, ticker = ?, companyName = ?," +
                 " cnpj = ?, stockQuote = ? WHERE id = ?";
 
         try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){

@@ -99,6 +99,7 @@ public class SqliteStockTransactionDAO implements BrokerageNoteDAO {
 
     @Override
     public String insert(StockTransaction transaction) {
+
         String sql = "INSERT INTO StockTransaction(id, stock, wallet, transactionDate, quantity," +
                 " unitaryValue, transactionType) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -106,7 +107,7 @@ public class SqliteStockTransactionDAO implements BrokerageNoteDAO {
 
             stmt.setString(1, transaction.getId());
             stmt.setString(2, String.valueOf(transaction.getStock()));
-            stmt.setString(3, transaction.getWallet());
+            stmt.setString(3, transaction.getWallet().getId());
             stmt.setDate(4, Date.valueOf(transaction.getTransactionDate()));
             stmt.setInt(5, transaction.getQuantity());
             stmt.setBigDecimal(6, transaction.getUnitaryValue());
@@ -152,7 +153,7 @@ public class SqliteStockTransactionDAO implements BrokerageNoteDAO {
         try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
 
             stmt.setString(1, String.valueOf(transaction.getStock()));
-            stmt.setString(2, transaction.getWallet());
+            stmt.setString(2, transaction.getWallet().getId());
             stmt.setDate(3, Date.valueOf(transaction.getTransactionDate()));
             stmt.setInt(4, transaction.getQuantity());
             stmt.setBigDecimal(5, transaction.getUnitaryValue());

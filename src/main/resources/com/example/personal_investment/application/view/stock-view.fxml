@@ -17,7 +17,8 @@
         <Button fx:id="btnCancel" layoutX="150.0" layoutY="392.0" mnemonicParsing="false" onAction="#cancelRegister" prefHeight="30.0" prefWidth="249.0" style="-fx-background-color: #7B68EE;" text="Cancelar" textFill="WHITE" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
         <TextField fx:id="txtCnpj" layoutX="150.0" layoutY="252.0" prefHeight="30.0" prefWidth="249.0" promptText="CNPJ" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
         <TextField fx:id="txtStockQuote" layoutX="150.0" layoutY="298.0" prefHeight="30.0" prefWidth="249.0" promptText="Cotação" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
-        <ComboBox fx:id="cBoxStockType" layoutX="150.0" layoutY="120.0" prefHeight="25.0" prefWidth="249.0" promptText="Tipo de estoque" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
+        <ComboBox fx:id="cBoxStockType" layoutX="150.0" layoutY="120.0" prefHeight="25.0" prefWidth="249.0"
+                  promptText="Tipo de ação" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
         <Label fx:id="systemMessage" layoutX="150.0" layoutY="450.0" prefHeight="30.0" prefWidth="249.0" textFill="#ee0b0b" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
     </children>
 </AnchorPane>

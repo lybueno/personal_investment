@@ -1,10 +1,7 @@
 package com.example.personal_investment.application.main;
 
 import com.example.personal_investment.application.data.inmemory.*;
-import com.example.personal_investment.application.data.sql.DatabaseBuilder;
-import com.example.personal_investment.application.data.sql.SqliteStockDAO;
-import com.example.personal_investment.application.data.sql.SqliteUserDAO;
-import com.example.personal_investment.application.data.sql.SqliteWalletDAO;
+import com.example.personal_investment.application.data.sql.*;
 import com.example.personal_investment.application.main.testes.*;
 import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.domain.usecases.stock.*;
@@ -79,11 +76,14 @@ public class Main {
         UserDAO userDAO = new SqliteUserDAO();
         //WalletDAO walletDAO = new InMemoryWalletDAO();
         WalletDAO walletDAO = new SqliteWalletDAO();
-        StockDAO stockDAO = new InMemoryStockDAO();
-        //StockDAO stockDAO = new SqliteStockDAO();
-        BrokerageNoteDAO brokerageNoteDAO = new InMemoryStockTransactionDAO();
-        InvestmentsDAO investmentsDAO = new InMemoryInvestmentDAO();
-        DarfDAO darfDAO = new InMemoryDarfDAO();
+        //StockDAO stockDAO = new InMemoryStockDAO();
+        StockDAO stockDAO = new SqliteStockDAO();
+        //BrokerageNoteDAO brokerageNoteDAO = new InMemoryStockTransactionDAO();
+        BrokerageNoteDAO brokerageNoteDAO = new SqliteStockTransactionDAO();
+        //InvestmentsDAO investmentsDAO = new InMemoryInvestmentDAO();
+        InvestmentsDAO investmentsDAO = new SqliteInvestmentDAO();
+        //DarfDAO darfDAO = new InMemoryDarfDAO();
+        DarfDAO darfDAO = new SqliteDarfDAO();
 
         registerUserUC = new RegisterUserUC(userDAO);
         authenticateUserUC = new AuthenticateUserUC(userDAO);
