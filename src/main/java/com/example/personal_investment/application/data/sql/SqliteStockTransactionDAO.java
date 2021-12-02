@@ -1,12 +1,10 @@
 package com.example.personal_investment.application.data.sql;
 
 import com.example.personal_investment.domain.entities.stock.Stock;
-import com.example.personal_investment.domain.entities.stock.StockType;
 import com.example.personal_investment.domain.entities.stock_transaction.StockTransaction;
 import com.example.personal_investment.domain.entities.stock_transaction.TransactionType;
 import com.example.personal_investment.domain.entities.wallet.Wallet;
 import com.example.personal_investment.domain.usecases.stock_transaction.BrokerageNoteDAO;
-import javafx.scene.layout.BackgroundImage;
 
 import java.math.BigDecimal;
 import java.sql.Date;
