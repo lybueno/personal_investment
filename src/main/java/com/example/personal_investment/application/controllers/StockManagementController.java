@@ -3,7 +3,6 @@ package com.example.personal_investment.application.controllers;
 import com.example.personal_investment.application.common.Routes;
 import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.application.viewmodel.StockVM;
-import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.user.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -87,7 +86,7 @@ public class StockManagementController {
     }
 
     public void addStock(ActionEvent actionEvent) throws IOException {
-        Window.setRoot(Routes.addStockPage);
+        Window.setRoot(Routes.stockPage);
     }
 
     public void updateStock(ActionEvent actionEvent) {
@@ -109,11 +108,11 @@ public class StockManagementController {
     }
 
     public void reportsPage(ActionEvent actionEvent) throws IOException {
-        Window.setRoot(Routes.reportPage);
+        Window.setRoot(Routes.reportManagementPage);
     }
 
     public void walletPage(ActionEvent actionEvent) throws IOException {
-        Window.setRoot(Routes.walletPage);
+        Window.setRoot(Routes.walletManagementPage);
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {

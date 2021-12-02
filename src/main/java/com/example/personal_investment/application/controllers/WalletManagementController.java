@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 import static com.example.personal_investment.application.main.Main.searchWalletUC;
 import static com.example.personal_investment.application.main.Main.deleteWalletUC;
 
-public class WalletController {
+public class WalletManagementController {
 
     @FXML
     private Button btnAddWallet;

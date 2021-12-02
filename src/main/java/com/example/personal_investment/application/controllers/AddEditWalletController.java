@@ -46,7 +46,7 @@ public class AddEditWalletController {
 
     public void setDataToUpdate(Wallet wallet) throws IOException {
         if(wallet == null){
-            Window.setRoot(Routes.walletPage);
+            Window.setRoot(Routes.walletManagementPage);
         }
         this.wallet = wallet;
     }
@@ -72,7 +72,7 @@ public class AddEditWalletController {
     }
 
     public void backPreviousScreen(ActionEvent actionEvent) throws IOException {
-        Window.setRoot(Routes.walletPage);
+        Window.setRoot(Routes.walletManagementPage);
     }
 
     public void registerOrUpdateWallet(ActionEvent actionEvent) throws IOException {
@@ -82,7 +82,7 @@ public class AddEditWalletController {
             }else {
                 updateWallet();
             }
-            Window.setRoot(Routes.walletPage);
+            Window.setRoot(Routes.walletManagementPage);
         }else{
             systemMessage.setText("Campos inseridos estão vazios");
         }

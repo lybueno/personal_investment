@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 import static com.example.personal_investment.application.main.Main.*;
 
-public class ReportsController {
+public class ReportsManagementController {
 
     //table income tax
     @FXML
@@ -223,7 +223,7 @@ public class ReportsController {
     }
 
     public void backPreviousScreen(ActionEvent actionEvent) throws IOException {
-        Window.setRoot(Routes.investmentPage);
+        Window.setRoot(Routes.investmentManagementPage);
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {

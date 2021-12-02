@@ -8,14 +8,14 @@ import javafx.scene.control.Button;
 
 import java.io.IOException;
 
-public class InvestmentsController {
+public class InvestmentsManagementController {
     @FXML
     private Button btnReturn;
     @FXML
     private Button btnLogout;
 
     public void backPreviousScreen(ActionEvent actionEvent) throws IOException {
-        Window.setRoot(Routes.walletPage);
+        Window.setRoot(Routes.walletManagementPage);
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {
