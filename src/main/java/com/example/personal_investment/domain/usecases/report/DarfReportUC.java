@@ -16,7 +16,7 @@ public class DarfReportUC {
 
             String nameUser = user.getUsername();
             String stockType = darf.getStockType();
-            String dueDate = darf.getDueDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String dueDate = darf.getDueDate();
             String taxAmount = darf.getTaxAmount();
             String saleValue = "R$ " + darf.getSaleValue();
             String averagePurchaseValue = "R$ " + darf.getAveragePurchaseValue();

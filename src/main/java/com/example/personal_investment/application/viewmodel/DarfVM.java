@@ -46,8 +46,8 @@ public final class DarfVM {
         return stockType;
     }
 
-    public LocalDate getDueDate() {
-        return dueDate;
+    public String getDueDate() {
+        return dueDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
     public String getTaxAmount() {
