@@ -19,7 +19,7 @@ public class SearchWalletUC {
         return walletDAO.findAll();
     }
 
-    public List<Wallet> findWalleyByUser(User user){
+    public List<Wallet> findWalletByUser(User user){
         Validator.validateUser(user);
         return walletDAO.findAllByUser(user);
     }

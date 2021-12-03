@@ -17,7 +17,7 @@ public class TestDarf {
     static DarfDAO darfDAO = new InMemoryDarfDAO();
 
     public static void testDarf(){
-        Optional<User> user = findUserUseCase.findOneByUsername("mylla");
+        Optional<User> user = findUserUC.findOneByUsername("mylla");
 
         LocalDate dueDate = LocalDate.now().plusMonths(1);
         BigDecimal taxAmount = new BigDecimal("2.5");

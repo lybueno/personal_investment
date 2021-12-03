@@ -69,7 +69,7 @@ public class WalletManagementController {
     private void loadList() {
         //mudar
         User user = new User("2", "Mylenna", "alaeatorio");
-        List<WalletVM> wallets = searchWalletUC.findWalleyByUser(user).stream().map(
+        List<WalletVM> wallets = searchWalletUC.findWalletByUser(user).stream().map(
                 WalletVM::new
         ).collect(Collectors.toList());
         snapshot.clear();

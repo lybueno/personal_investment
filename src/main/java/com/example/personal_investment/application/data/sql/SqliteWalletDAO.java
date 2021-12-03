@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.personal_investment.application.main.Main.findUserUseCase;
+import static com.example.personal_investment.application.main.Main.findUserUC;
 
 
 public class SqliteWalletDAO implements WalletDAO {
@@ -97,7 +97,7 @@ public class SqliteWalletDAO implements WalletDAO {
 
     private Wallet resultSetToEntity(ResultSet rs) throws SQLException {
         String id = rs.getString("user");
-        User user = findUserUseCase.findOneById(id).get();
+        User user = findUserUC.findOneById(id).get();
         return new Wallet(
                 rs.getString("id"),
                 rs.getString("name"),

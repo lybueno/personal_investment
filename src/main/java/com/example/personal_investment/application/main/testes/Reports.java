@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import static com.example.personal_investment.application.main.Main.findUserUseCase;
+import static com.example.personal_investment.application.main.Main.findUserUC;
 
 public class Reports {
     public static void printIR() {
@@ -28,7 +28,7 @@ public class Reports {
         BigDecimal stockValue = new BigDecimal("4.5");
         BigDecimal unitaryValue = new BigDecimal("2");
 
-        Optional<User> user = findUserUseCase.findOneByUsername("mylla");
+        Optional<User> user = findUserUC.findOneByUsername("mylla");
 
         Stock stock = new Stock(StockType.REGULAR,"PETR4","Petrobras",
                 "33.000.167/0661-29",stockValue);
@@ -44,7 +44,7 @@ public class Reports {
     public static void printDarf() {
         DarfReportUC darfReport = new DarfReportUC();
 
-        Optional<User> user = findUserUseCase.findOneByUsername("mylla");
+        Optional<User> user = findUserUC.findOneByUsername("mylla");
 
         LocalDate dueDate = LocalDate.now().plusMonths(1);
         BigDecimal taxAmount = new BigDecimal("2.5");
@@ -59,7 +59,7 @@ public class Reports {
     public static void printTradingNote() {
         BrokerageNoteReportUC brokerageNoteReport = new BrokerageNoteReportUC();
 
-        Optional<User> user = findUserUseCase.findOneByUsername("mylla");
+        Optional<User> user = findUserUC.findOneByUsername("mylla");
 
         LocalDate transactionDate = LocalDate.now();
         BigDecimal valorStock = new BigDecimal("4.5");

@@ -221,7 +221,7 @@ public class ReportsManagementController {
     public void seeIR(IncomeTaxVM selectedIR){
         IncomeTaxReportUC incomeTaxReportUC = new IncomeTaxReportUC();
         // TODO user usado so para teste, mudar depois
-        Optional<User> user = findUserUseCase.findOneByUsername("mylla");
+        Optional<User> user = findUserUC.findOneByUsername("mylla");
 
         if (selectedIR != null) {
             incomeTaxReportUC.printIR(selectedIR); ;
@@ -231,7 +231,7 @@ public class ReportsManagementController {
     public void seeDarf(DarfVM selectedDarf){
         DarfReportUC darfReportUC = new DarfReportUC();
         // TODO user usado so para teste, mudar depois
-        Optional<User> user = findUserUseCase.findOneByUsername("mylla");
+        Optional<User> user = findUserUC.findOneByUsername("mylla");
 
         if (selectedDarf != null) {
             darfReportUC.printDarf(selectedDarf,user.get()) ;

@@ -58,7 +58,7 @@ public class TestCalculateTax {
         String username = "RENAN";
         String password = "123456";
         String confirmPassword = "123456";
-        Optional<User> user = findUserUseCase.findOneByUsername("mylla");
+        Optional<User> user = findUserUC.findOneByUsername("mylla");
 
         Wallet walletFI = new Wallet("Wallet FI", StockType.FII, user.get());
         Wallet walletBDR = new Wallet("Wallet BDR", StockType.BDR, user.get());

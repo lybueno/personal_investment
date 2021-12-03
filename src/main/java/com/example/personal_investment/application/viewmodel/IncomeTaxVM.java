@@ -29,14 +29,12 @@ public final class IncomeTaxVM {
 
     //revert, aparenta estar confuso
 
-    public IncomeTaxVM(StockTransaction stockTransaction,
-                       BigDecimal situationCurrentYear,
-                       BigDecimal situationLastYear) {
+    public IncomeTaxVM(StockTransaction stockTransaction, BigDecimal situationCurrentYear, BigDecimal situationLastYear) {
         this.cnpj = stockTransaction.getStock().getCnpj();
-        this.discrimination = "Empresa: "+stockTransaction.getStock().getCompanyName()+
-                ", Ticker: "+stockTransaction.getStock().getTicker()+
-                "\nQuantidade: "+stockTransaction.getQuantity()+
-                ", Custo total: "+stockTransaction.calculateTransactionAmount();
+        this.discrimination = "Empresa: " + stockTransaction.getStock().getCompanyName() +
+                ", Ticker: " + stockTransaction.getStock().getTicker() +
+                "\nQuantidade: " + stockTransaction.getQuantity() +
+                ", Custo total: " + stockTransaction.calculateTransactionAmount();
         this.lastYear = situationLastYear.toString();
         this.currentYear = situationCurrentYear.toString();
         this.currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
@@ -59,7 +57,11 @@ public final class IncomeTaxVM {
         return currentYear;
     }
 
-    public String getLastDate() {  return lastDate;}
+    public String getLastDate() {
+        return lastDate;
+    }
 
-    public String getCurrentDate() { return currentDate;}
+    public String getCurrentDate() {
+        return currentDate;
+    }
 }

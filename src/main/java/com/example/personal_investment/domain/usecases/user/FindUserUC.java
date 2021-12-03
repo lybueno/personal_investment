@@ -4,11 +4,11 @@ import com.example.personal_investment.domain.entities.user.User;
 
 import java.util.Optional;
 
-public class FindUserUseCase {
+public class FindUserUC {
 
-    private UserDAO userDAO;
+    private final UserDAO userDAO;
 
-    public FindUserUseCase(UserDAO userDAO) {
+    public FindUserUC(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 

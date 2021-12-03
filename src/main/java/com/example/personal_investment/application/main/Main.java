@@ -1,23 +1,19 @@
 package com.example.personal_investment.application.main;
 
-import com.example.personal_investment.application.data.inmemory.*;
 import com.example.personal_investment.application.data.sql.*;
-import com.example.personal_investment.application.main.testes.*;
 import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.domain.usecases.stock.*;
 import com.example.personal_investment.domain.usecases.stock_transaction.*;
 import com.example.personal_investment.domain.usecases.user.AuthenticateUserUC;
-import com.example.personal_investment.domain.usecases.user.FindUserUseCase;
+import com.example.personal_investment.domain.usecases.user.FindUserUC;
 import com.example.personal_investment.domain.usecases.user.RegisterUserUC;
 import com.example.personal_investment.domain.usecases.user.UserDAO;
 import com.example.personal_investment.domain.usecases.wallet.*;
 
-import java.util.concurrent.CompletableFuture;
-
 public class Main {
     public static RegisterUserUC registerUserUC;
     public static AuthenticateUserUC authenticateUserUC;
-    public static FindUserUseCase findUserUseCase;
+    public static FindUserUC findUserUC;
 
     public static AddWalletUC addWalletUC;
     public static UpdateWalletUC updateWalletUC;
@@ -33,10 +29,7 @@ public class Main {
     public static RegisterStockPurchaseUC registerStockPurchaseUC;
     public static CalculateTaxAmountUC calculateTaxAmountUC;
 
-    public static AddBrokerageNoteUC addBrokerageNoteUC;
     public static SearchBrokerageNoteUC searchBrokerageNoteUC;
-    public static AddInvestmentUC addInvestmentUC;
-
     public static CalculateStockIncomeUC calculateStockIncomeUC;
 
     public static SearchDarfUC searchDarfUC;
@@ -87,7 +80,7 @@ public class Main {
 
         registerUserUC = new RegisterUserUC(userDAO);
         authenticateUserUC = new AuthenticateUserUC(userDAO);
-        findUserUseCase = new FindUserUseCase(userDAO);
+        findUserUC = new FindUserUC(userDAO);
 
         addStockUC = new AddStockUC(stockDAO);
         searchStockUC = new SearchStockUC(stockDAO);
@@ -103,11 +96,7 @@ public class Main {
         registerStockSaleUC = new RegisterStockSaleUC(investmentsDAO, brokerageNoteDAO, darfDAO);
         calculateTaxAmountUC = new CalculateTaxAmountUC(brokerageNoteDAO, investmentsDAO);
 
-        addBrokerageNoteUC = new AddBrokerageNoteUC(brokerageNoteDAO);
         searchBrokerageNoteUC = new SearchBrokerageNoteUC(brokerageNoteDAO);
-
-        addInvestmentUC = new AddInvestmentUC(investmentsDAO);
-
         calculateStockIncomeUC = new CalculateStockIncomeUC(walletDAO, brokerageNoteDAO);
 
         searchDarfUC = new SearchDarfUC(darfDAO);

@@ -18,7 +18,7 @@ public class TestWallet {
         String username = "TESTEUSER";
         String password = "123456";
         String confirmPassword = "123456";
-        Optional<User> user = findUserUseCase.findOneByUsername("mylla");
+        Optional<User> user = findUserUC.findOneByUsername("mylla");
 
         Wallet wallet = new Wallet("Test Wallet", StockType.REGULAR, user.get());
 

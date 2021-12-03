@@ -1,6 +1,7 @@
 package com.example.personal_investment.application.data.sql;
 
 import com.example.personal_investment.domain.entities.user.User;
+import com.example.personal_investment.domain.entities.wallet.Wallet;
 import com.example.personal_investment.domain.usecases.user.UserDAO;
 
 import java.sql.PreparedStatement;
@@ -9,6 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static com.example.personal_investment.application.main.Main.searchWalletUC;
 
 public class SqliteUserDAO implements UserDAO {
 
@@ -41,6 +44,8 @@ public class SqliteUserDAO implements UserDAO {
             ResultSet resultSet = stmt.executeQuery();
             if (resultSet.next()) {
                 user = resultSetToEntity(resultSet);
+                List<Wallet> wallets = searchWalletUC.findWalletByUser(user);
+                user.setWallets(wallets);
             }
         } catch (SQLException e) {
             e.printStackTrace();
