@@ -41,9 +41,18 @@ public class AddEditWalletController {
     private ObservableList<StockType> stockTypes = FXCollections.observableArrayList();
 
     private Wallet wallet;
-    //true- cadatro de carteira
-    //false- editar carteira
+
     private UIMode screenType;
+
+    private User user;
+
+    public void setData(User user) throws IOException {
+        if(user == null){
+            Window.setRoot(Routes.loginPage);
+        }
+        this.user = user;
+    }
+
 
     public void setDataToUpdate(Wallet wallet) throws IOException {
         if(wallet == null){
@@ -83,7 +92,7 @@ public class AddEditWalletController {
             }else if(screenType == UIMode.UPDATE){
                 updateWallet();
             }
-            Window.setRoot(Routes.walletManagementPage);
+            backWalletManagementPage();
         }else{
             systemMessage.setText("Campos inseridos estão vazios");
         }
@@ -94,8 +103,6 @@ public class AddEditWalletController {
         try{
             String nameWallet = txtName.getText();
             StockType stockType = cbStockType.getSelectionModel().getSelectedItem();
-            //mudar, e apenas para teste
-            User user = new User("2", "Mylenna", "alaeatorio");
             Wallet newWallet = new Wallet(nameWallet, stockType, user);
             addWalletUC.insert(newWallet);
         }catch (Exception e){
@@ -107,8 +114,6 @@ public class AddEditWalletController {
         try{
             String nameWallet = txtName.getText();
             StockType stockType = cbStockType.getSelectionModel().getSelectedItem();
-            //mudar, e apenas para teste
-            User user = new User("2", "Mylenna", "alaeatorio");
             Wallet updateWallet = new Wallet(wallet.getId(), nameWallet, stockType, user);
             updateWalletUC.update(updateWallet);
         }catch (Exception e){
@@ -124,6 +129,13 @@ public class AddEditWalletController {
         stockTypes.addAll(listStockTypes);
         cbStockType.setItems(stockTypes);
     }
+
+    public void backWalletManagementPage() throws IOException {
+        Window.setRoot(Routes.walletManagementPage);
+        WalletManagementController controller = (WalletManagementController) Window.getController();
+        controller.setData(user);
+    }
+
 
     private boolean isFilledInputs() {
         return !txtName.getText().equals("") && !cbStockType.getSelectionModel().isEmpty();

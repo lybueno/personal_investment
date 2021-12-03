@@ -42,11 +42,7 @@ public class SqliteUserDAO implements UserDAO {
         try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
             stmt.setInt(1, Integer.parseInt(key));
             ResultSet resultSet = stmt.executeQuery();
-            if (resultSet.next()) {
-                user = resultSetToEntity(resultSet);
-                List<Wallet> wallets = searchWalletUC.findWalletByUser(user);
-                user.setWallets(wallets);
-            }
+            user = resultSetToEntity(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.example.personal_investment.application.main.Main.deleteWalletUC;
+import static com.example.personal_investment.application.main.Main.searchWalletUC;
 
 public class WalletManagementController {
 
@@ -66,17 +67,17 @@ public class WalletManagementController {
             Window.setRoot(Routes.loginPage);
         }
         this.user = user;
+        loadList();
     }
 
     @FXML
     private void initialize() {
         bindTableViewToItemsList();
         bindColumnsToValueSources();
-        loadList();
     }
 
     private void loadList() {
-        List<WalletVM> wallets = user.getWallets().stream().map(WalletVM::new).collect(Collectors.toList());
+        List<WalletVM> wallets = searchWalletUC.findWalletByUser(user).stream().map(WalletVM::new).collect(Collectors.toList());
         snapshot.clear();
         snapshot.addAll(wallets);
     }
@@ -95,6 +96,7 @@ public class WalletManagementController {
     public void addWallet(ActionEvent actionEvent) throws IOException {
         Window.setRoot(Routes.addEditWalletPage);
         setScreenTypeUpdateOrInsertWallet(UIMode.INSERT);
+        setUserAddEditWalletPage();
     }
 
     public void updateWallet(ActionEvent actionEvent) throws IOException {
@@ -104,6 +106,7 @@ public class WalletManagementController {
             Window.setRoot(Routes.addEditWalletPage);
             setWalletInUpdateWalletController(wallet);
             setScreenTypeUpdateOrInsertWallet(UIMode.UPDATE);
+            setUserAddEditWalletPage();
         }else{
             systemMessage.setText("Carteira não selecionada");
         }
@@ -144,5 +147,10 @@ public class WalletManagementController {
 
     private Boolean isWalletSelect(){
         return !tbWallets.getSelectionModel().isEmpty();
+    }
+
+    public void setUserAddEditWalletPage() throws IOException {
+        AddEditWalletController controller = (AddEditWalletController) Window.getController();
+        controller.setData(user);
     }
 }
