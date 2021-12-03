@@ -15,6 +15,15 @@ import java.io.IOException;
 public class InvestmentsManagementController {
 
     @FXML
+    private Button btnSellInvestment;
+
+    @FXML
+    private Button btnNotes;
+
+    @FXML
+    private Button btnBuyInvestment;
+
+    @FXML
     private Label username;
 
     @FXML
@@ -35,16 +44,16 @@ public class InvestmentsManagementController {
     private TableColumn<InvestmentVM, String> cStockType;
 
     @FXML
-    private TableColumn cNote;
-
-    @FXML
     private TableColumn<InvestmentVM, String> cAmount;
 
-    @FXML
-    private TableColumn cPurchase;
+    public void buyInvestment(ActionEvent actionEvent) {
+    }
 
-    @FXML
-    private TableColumn cSale;
+    public void sellInvestment(ActionEvent actionEvent) {
+    }
+
+    public void visualizeNotes(ActionEvent actionEvent) {
+    }
 
     public void backPreviousScreen(ActionEvent actionEvent) throws IOException {
         Window.setRoot(Routes.walletManagementPage);
@@ -53,4 +62,5 @@ public class InvestmentsManagementController {
     public void logout(ActionEvent actionEvent) throws IOException {
         Window.setRoot(Routes.loginPage);
     }
+
 }
