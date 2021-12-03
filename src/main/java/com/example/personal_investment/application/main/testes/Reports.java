@@ -16,7 +16,6 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 import static com.example.personal_investment.application.main.Main.findUserUseCase;
-import static com.example.personal_investment.application.main.Main.registerUserUC;
 
 public class Reports {
     public static void printIR() {
@@ -29,17 +28,17 @@ public class Reports {
         BigDecimal stockValue = new BigDecimal("4.5");
         BigDecimal unitaryValue = new BigDecimal("2");
 
-        User user = registerUserUC.signUp("Myllena", "12345", "12345");
+        Optional<User> user = findUserUseCase.findOneByUsername("mylla");
 
         Stock stock = new Stock(StockType.REGULAR,"PETR4","Petrobras",
                 "33.000.167/0661-29",stockValue);
 
-        Wallet wallet = new Wallet("Test Wallet", StockType.REGULAR, user);
+        Wallet wallet = new Wallet("Test Wallet", StockType.REGULAR, user.get());
 
         StockTransaction stockTransaction = new StockTransaction("01",stock,wallet,transactionDate,5,
                 unitaryValue, TransactionType.SALE);
 
-        incomeTaxReport.printIR(stockTransaction,situationCurrentYear,situationLastYear);
+        //incomeTaxReport.printIR(stockTransaction,situationCurrentYear,situationLastYear);
     }
 
     public static void printDarf() {
@@ -60,7 +59,7 @@ public class Reports {
     public static void printTradingNote() {
         BrokerageNoteReportUC brokerageNoteReport = new BrokerageNoteReportUC();
 
-        User user = registerUserUC.signUp("Usuário teste", "12345", "12345");
+        Optional<User> user = findUserUseCase.findOneByUsername("mylla");
 
         LocalDate transactionDate = LocalDate.now();
         BigDecimal valorStock = new BigDecimal("4.5");
@@ -69,7 +68,7 @@ public class Reports {
         Stock stock = new Stock("01",StockType.REGULAR,"PETR4","Petrobras",
                 "33.000.167/0661-29",valorStock);
 
-        Wallet wallet = new Wallet("Test Wallet", StockType.REGULAR, user);
+        Wallet wallet = new Wallet("Test Wallet", StockType.REGULAR, user.get());
 
         StockTransaction stockTransaction = new StockTransaction("01",stock,wallet,transactionDate,5,
                 unitaryValue, TransactionType.SALE);

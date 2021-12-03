@@ -9,6 +9,7 @@ import com.example.personal_investment.domain.exceptions.EntityNotExistsExceptio
 import com.example.personal_investment.domain.exceptions.WalletIsNotEmptyException;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import static com.example.personal_investment.application.main.Main.*;
 
@@ -17,13 +18,13 @@ public class TestWallet {
         String username = "TESTEUSER";
         String password = "123456";
         String confirmPassword = "123456";
-        User user = registerUserUC.signUp(username, password, confirmPassword);
+        Optional<User> user = findUserUseCase.findOneByUsername("mylla");
 
-        Wallet wallet = new Wallet("Test Wallet", StockType.REGULAR, user);
+        Wallet wallet = new Wallet("Test Wallet", StockType.REGULAR, user.get());
 
         Wallet walletNullUser= new Wallet("Wallet Null User", StockType.REGULAR, null);
 
-        Wallet walletNotRegister = new Wallet("Not Register", StockType.REGULAR, user);
+        Wallet walletNotRegister = new Wallet("Not Register", StockType.REGULAR, user.get());
 
         testAddWallet(wallet);
         System.out.println("------------------------------");
@@ -57,7 +58,7 @@ public class TestWallet {
         System.out.println("Tentando mudar tipo carteira(carteira nao esta vazia)");
         //não e possivel atualizar passando como parametro wallet que foi utilizado wallet.setType
         //por causa do model, e walletFromDAO
-        Wallet walletSameId = new Wallet(wallet.getId(), "Test Wallet", StockType.REGULAR, user);
+        Wallet walletSameId = new Wallet(wallet.getId(), "Test Wallet", StockType.REGULAR, user.get());
 
         testUpdateWallet(walletSameId);
 

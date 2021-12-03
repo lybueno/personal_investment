@@ -8,6 +8,7 @@ import com.example.personal_investment.application.viewmodel.IncomeTaxVM;
 import com.example.personal_investment.domain.entities.user.User;
 import com.example.personal_investment.domain.usecases.report.BrokerageNoteReportUC;
 import com.example.personal_investment.domain.usecases.report.DarfReportUC;
+import com.example.personal_investment.domain.usecases.report.IncomeTaxReportUC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,8 +19,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
+import java.math.BigDecimal;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.example.personal_investment.application.main.Main.*;
@@ -117,12 +118,45 @@ public class ReportsManagementController {
     private void loadLists() {
       loadListDarf();
       loadListNote();
-        //falta loadIR
+      loadListIR();
+    }
+
+    private void bindColumnsToValueSources() {
+        bindColumsToValuesSourcesDarf();
+          bindColumsToValuesSourcesNote();
+            bindColumsToValuesSourcesIR();
+    }
+
+    private void bindTableViewToItemsList() {
+        bindTableViewToItemsListDarf();
+          bindTableViewToItemsListNote();
+        bindTableViewToItemsListIR();
+    }
+
+    public void seeReport(ActionEvent actionEvent) {
+        DarfVM selectedDarf = tbDarf.getSelectionModel().getSelectedItem();
+        BrokerageNoteVM selectedNote = tbBrokerageNote.getSelectionModel().getSelectedItem();
+        IncomeTaxVM selectedIR = tbIncomeTax.getSelectionModel().getSelectedItem();
+
+        seeDarf(selectedDarf);
+        seeNote(selectedNote);
+        seeIR(selectedIR);
     }
 
     //ver como pegar os relatorios
     private void loadListIR() {
+        List<IncomeTaxVM> incomeTax = new ArrayList<>();
 
+        searchBrokerageNoteUC.findAll().stream().forEach(
+                note -> {
+                    //TODO valor valueLastYear somente para teste, ver dpeois como vamos pegar o valor de compra e arrumar depois
+                    BigDecimal valueLastYear = new BigDecimal(10);
+                    incomeTax.add(new IncomeTaxVM(note,note.calculateTransactionAmount(),valueLastYear));
+                }
+        );
+
+        snapshotIR.clear();
+        snapshotIR.addAll(incomeTax);
     }
 
     private void loadListNote() {
@@ -139,12 +173,6 @@ public class ReportsManagementController {
         ).collect(Collectors.toList());
         snapshotDarf.clear();
         snapshotDarf.addAll(darfs);
-    }
-
-    private void bindColumnsToValueSources() {
-   //     bindColumsToValuesSourcesIR();
-        bindColumsToValuesSourcesNote();
-        bindColumsToValuesSourcesDarf();
     }
 
     private void bindColumsToValuesSourcesIR() {
@@ -175,12 +203,6 @@ public class ReportsManagementController {
         cNoteCompany.setCellValueFactory(new PropertyValueFactory<>("companyName"));
     }
 
-    private void bindTableViewToItemsList() {
-       // bindTableViewToItemsListIR();
-        bindTableViewToItemsListNote();
-        bindTableViewToItemsListDarf();
-    }
-
     private void bindTableViewToItemsListIR(){
         snapshotIR = FXCollections.observableArrayList();
         tbIncomeTax.setItems(snapshotIR);
@@ -196,12 +218,14 @@ public class ReportsManagementController {
         tbDarf.setItems(snapshotDarf);
     }
 
-    public void seeReport(ActionEvent actionEvent) {
-        DarfVM selectedDarf = tbDarf.getSelectionModel().getSelectedItem();
-        BrokerageNoteVM selectedNote = tbBrokerageNote.getSelectionModel().getSelectedItem();
+    public void seeIR(IncomeTaxVM selectedIR){
+        IncomeTaxReportUC incomeTaxReportUC = new IncomeTaxReportUC();
+        // TODO user usado so para teste, mudar depois
+        Optional<User> user = findUserUseCase.findOneByUsername("mylla");
 
-        seeDarf(selectedDarf);
-        seeNote(selectedNote);
+        if (selectedIR != null) {
+            incomeTaxReportUC.printIR(selectedIR); ;
+        }
     }
 
     public void seeDarf(DarfVM selectedDarf){
