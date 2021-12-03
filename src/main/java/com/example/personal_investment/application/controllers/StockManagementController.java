@@ -4,8 +4,10 @@ import com.example.personal_investment.application.common.Routes;
 import com.example.personal_investment.application.common.UIMode;
 import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.application.viewmodel.StockVM;
+import com.example.personal_investment.application.viewmodel.WalletVM;
 import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.user.User;
+import com.example.personal_investment.domain.entities.wallet.Wallet;
 import com.example.personal_investment.domain.exceptions.WalletIsNotEmptyException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -127,6 +129,8 @@ public class StockManagementController {
 
     public void walletPage(ActionEvent actionEvent) throws IOException {
         Window.setRoot(Routes.walletManagementPage);
+        WalletManagementController controller = (WalletManagementController) Window.getController();
+        controller.setData(user);
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {

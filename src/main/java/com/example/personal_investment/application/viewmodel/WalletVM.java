@@ -40,7 +40,7 @@ public final class WalletVM {
         return totalValue;
     }
 
-    public Wallet setWalletEntity(User user){
+    public Wallet toWalletEntity(User user){
         return new Wallet(this.id, this.name, StockType.toEnum(stockType), user);
     }
 }

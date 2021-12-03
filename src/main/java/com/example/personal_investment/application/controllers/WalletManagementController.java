@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.personal_investment.application.main.Main.searchWalletUC;
 import static com.example.personal_investment.application.main.Main.deleteWalletUC;
 
 public class WalletManagementController {
@@ -60,6 +59,15 @@ public class WalletManagementController {
 
     ObservableList<WalletVM> snapshot;
 
+    private User user;
+
+    public void setData(User user) throws IOException {
+        if(user == null){
+            Window.setRoot(Routes.loginPage);
+        }
+        this.user = user;
+    }
+
     @FXML
     private void initialize() {
         bindTableViewToItemsList();
@@ -68,11 +76,7 @@ public class WalletManagementController {
     }
 
     private void loadList() {
-        //mudar
-        User user = new User("2", "Mylenna", "alaeatorio");
-        List<WalletVM> wallets = searchWalletUC.findWalletByUser(user).stream().map(
-                WalletVM::new
-        ).collect(Collectors.toList());
+        List<WalletVM> wallets = user.getWallets().stream().map(WalletVM::new).collect(Collectors.toList());
         snapshot.clear();
         snapshot.addAll(wallets);
     }
@@ -95,10 +99,8 @@ public class WalletManagementController {
 
     public void updateWallet(ActionEvent actionEvent) throws IOException {
         if(isWalletSelect()){
-            //mudar
-            User user = new User("2", "Mylenna", "alaeatorio");
             WalletVM walletVM =  tbWallets.getSelectionModel().getSelectedItem();
-            Wallet wallet = walletVM.setWalletEntity(user);
+            Wallet wallet = walletVM.toWalletEntity(user);
             Window.setRoot(Routes.addEditWalletPage);
             setWalletInUpdateWalletController(wallet);
             setScreenTypeUpdateOrInsertWallet(UIMode.UPDATE);
@@ -109,10 +111,8 @@ public class WalletManagementController {
 
     public void deleteWallet(ActionEvent actionEvent) {
         if(isWalletSelect()){
-            //mudar
-            User user = new User("2", "Mylenna", "alaeatorio");
-            WalletVM walletVM =  tbWallets.getSelectionModel().getSelectedItem();
-            Wallet wallet = walletVM.setWalletEntity(user);
+            WalletVM walletVM = tbWallets.getSelectionModel().getSelectedItem();
+            Wallet wallet = walletVM.toWalletEntity(user);
             deleteWalletUC.delete(wallet);
             loadList();
         }else{
@@ -124,8 +124,8 @@ public class WalletManagementController {
         Window.setRoot(Routes.stockManagementPage);
     }
 
-    public void seeWallet(ActionEvent actionEvent) {
-        //qual e a proxima tela?
+    public void investmentsPage(ActionEvent actionEvent) throws IOException {
+        Window.setRoot(Routes.investmentManagementPage);
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {
