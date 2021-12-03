@@ -1,6 +1,7 @@
 package com.example.personal_investment.application.controllers;
 
 import com.example.personal_investment.application.common.Routes;
+import com.example.personal_investment.application.common.UIMode;
 import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.application.viewmodel.WalletVM;
 import com.example.personal_investment.domain.entities.user.User;
@@ -89,7 +90,7 @@ public class WalletManagementController {
 
     public void addWallet(ActionEvent actionEvent) throws IOException {
         Window.setRoot(Routes.addEditWalletPage);
-        setScreenTypeUpdateOrInsertWallet(true);
+        setScreenTypeUpdateOrInsertWallet(UIMode.INSERT);
     }
 
     public void updateWallet(ActionEvent actionEvent) throws IOException {
@@ -100,7 +101,7 @@ public class WalletManagementController {
             Wallet wallet = walletVM.setWalletEntity(user);
             Window.setRoot(Routes.addEditWalletPage);
             setWalletInUpdateWalletController(wallet);
-            setScreenTypeUpdateOrInsertWallet(false);
+            setScreenTypeUpdateOrInsertWallet(UIMode.UPDATE);
         }else{
             systemMessage.setText("Carteira não selecionada");
         }
@@ -136,9 +137,9 @@ public class WalletManagementController {
         controller.setDataToUpdate(wallet);
     }
 
-    private void setScreenTypeUpdateOrInsertWallet(Boolean screenType) {
+    private void setScreenTypeUpdateOrInsertWallet(UIMode uiMode) {
         AddEditWalletController controller = (AddEditWalletController) Window.getController();
-        controller.setDataTypeScreen(screenType);
+        controller.setDataTypeScreen(uiMode);
     }
 
     private Boolean isWalletSelect(){
