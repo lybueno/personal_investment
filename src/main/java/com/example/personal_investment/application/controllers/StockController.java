@@ -48,7 +48,6 @@ public class StockController {
         this.stock = stock;
         this.uiMode = uiMode;
 
-        // TODO(daniel): Implementar 3 estados da pagina(detalhar,atualizar e adicionar)
         configPageForEachUIMode();
     }
 
