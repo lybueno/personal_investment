@@ -1,6 +1,7 @@
 package com.example.personal_investment.application.controllers;
 
 import com.example.personal_investment.application.common.Routes;
+import com.example.personal_investment.application.common.UIMode;
 import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.domain.entities.stock.StockType;
 import com.example.personal_investment.domain.entities.user.User;
@@ -42,7 +43,7 @@ public class AddEditWalletController {
     private Wallet wallet;
     //true- cadatro de carteira
     //false- editar carteira
-    private Boolean screenType;
+    private UIMode screenType;
 
     public void setDataToUpdate(Wallet wallet) throws IOException {
         if(wallet == null){
@@ -51,7 +52,7 @@ public class AddEditWalletController {
         this.wallet = wallet;
     }
 
-    public void setDataTypeScreen(Boolean typeScreen){
+    public void setDataTypeScreen(UIMode typeScreen){
         this.screenType = typeScreen;
         loadScreen();
     }
@@ -62,9 +63,9 @@ public class AddEditWalletController {
     }
 
     private void loadScreen(){
-        if(screenType){
+        if(screenType == UIMode.INSERT){
             btnRegister.setText("Cadastrar");
-        }else{
+        }else if(screenType == UIMode.UPDATE){
             txtName.setText(wallet.getName());
             cbStockType.setValue(wallet.getType());
             btnRegister.setText("Editar");
@@ -77,9 +78,9 @@ public class AddEditWalletController {
 
     public void registerOrUpdateWallet(ActionEvent actionEvent) throws IOException {
         if(isFilledInputs()){
-            if(screenType){
+            if(screenType == UIMode.INSERT){
                 addWallet();
-            }else {
+            }else if(screenType == UIMode.UPDATE){
                 updateWallet();
             }
             Window.setRoot(Routes.walletManagementPage);

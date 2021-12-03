@@ -5,6 +5,7 @@ import com.example.personal_investment.domain.exceptions.EntityNotExistsExceptio
 import com.example.personal_investment.domain.usecases.stock_transaction.InvestmentsDAO;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class InMemoryInvestmentDAO implements InvestmentsDAO {
 
@@ -50,6 +51,11 @@ public class InMemoryInvestmentDAO implements InvestmentsDAO {
     @Override
     public Optional<Investment> findById(String id) {
         return db.values().stream().filter(investment -> investment.getId().equals(id)).findAny();
+    }
+
+    @Override
+    public List<Investment> findAllByWallet(String walletId) {
+        return db.values().stream().filter(investment -> investment.getWallet().getId().equals(walletId)).collect(Collectors.toList());
     }
 
 

@@ -106,7 +106,7 @@ public class SqliteStockTransactionDAO implements BrokerageNoteDAO {
         try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
 
             stmt.setString(1, transaction.getId());
-            stmt.setString(2, String.valueOf(transaction.getStock()));
+            stmt.setString(2, String.valueOf(transaction.getStock().getId()));
             stmt.setString(3, transaction.getWallet().getId());
             stmt.setDate(4, Date.valueOf(transaction.getTransactionDate()));
             stmt.setInt(5, transaction.getQuantity());
@@ -152,7 +152,7 @@ public class SqliteStockTransactionDAO implements BrokerageNoteDAO {
 
         try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
 
-            stmt.setString(1, String.valueOf(transaction.getStock()));
+            stmt.setString(1, String.valueOf(transaction.getStock().getId()));
             stmt.setString(2, transaction.getWallet().getId());
             stmt.setDate(3, Date.valueOf(transaction.getTransactionDate()));
             stmt.setInt(4, transaction.getQuantity());
