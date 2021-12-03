@@ -59,6 +59,25 @@ public class SqliteInvestmentDAO implements InvestmentsDAO {
     }
 
     @Override
+    public List<Investment> findAllByWallet(String walletId) {
+        List<Investment> investments = new ArrayList<>();
+        String sql = "SELECT * FROM Investment WHERE wallet = ?";
+
+        try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
+            stmt.setString(1, walletId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Investment investment = resultSetToEntity(rs);
+                investments.add(investment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return investments;
+    }
+
+
+    @Override
     public String insert(Investment investment) {
         String sql = "INSERT INTO Investment(id, wallet, stock, quantity,totalAmount) VALUES (?, ?, ?, ?, ?)";
 
