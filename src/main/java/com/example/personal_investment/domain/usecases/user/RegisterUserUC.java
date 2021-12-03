@@ -4,6 +4,8 @@ import com.example.personal_investment.domain.entities.user.User;
 import com.example.personal_investment.domain.exceptions.EntityAlreadyExistsException;
 import com.example.personal_investment.domain.exceptions.IncorrectPasswordException;
 
+import java.util.Optional;
+
 public class RegisterUserUC {
 
     private final UserDAO userDAO;
@@ -22,7 +24,9 @@ public class RegisterUserUC {
         }
 
         userDAO.insert(user);
-        return user;
+
+        User newUserFromBd = userDAO.findByUsername(username).orElseThrow(() -> new RuntimeException("Something went wrong"));
+        return newUserFromBd;
     }
 }
 
