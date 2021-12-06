@@ -64,12 +64,6 @@ public class Main {
         Window.main(args);
 
 
-        List<Wallet> wallets = searchWalletUC.findAll();
-        for (Wallet w :
-                wallets) {
-            System.out.println(w.getName() + " " + w.getUser().toString());
-        }
-
     }
 
     private static void setupDatabase() {
