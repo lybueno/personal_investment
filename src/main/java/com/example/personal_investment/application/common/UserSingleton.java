@@ -8,7 +8,7 @@ public class UserSingleton {
     private UserSingleton() {
     }
 
-    public static UserLogged getInstance() {
+    public static synchronized UserLogged getInstance() {
         if(instance == null) {
             instance = new UserLogged();
         }
@@ -16,10 +16,10 @@ public class UserSingleton {
     }
 
     public static void login(User user) {
-        instance.setUser(user);
+        getInstance().setUser(user);
     }
 
     public static void logout() {
-        instance.setUser(null);
+        getInstance().setUser(null);
     }
 }
