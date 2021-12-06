@@ -6,6 +6,7 @@ import com.example.personal_investment.application.common.UserSingleton;
 import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.application.viewmodel.StockVM;
 import com.example.personal_investment.domain.entities.stock.Stock;
+import com.example.personal_investment.domain.entities.stock_transaction.TransactionType;
 import com.example.personal_investment.domain.entities.user.User;
 import com.example.personal_investment.domain.exceptions.WalletIsNotEmptyException;
 import javafx.collections.FXCollections;
@@ -15,11 +16,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.InputMethodEvent;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.example.personal_investment.application.main.Main.deleteStockUC;
@@ -136,7 +135,12 @@ public class StockManagementController {
         loadList();
     }
 
-    public void registerPurchaseStock(ActionEvent actionEvent) {
+    public void registerPurchaseStock(ActionEvent actionEvent) throws IOException {
+        StockVM selectedStock = tbStocks.getSelectionModel().getSelectedItem();
+        if (selectedStock != null) {
+            Window.setRoot(Routes.stockTransactionPage);
+            setDataInInvestmentPage(selectedStock.toStockEntity());
+        }
     }
 
     public void reportsPage(ActionEvent actionEvent) throws IOException {
@@ -151,6 +155,11 @@ public class StockManagementController {
 
     public void logout(ActionEvent actionEvent) throws IOException {
         Window.setRoot(Routes.loginPage);
+    }
+
+    public void setDataInInvestmentPage(Stock stock) throws IOException {
+        InvestmentController controller = (InvestmentController) Window.getController();
+        controller.setData(null, stock, TransactionType.PURCHASE);
     }
 
 }

@@ -128,7 +128,14 @@ public class WalletManagementController {
     }
 
     public void investmentsPage(ActionEvent actionEvent) throws IOException {
-        Window.setRoot(Routes.investmentManagementPage);
+        if(isWalletSelect()){
+            WalletVM walletVM =  tbWallets.getSelectionModel().getSelectedItem();
+            Wallet wallet = walletVM.toWalletEntity(user);
+            Window.setRoot(Routes.investmentManagementPage);
+            setWalletInInvestmentPage(wallet);
+        }else{
+            systemMessage.setText("Carteira não selecionada");
+        }
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {
@@ -152,5 +159,10 @@ public class WalletManagementController {
     public void setUserAddEditWalletPage() throws IOException {
         AddEditWalletController controller = (AddEditWalletController) Window.getController();
         controller.setData(user);
+    }
+
+    public void setWalletInInvestmentPage(Wallet wallet) throws IOException {
+        InvestmentsManagementController controller = (InvestmentsManagementController) Window.getController();
+        controller.setDataWallet(wallet);
     }
 }

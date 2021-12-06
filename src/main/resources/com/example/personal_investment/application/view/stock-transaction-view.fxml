@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="494.0" prefWidth="577.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.personal_investment.application.controllers.InvestmentController">
+        <children>
+            <Label fx:id="lbTittle" alignment="CENTER" layoutX="150.0" layoutY="54.0" prefHeight="17.0" prefWidth="171.0" text="Investimento" textAlignment="CENTER" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0">
+                <font>
+                    <Font size="24.0" />
+                </font>
+            </Label>
+            <Button fx:id="btnBuy" layoutX="150.0" layoutY="406.0" mnemonicParsing="false" onAction="#confirmTransaction" prefHeight="30.0" prefWidth="291.0" style="-fx-background-color: #7B68EE;" text="Cadastrar" textFill="WHITE" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
+            <Button fx:id="btnCancel" layoutX="150.0" layoutY="448.0" mnemonicParsing="false" onAction="#cancelRegister" prefHeight="30.0" prefWidth="291.0" style="-fx-background-color: #7B68EE;" text="Cancelar" textFill="WHITE" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
+            <ComboBox fx:id="cBoxWallet" layoutX="150.0" layoutY="183.0" prefHeight="30.0" prefWidth="291.0" promptText="Carteira" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
+            <Label fx:id="systemMessage" layoutX="150.0" layoutY="370.0" prefHeight="30.0" prefWidth="291.0" textFill="#ee0b0b" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
+      <TextField fx:id="txtQuantity" layoutX="147.0" layoutY="269.0" prefHeight="30.0" prefWidth="291.0" promptText="Quantidade" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
+      <Label fx:id="lbTicker" layoutX="150.0" layoutY="104.0" prefHeight="25.0" prefWidth="291.0" text="Ticker" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="104.0">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbCompanyName" layoutX="150.0" layoutY="130.0" prefHeight="19.0" prefWidth="291.0" text="Nome Empresa" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbCnpj" layoutX="150.0" layoutY="156.0" prefHeight="19.0" prefWidth="31.0" text="Cnpj" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="dPicker" layoutX="150.0" layoutY="225.0" prefHeight="30.0" prefWidth="174.0" promptText="Data Transação" />
+      <TextField fx:id="txtUnitaryValue" layoutX="147.0" layoutY="306.0" prefHeight="30.0" prefWidth="291.0" promptText="Valor Unitario" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
+        </children>
+
+</AnchorPane>

@@ -21,6 +21,7 @@
         <Button fx:id="btnReturn" layoutX="14.0" layoutY="24.0" mnemonicParsing="false" onAction="#backPreviousScreen" style="-fx-background-color: #7B68EE;" text="Voltar" textFill="WHITE" />
         <Button fx:id="btnLogout" layoutX="574.0" layoutY="21.0" mnemonicParsing="false" onAction="#logout" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #54565B;" text="Sair" textFill="WHITE" />
         <Label fx:id="username" layoutX="492.0" layoutY="28.0" text="Nome usuário" />
+      <Label fx:id="systemMessage" layoutX="77.0" layoutY="28.0" textFill="RED" />
     </Pane>
     <TableView fx:id="tbInvestments" layoutY="73.0" prefHeight="363.0" prefWidth="720.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <columns>
