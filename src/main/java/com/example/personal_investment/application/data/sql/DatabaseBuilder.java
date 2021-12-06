@@ -21,13 +21,9 @@ public class DatabaseBuilder {
     private void buildTables() {
         try (Statement statement = ConnectionFactory.createStatement()) {
             statement.addBatch(createUserTable());
-            statement.addBatch(createStockTypeTable());
             statement.addBatch(createStockTable());
             statement.addBatch(createWalletTable());
-            statement.addBatch(createUserWalletsTable());
             statement.addBatch(createInvestmentTable());
-            statement.addBatch(createPortfolioInvestmentsTable());
-            statement.addBatch(createTransactonTypeTable());
             statement.addBatch(createStockTransactionTable());
             statement.addBatch(createDarfTable());
             statement.executeBatch();
@@ -52,18 +48,6 @@ public class DatabaseBuilder {
         return builder.toString();
     }
 
-    private String createStockTypeTable() {
-        StringBuilder builder = new StringBuilder();
-
-        builder.append("CREATE TABLE IF NOT EXISTS StockType (\n");
-        builder.append("id TEXT PRIMARY KEY, \n");
-        builder.append("name TEXT NOT NULL\n");
-        builder.append("); \n");
-
-        System.out.println(builder.toString());
-        return builder.toString();
-    }
-
     private String createStockTable() {
         StringBuilder builder = new StringBuilder();
 
@@ -73,8 +57,7 @@ public class DatabaseBuilder {
         builder.append("ticker TEXT NOT NULL UNIQUE, \n");
         builder.append("companyName TEXT NOT NULL, \n");
         builder.append("cnpj TEXT NOT NULL, \n");
-        builder.append("stockQuote NUMERIC NOT NULL, \n");
-        builder.append("FOREIGN KEY(stockType) REFERENCES StockType(name)\n");
+        builder.append("stockQuote NUMERIC NOT NULL \n");
         builder.append("); \n");
 
         System.out.println(builder.toString());
@@ -89,23 +72,7 @@ public class DatabaseBuilder {
         builder.append("name TEXT NOT NULL, \n");
         builder.append("user INTEGER NOT NULL, \n");
         builder.append("stockType TEXT NOT NULL, \n");
-        builder.append("FOREIGN KEY(user) REFERENCES User(id),\n");
-        builder.append("FOREIGN KEY(stockType) REFERENCES StockType(name)\n");
-        builder.append("); \n");
-
-        System.out.println(builder.toString());
-        return builder.toString();
-    }
-
-    private String createUserWalletsTable() {
-        StringBuilder builder = new StringBuilder();
-
-        builder.append("CREATE TABLE IF NOT EXISTS UserWallets (\n");
-        builder.append("user INTEGER NOT NULL, \n");
-        builder.append("wallet TEXT NOT NULL, \n");
-        builder.append("PRIMARY KEY(user, wallet), \n");
-        builder.append("FOREIGN KEY(user) REFERENCES User(id),\n");
-        builder.append("FOREIGN KEY(wallet) REFERENCES Wallet(id)\n");
+        builder.append("FOREIGN KEY(user) REFERENCES User(id)\n");
         builder.append("); \n");
 
         System.out.println(builder.toString());
@@ -129,33 +96,6 @@ public class DatabaseBuilder {
         return builder.toString();
     }
 
-    private String createPortfolioInvestmentsTable() {
-        StringBuilder builder = new StringBuilder();
-
-        builder.append("CREATE TABLE IF NOT EXISTS PortfolioInvestments (\n");
-        builder.append("wallet TEXT NOT NULL, \n");
-        builder.append("investment TEXT NOT NULL, \n");
-        builder.append("PRIMARY KEY(wallet, investment), \n");
-        builder.append("FOREIGN KEY(wallet) REFERENCES Wallet(id),\n");
-        builder.append("FOREIGN KEY(investment) REFERENCES Investment(id)\n");
-        builder.append("); \n");
-
-        System.out.println(builder.toString());
-        return builder.toString();
-    }
-
-    private String createTransactonTypeTable() {
-        StringBuilder builder = new StringBuilder();
-
-        builder.append("CREATE TABLE IF NOT EXISTS TransactionType (\n");
-        builder.append("id TEXT PRIMARY KEY, \n");
-        builder.append("name TEXT NOT NULL\n");
-        builder.append("); \n");
-
-        System.out.println(builder.toString());
-        return builder.toString();
-    }
-
     private String createStockTransactionTable() {
         StringBuilder builder = new StringBuilder();
 
@@ -168,8 +108,7 @@ public class DatabaseBuilder {
         builder.append("unitaryValue NUMERIC NOT NULL, \n");
         builder.append("transactionType TEXT NOT NULL, \n");
         builder.append("FOREIGN KEY(wallet) REFERENCES Wallet(id),\n");
-        builder.append("FOREIGN KEY(stock) REFERENCES Stock(id),\n");
-        builder.append("FOREIGN KEY(transactionType) REFERENCES TransactionType(name)\n");
+        builder.append("FOREIGN KEY(stock) REFERENCES Stock(id)\n");
         builder.append("); \n");
 
         System.out.println(builder.toString());
@@ -185,8 +124,7 @@ public class DatabaseBuilder {
         builder.append("dueDate DATETIME NOT NULL, \n");
         builder.append("taxAmount NUMERIC NOT NULL, \n");
         builder.append("saleValue NUMERIC NOT NULL, \n");
-        builder.append("averagePurchaseValue NUMERIC NOT NULL, \n");
-        builder.append("FOREIGN KEY(transactionType) REFERENCES TransactionType(name)\n");
+        builder.append("averagePurchaseValue NUMERIC NOT NULL \n");
         builder.append("); \n");
 
         System.out.println(builder.toString());
