@@ -1,5 +1,8 @@
 package com.example.personal_investment.application.main.testes;
 
+import com.example.personal_investment.application.data.sql.SqliteStockDAO;
+import com.example.personal_investment.application.data.sql.SqliteStockTransactionDAO;
+import com.example.personal_investment.application.data.sql.SqliteWalletDAO;
 import com.example.personal_investment.domain.entities.darf.Darf;
 import com.example.personal_investment.domain.usecases.report.BrokerageNoteReportUC;
 import com.example.personal_investment.domain.usecases.report.DarfReportUC;
@@ -10,6 +13,9 @@ import com.example.personal_investment.domain.entities.stock_transaction.StockTr
 import com.example.personal_investment.domain.entities.stock_transaction.TransactionType;
 import com.example.personal_investment.domain.entities.user.User;
 import com.example.personal_investment.domain.entities.wallet.Wallet;
+import com.example.personal_investment.domain.usecases.stock.StockDAO;
+import com.example.personal_investment.domain.usecases.stock_transaction.BrokerageNoteDAO;
+import com.example.personal_investment.domain.usecases.wallet.WalletDAO;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -18,6 +24,9 @@ import java.util.Optional;
 import static com.example.personal_investment.application.main.Main.findUserUC;
 
 public class Reports {
+    static BrokerageNoteDAO brokerageNoteDAO = new SqliteStockTransactionDAO();
+    static WalletDAO walletDAO = new SqliteWalletDAO();
+    static StockDAO stockDAO = new SqliteStockDAO();
     public static void printIR() {
         IncomeTaxReportUC incomeTaxReport = new IncomeTaxReportUC();
 
@@ -30,15 +39,21 @@ public class Reports {
 
         Optional<User> user = findUserUC.findOneByUsername("mylla");
 
-        Stock stock = new Stock(StockType.REGULAR,"PETR4","Petrobras",
+        Stock stock = new Stock(StockType.REGULAR,"PETR6","Petrobras",
                 "33.000.167/0661-29",stockValue);
+     //   stockDAO.insert(stock);
 
         Wallet wallet = new Wallet("Test Wallet", StockType.REGULAR, user.get());
+      //  walletDAO.insert(wallet);
 
-        StockTransaction stockTransaction = new StockTransaction("01",stock,wallet,transactionDate,5,
+        StockTransaction stockTransaction = new StockTransaction(stock,wallet,transactionDate,5,
                 unitaryValue, TransactionType.SALE);
 
-        //incomeTaxReport.printIR(stockTransaction,situationCurrentYear,situationLastYear);
+      //  brokerageNoteDAO.insert(stockTransaction);
+
+
+
+//        incomeTaxReport.printIR(stockTransaction,situationCurrentYear,situationLastYear);
     }
 
     public static void printDarf() {
@@ -53,7 +68,7 @@ public class Reports {
 
         Darf darf = new Darf(StockType.REGULAR, dueDate,taxAmount, saleValue, averagePurchaseValue);
 
-       // darfReport.printDarf(darf,user);
+//        darfReport.printDarf(darf,user);
     }
 
     public static void printTradingNote() {
@@ -73,7 +88,7 @@ public class Reports {
         StockTransaction stockTransaction = new StockTransaction("01",stock,wallet,transactionDate,5,
                 unitaryValue, TransactionType.SALE);
 
-     //   brokerageNoteReport.printTradingNote(stockTransaction);
+//        brokerageNoteReport.printTradingNote(stockTransaction);
     }
 
     public static void printTradingNoteWhenAddBrokerageNote(StockTransaction stockTransaction) {
