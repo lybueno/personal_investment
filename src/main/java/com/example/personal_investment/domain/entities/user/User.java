@@ -1,22 +1,12 @@
 package com.example.personal_investment.domain.entities.user;
 
-import com.example.personal_investment.domain.entities.wallet.Wallet;
-
-import java.util.List;
 import java.util.Objects;
 
 public class User {
 
     private final String username;
     private final String password;
-    private List<Wallet> wallets;
     private String id;
-
-    public User(String username, String password, List<Wallet> wallets) {
-        this.username = username;
-        this.password = password;
-        this.wallets = wallets;
-    }
 
     public User(String username, String password) {
         this.username = username;
@@ -29,20 +19,8 @@ public class User {
         this.id = id;
     }
 
-    public void addWallet(Wallet wallet){
-        wallets.add(wallet);
-    }
-
     public String getUsername() {
         return username;
-    }
-
-    public List<Wallet> getWallets() {
-        return List.copyOf(wallets);
-    }
-
-    public void setWallets(List<Wallet> wallets) {
-        this.wallets = wallets;
     }
 
     public String getPassword() {

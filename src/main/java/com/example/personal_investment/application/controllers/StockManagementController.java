@@ -2,6 +2,7 @@ package com.example.personal_investment.application.controllers;
 
 import com.example.personal_investment.application.common.Routes;
 import com.example.personal_investment.application.common.UIMode;
+import com.example.personal_investment.application.common.UserSingleton;
 import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.application.viewmodel.StockVM;
 import com.example.personal_investment.application.viewmodel.WalletVM;
@@ -43,15 +44,12 @@ public class StockManagementController {
     private TableColumn<StockVM, String> cStockValue;
     private User user;
 
-    public void setData(User user) throws IOException {
+    @FXML
+    private void initialize() throws IOException {
+        user = UserSingleton.getInstance().getUser();
         if (user == null) {
             Window.setRoot(Routes.loginPage);
         }
-        this.user = user;
-    }
-
-    @FXML
-    private void initialize() {
         bindTableViewToItemsList();
         bindColumnsToValueSources();
         loadList();

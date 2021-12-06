@@ -1,6 +1,7 @@
 package com.example.personal_investment.application.controllers;
 
 import com.example.personal_investment.application.common.Routes;
+import com.example.personal_investment.application.common.UserSingleton;
 import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.domain.entities.user.User;
 import com.example.personal_investment.domain.exceptions.EntityNotExistsException;
@@ -36,8 +37,8 @@ public class LoginController {
         if (isFilledInputs()) {
             try {
                 User user = authenticateUserUC.login(txtUserName.getText(), txtPassword.getText());
+                UserSingleton.login(user);
                 Window.setRoot(Routes.stockManagementPage);
-                setUserInController(user);
             } catch (IncorrectPasswordException __) {
                 systemMessage.setText("Senha incorreta");
             } catch (EntityNotExistsException __) {
@@ -48,11 +49,6 @@ public class LoginController {
         } else {
             systemMessage.setText("Por favor, preencha todos os campos!");
         }
-    }
-
-    private void setUserInController(User user) throws IOException {
-        StockManagementController controller = (StockManagementController) Window.getController();
-        controller.setData(user);
     }
 
     private boolean isFilledInputs() {
