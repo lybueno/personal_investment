@@ -108,11 +108,20 @@ public class ReportsManagementController {
     @FXML
     private Button btnView;
 
+    private User user;
+
+    public void setData(User user) throws IOException {
+        if(user == null){
+            Window.setRoot(Routes.loginPage);
+        }
+        this.user = user;
+        loadLists();
+    }
+
     @FXML
     private void initialize() {
         bindTableViewToItemsList();
         bindColumnsToValueSources();
-        loadLists();
     }
 
     private void loadLists() {
@@ -143,7 +152,6 @@ public class ReportsManagementController {
         seeIR(selectedIR);
     }
 
-    //ver como pegar os relatorios
     private void loadListIR() {
         List<IncomeTaxVM> incomeTax = new ArrayList<>();
 
@@ -220,8 +228,6 @@ public class ReportsManagementController {
 
     public void seeIR(IncomeTaxVM selectedIR){
         IncomeTaxReportUC incomeTaxReportUC = new IncomeTaxReportUC();
-        // TODO user usado so para teste, mudar depois
-        Optional<User> user = findUserUC.findOneByUsername("mylla");
 
         if (selectedIR != null) {
             incomeTaxReportUC.printIR(selectedIR); ;
@@ -230,11 +236,9 @@ public class ReportsManagementController {
 
     public void seeDarf(DarfVM selectedDarf){
         DarfReportUC darfReportUC = new DarfReportUC();
-        // TODO user usado so para teste, mudar depois
-        Optional<User> user = findUserUC.findOneByUsername("mylla");
 
         if (selectedDarf != null) {
-            darfReportUC.printDarf(selectedDarf,user.get()) ;
+            darfReportUC.printDarf(selectedDarf,user) ;
         }
     }
 

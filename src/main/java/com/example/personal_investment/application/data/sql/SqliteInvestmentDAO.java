@@ -58,7 +58,7 @@ public class SqliteInvestmentDAO implements InvestmentsDAO {
         return findOneByAttribute("id", id);
     }
 
-    @Override
+
     public List<Investment> findAllByWallet(String walletId) {
         List<Investment> investments = new ArrayList<>();
         String sql = "SELECT * FROM Investment WHERE wallet = ?";
