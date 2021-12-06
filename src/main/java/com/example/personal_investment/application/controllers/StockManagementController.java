@@ -5,20 +5,21 @@ import com.example.personal_investment.application.common.UIMode;
 import com.example.personal_investment.application.common.UserSingleton;
 import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.application.viewmodel.StockVM;
-import com.example.personal_investment.application.viewmodel.WalletVM;
 import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.user.User;
-import com.example.personal_investment.domain.entities.wallet.Wallet;
 import com.example.personal_investment.domain.exceptions.WalletIsNotEmptyException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.InputMethodEvent;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.example.personal_investment.application.main.Main.deleteStockUC;
@@ -50,9 +51,32 @@ public class StockManagementController {
         if (user == null) {
             Window.setRoot(Routes.loginPage);
         }
+
         bindTableViewToItemsList();
         bindColumnsToValueSources();
         loadList();
+
+        searchStockListener();
+    }
+
+    private void searchStockListener() {
+        FilteredList<StockVM> filteredStocks = new FilteredList<>(snapshot, b -> true);
+        tfSearchStock.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredStocks.setPredicate(stockVM -> {
+                if (newValue == null || newValue.isEmpty() || newValue.isBlank()) {
+                    return true;
+                }
+
+                String searchStock = newValue.toLowerCase();
+
+                if(stockVM.getTicker().toLowerCase().contains(searchStock)){
+                    return true;
+                } else if(stockVM.getCompanyName().contains(searchStock)) {
+                    return true;
+                } else return stockVM.getCnpj().contains(searchStock);
+            });
+        });
+        tbStocks.setItems(filteredStocks);
     }
 
     private void bindColumnsToValueSources() {
@@ -110,12 +134,6 @@ public class StockManagementController {
             }
         }
         loadList();
-    }
-
-    public void searchStock(ActionEvent actionEvent) {
-        if(tfSearchStock.getText() != null && !tfSearchStock.getText().equals("")) {
-//            searchStockUC.findByCNPJ()
-        }
     }
 
     public void registerPurchaseStock(ActionEvent actionEvent) {
