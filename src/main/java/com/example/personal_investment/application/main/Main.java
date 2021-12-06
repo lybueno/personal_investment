@@ -1,8 +1,9 @@
 package com.example.personal_investment.application.main;
 
 import com.example.personal_investment.application.data.sql.*;
+import com.example.personal_investment.application.main.testes.Reports;
+import com.example.personal_investment.application.main.testes.TestDarf;
 import com.example.personal_investment.application.view.Window;
-import com.example.personal_investment.domain.entities.wallet.Wallet;
 import com.example.personal_investment.domain.usecases.stock.*;
 import com.example.personal_investment.domain.usecases.stock_transaction.*;
 import com.example.personal_investment.domain.usecases.user.AuthenticateUserUC;
@@ -10,8 +11,6 @@ import com.example.personal_investment.domain.usecases.user.FindUserUC;
 import com.example.personal_investment.domain.usecases.user.RegisterUserUC;
 import com.example.personal_investment.domain.usecases.user.UserDAO;
 import com.example.personal_investment.domain.usecases.wallet.*;
-
-import java.util.List;
 
 public class Main {
     public static RegisterUserUC registerUserUC;
@@ -44,8 +43,8 @@ public class Main {
 //        TestUser.testUser();
 //        TestStock.testStocks();
 //        Reports.printDarf();
-//        Reports.printIR();
-//        Reports.printTradingNote();
+    //    Reports.printIR();
+      //  Reports.printTradingNote();
 //        TestCalculateTax.testCalculateTax();
 //        TestTransactionPurchaseAndSale.testTransactionPurchase();
 //          TestBrokerageNote.testBrokerageNote();
@@ -62,13 +61,6 @@ public class Main {
         // inicio aula DOO
 
         Window.main(args);
-
-
-        List<Wallet> wallets = searchWalletUC.findAll();
-        for (Wallet w :
-                wallets) {
-            System.out.println(w.getName() + " " + w.getUser().toString());
-        }
 
     }
 
