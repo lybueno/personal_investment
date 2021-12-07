@@ -1,11 +1,13 @@
 package com.example.personal_investment.application.controllers;
 
 import com.example.personal_investment.application.common.Routes;
+import com.example.personal_investment.application.common.UserSingleton;
 import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.application.viewmodel.InvestmentVM;
 import com.example.personal_investment.domain.entities.investment.Investment;
 import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.stock_transaction.TransactionType;
+import com.example.personal_investment.domain.entities.user.User;
 import com.example.personal_investment.domain.entities.wallet.Wallet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -125,6 +127,7 @@ public class InvestmentsManagementController {
 
     public void backPreviousScreen(ActionEvent actionEvent) throws IOException {
         Window.setRoot(Routes.walletManagementPage);
+//        setDataInWalletManagementtPage();
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {
@@ -139,5 +142,10 @@ public class InvestmentsManagementController {
         StockTransactionController controller = (StockTransactionController) Window.getController();
         controller.setData(investment.getWallet(), investment.getStock(), type);
     }
+
+//    private void setDataInWalletManagementtPage() throws IOException {
+//        WalletManagementController controller = (WalletManagementController) Window.getController();
+//        controller.setData(UserSingleton.getInstance().getUser());
+//    }
 
 }

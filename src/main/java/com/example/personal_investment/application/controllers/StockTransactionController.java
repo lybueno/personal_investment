@@ -107,12 +107,16 @@ public class StockTransactionController {
         cBoxWallet.getItems().setAll(walletNames);
     }
 
+    //TODO: possivel bug em comprar ações que ja estão em uma carteira
     public void confirmTransaction(ActionEvent actionEvent) {
         if (isFilledTextFields()) {
             if (transactionType == TransactionType.PURCHASE) {
                 try {
                     StockTransaction stockTransaction = createStockTransactionWithInputFields();
                     registerStockPurchaseUC.purchase(stockTransaction);
+
+                    Window.setRoot(Routes.investmentManagementPage);
+                    setWalletInInvestmentPage(stockTransaction.getWallet());
                 } catch (Exception e) {
                     System.out.println(e);
                 }
@@ -158,5 +162,10 @@ public class StockTransactionController {
     private Boolean isFilledTextFields() {
         return !txtQuantity.getText().equals("") && !txtUnitaryValue.getText().equals("") && !(dPicker.getValue() == null)
                 && cBoxWallet.getValue() != null;
+    }
+
+    private void setWalletInInvestmentPage(Wallet wallet) throws IOException {
+        InvestmentsManagementController controller = (InvestmentsManagementController) Window.getController();
+        controller.setDataWallet(wallet);
     }
 }

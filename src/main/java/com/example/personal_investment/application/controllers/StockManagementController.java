@@ -151,8 +151,8 @@ public class StockManagementController {
 
     public void walletPage(ActionEvent actionEvent) throws IOException {
         Window.setRoot(Routes.walletManagementPage);
-        WalletManagementController controller = (WalletManagementController) Window.getController();
-        controller.setData(user);
+//        WalletManagementController controller = (WalletManagementController) Window.getController();
+//        controller.setData(user);
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {

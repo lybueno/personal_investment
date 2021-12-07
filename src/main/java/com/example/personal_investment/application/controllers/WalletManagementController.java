@@ -2,6 +2,7 @@ package com.example.personal_investment.application.controllers;
 
 import com.example.personal_investment.application.common.Routes;
 import com.example.personal_investment.application.common.UIMode;
+import com.example.personal_investment.application.common.UserSingleton;
 import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.application.viewmodel.WalletVM;
 import com.example.personal_investment.domain.entities.user.User;
@@ -62,18 +63,20 @@ public class WalletManagementController {
 
     private User user;
 
-    public void setData(User user) throws IOException {
-        if(user == null){
-            Window.setRoot(Routes.loginPage);
-        }
-        this.user = user;
-        loadList();
-    }
+//    public void setDat(User user) throws IOException {
+//        if(user == null){
+//            Window.setRoot(Routes.loginPage);
+//        }
+//        this.user = user;
+//        loadList();
+//    }
 
     @FXML
-    private void initialize() {
+    private void initialize() throws IOException {
+        loadUserLogged();
         bindTableViewToItemsList();
         bindColumnsToValueSources();
+        loadList();
     }
 
     private void loadList() {
@@ -164,5 +167,12 @@ public class WalletManagementController {
     public void setWalletInInvestmentPage(Wallet wallet) throws IOException {
         InvestmentsManagementController controller = (InvestmentsManagementController) Window.getController();
         controller.setDataWallet(wallet);
+    }
+
+    private void loadUserLogged() throws IOException {
+        user = UserSingleton.getInstance().getUser();
+        if (user == null) {
+            Window.setRoot(Routes.loginPage);
+        }
     }
 }
