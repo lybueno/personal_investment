@@ -84,7 +84,10 @@ public class InvestmentsManagementController {
     }
 
     private void loadList() {
-        List<InvestmentVM> investments= searchInvestmentUC.findAllInvestmentsByWallet(wallet).stream().map(InvestmentVM::new).collect(Collectors.toList());
+        List<InvestmentVM> investments= searchInvestmentUC.findAllInvestmentsByWallet(wallet)
+                .stream()
+                .map(InvestmentVM::new)
+                .collect(Collectors.toList());
         snapshot.clear();
         snapshot.addAll(investments);
     }
@@ -127,7 +130,6 @@ public class InvestmentsManagementController {
 
     public void backPreviousScreen(ActionEvent actionEvent) throws IOException {
         Window.setRoot(Routes.walletManagementPage);
-//        setDataInWalletManagementtPage();
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {
@@ -142,10 +144,5 @@ public class InvestmentsManagementController {
         StockTransactionController controller = (StockTransactionController) Window.getController();
         controller.setData(investment.getWallet(), investment.getStock(), type);
     }
-
-//    private void setDataInWalletManagementtPage() throws IOException {
-//        WalletManagementController controller = (WalletManagementController) Window.getController();
-//        controller.setData(UserSingleton.getInstance().getUser());
-//    }
 
 }

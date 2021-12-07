@@ -107,10 +107,10 @@ public class StockTransactionController {
         cBoxWallet.getItems().setAll(walletNames);
     }
 
-    //TODO: possivel bug em comprar ações que ja estão em uma carteira
     public void confirmTransaction(ActionEvent actionEvent) {
         if (isFilledTextFields()) {
             if (transactionType == TransactionType.PURCHASE) {
+                //TODO: fazer tratamento de erros
                 try {
                     StockTransaction stockTransaction = createStockTransactionWithInputFields();
                     registerStockPurchaseUC.purchase(stockTransaction);
@@ -156,6 +156,7 @@ public class StockTransactionController {
     }
 
     public void cancelRegister(ActionEvent actionEvent) throws IOException {
+        //TODO: Passar dados da carteira
         Window.setRoot(Routes.investmentManagementPage);
     }
 

@@ -49,7 +49,6 @@ public class SqliteInvestmentDAO implements InvestmentsDAO {
 
     @Override
     public Optional<Investment> findOneByTicker(String ticker) {
-        // TODO: fix findOneTicker
         String sql = "select i.id, i.wallet, i.stock, i.quantity, i.totalAmount from Stock s, Investment i WHERE s.id = i.stock AND s.ticker = ?";
         Investment investment = null;
 

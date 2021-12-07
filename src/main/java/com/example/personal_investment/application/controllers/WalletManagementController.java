@@ -63,14 +63,6 @@ public class WalletManagementController {
 
     private User user;
 
-//    public void setDat(User user) throws IOException {
-//        if(user == null){
-//            Window.setRoot(Routes.loginPage);
-//        }
-//        this.user = user;
-//        loadList();
-//    }
-
     @FXML
     private void initialize() throws IOException {
         loadUserLogged();
