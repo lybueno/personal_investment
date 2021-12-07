@@ -94,7 +94,7 @@ public class WalletManagementController {
     }
 
     public void addWallet(ActionEvent actionEvent) throws IOException {
-        Window.setRoot(Routes.addEditWalletPage);
+        Window.setRoot(Routes.walletPage);
         setScreenTypeUpdateOrInsertWallet(UIMode.INSERT);
         setUserAddEditWalletPage();
     }
@@ -103,7 +103,7 @@ public class WalletManagementController {
         if(isWalletSelect()){
             WalletVM walletVM =  tbWallets.getSelectionModel().getSelectedItem();
             Wallet wallet = walletVM.toWalletEntity(user);
-            Window.setRoot(Routes.addEditWalletPage);
+            Window.setRoot(Routes.walletPage);
             setWalletInUpdateWalletController(wallet);
             setScreenTypeUpdateOrInsertWallet(UIMode.UPDATE);
             setUserAddEditWalletPage();
@@ -143,12 +143,12 @@ public class WalletManagementController {
     }
 
     private void setWalletInUpdateWalletController(Wallet wallet) throws IOException {
-        AddEditWalletController controller = (AddEditWalletController) Window.getController();
+        WalletController controller = (WalletController) Window.getController();
         controller.setDataToUpdate(wallet);
     }
 
     private void setScreenTypeUpdateOrInsertWallet(UIMode uiMode) {
-        AddEditWalletController controller = (AddEditWalletController) Window.getController();
+        WalletController controller = (WalletController) Window.getController();
         controller.setDataTypeScreen(uiMode);
     }
 
@@ -157,7 +157,7 @@ public class WalletManagementController {
     }
 
     public void setUserAddEditWalletPage() throws IOException {
-        AddEditWalletController controller = (AddEditWalletController) Window.getController();
+        WalletController controller = (WalletController) Window.getController();
         controller.setData(user);
     }
 

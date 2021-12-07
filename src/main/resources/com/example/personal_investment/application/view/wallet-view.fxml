@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="242.0" prefWidth="415.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.personal_investment.application.controllers.AddEditWalletController">
+<AnchorPane prefHeight="242.0" prefWidth="415.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.personal_investment.application.controllers.WalletController">
    <children>
       <Button fx:id="btnCancel" layoutX="152.0" layoutY="217.0" mnemonicParsing="false" onAction="#backPreviousScreen" text="Cancelar" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0"
               style="-fx-background-color: #7B68EE;" textFill="WHITE" />

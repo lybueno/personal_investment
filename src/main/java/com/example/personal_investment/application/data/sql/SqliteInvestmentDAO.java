@@ -49,7 +49,22 @@ public class SqliteInvestmentDAO implements InvestmentsDAO {
 
     @Override
     public Optional<Investment> findOneByTicker(String ticker) {
-        return findOneByAttribute("ticker", ticker);
+        // TODO: fix findOneTicker
+        String sql = "SELECT ticker FROM Stock, Investment WHERE Stock.id = Investment.stock AND Stock.ticker = ?";
+        Investment investment = null;
+
+        try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
+
+            stmt.setString(1, ticker);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                investment = resultSetToEntity(rs);
+            }
+
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+        return Optional.ofNullable(investment);
     }
 
 
@@ -84,8 +99,8 @@ public class SqliteInvestmentDAO implements InvestmentsDAO {
         try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
 
             stmt.setString(1, investment.getId());
-            stmt.setString(2, String.valueOf(investment.getWallet()));
-            stmt.setString(3, String.valueOf(investment.getStock()));
+            stmt.setString(2, investment.getWallet().getId());
+            stmt.setString(3, investment.getStock().getId());
             stmt.setInt(4, investment.getQuantity());
             stmt.setBigDecimal(5, investment.getTotalAmount());
             stmt.execute();
@@ -127,8 +142,8 @@ public class SqliteInvestmentDAO implements InvestmentsDAO {
 
         try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
 
-            stmt.setString(1, String.valueOf(investment.getWallet()));
-            stmt.setString(2, String.valueOf(investment.getStock()));
+            stmt.setString(1, investment.getWallet().getId());
+            stmt.setString(2, investment.getStock().getId());
             stmt.setInt(3, investment.getQuantity());
             stmt.setBigDecimal(4, investment.getTotalAmount());
             stmt.setString(5, investment.getId());

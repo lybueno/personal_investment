@@ -22,7 +22,7 @@ import java.util.List;
 import static com.example.personal_investment.application.main.Main.addWalletUC;
 import static com.example.personal_investment.application.main.Main.updateWalletUC;
 
-public class AddEditWalletController {
+public class WalletController {
     @FXML
     private TextField txtName;
 

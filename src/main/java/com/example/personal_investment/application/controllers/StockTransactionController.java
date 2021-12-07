@@ -3,34 +3,31 @@ package com.example.personal_investment.application.controllers;
 import com.example.personal_investment.application.common.Routes;
 import com.example.personal_investment.application.common.UserSingleton;
 import com.example.personal_investment.application.view.Window;
-import com.example.personal_investment.domain.entities.investment.Investment;
 import com.example.personal_investment.domain.entities.stock.Stock;
-import com.example.personal_investment.domain.entities.stock.StockType;
 import com.example.personal_investment.domain.entities.stock_transaction.StockTransaction;
 import com.example.personal_investment.domain.entities.stock_transaction.TransactionType;
 import com.example.personal_investment.domain.entities.user.User;
 import com.example.personal_investment.domain.entities.wallet.Wallet;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.example.personal_investment.application.main.Main.registerStockPurchaseUC;
 import static com.example.personal_investment.application.main.Main.searchWalletUC;
 
-public class InvestmentController {
+public class StockTransactionController {
 
     @FXML
     private ComboBox<String> cBoxWallet;
 
     @FXML
-    private Button btnBuy;
+    private Button btnConfirmTransaction;
 
     @FXML
     private Button btnCancel;
@@ -57,31 +54,30 @@ public class InvestmentController {
     private TextField txtUnitaryValue;
 
     @FXML
-    private Label lbTittle;
+    private Label lbTitle;
 
     private User user;
-
     private Stock stock;
     private Wallet wallet;
     private TransactionType transactionType;
 
     public void setData(Wallet wallet, Stock stock, TransactionType transactionType) throws IOException {
-        if(stock == null){
+        this.user = UserSingleton.getInstance().getUser();
+        if (user == null) {
+            Window.setRoot(Routes.loginPage);
+        }
+
+        if (stock == null) {
             Window.setRoot(Routes.stockManagementPage);
         }
         this.stock = stock;
         this.wallet = wallet;
         this.transactionType = transactionType;
 
-        this.user = UserSingleton.getInstance().getUser();
-        if(user == null){
-            Window.setRoot(Routes.loginPage);
-        }
-
         loadScreen();
     }
 
-    private void loadScreen(){
+    private void loadScreen() {
         loadComboBox();
         loadFields();
     }
@@ -90,17 +86,17 @@ public class InvestmentController {
         lbTicker.setText(stock.getTicker());
         lbCnpj.setText(stock.getCnpj());
         lbCompanyName.setText(stock.getCompanyName());
-        lbTittle.setText(transactionType == TransactionType.PURCHASE ?
+        lbTitle.setText(transactionType == TransactionType.PURCHASE ?
                 "Cadastrar Compra de Ação" :
                 "Cadastrar Venda de Ação"
         );
-        if(wallet != null) {
+        if (wallet != null) {
             cBoxWallet.setValue(wallet.getName());
             cBoxWallet.setDisable(true);
         }
     }
 
-    private void loadComboBox(){
+    private void loadComboBox() {
         List<Wallet> listWallets = searchWalletUC.findWalletByUser(user);
 
         List<String> walletNames = listWallets.stream()
@@ -112,24 +108,41 @@ public class InvestmentController {
     }
 
     public void confirmTransaction(ActionEvent actionEvent) {
-        if(isFilledTextFields()){
-            StockTransaction stockTransaction = createStockTransactionWithInputFields();
-            if(transactionType == TransactionType.PURCHASE){
+        if (isFilledTextFields()) {
+            if (transactionType == TransactionType.PURCHASE) {
                 try {
+                    StockTransaction stockTransaction = createStockTransactionWithInputFields();
                     registerStockPurchaseUC.purchase(stockTransaction);
-                }catch (Exception e){
-                    System.out.println(e.toString());
+                } catch (Exception e) {
+                    System.out.println(e);
                 }
             }
-        }else{
+        } else {
             systemMessage.setText("Campos não preenchidos");
         }
     }
 
-    private StockTransaction createStockTransactionWithInputFields() {
+    private StockTransaction createStockTransactionWithInputFields() throws IOException {
+        if(wallet == null) {
+            Optional<Wallet> optional = searchWalletUC
+                    .findWalletByUser(user).stream()
+                    .filter(w -> w.getName().equals(cBoxWallet.getValue())).findFirst();
+            if(optional.isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Transação de Ação");
+                alert.setHeaderText("Erro, ocorreu algum erro com a carteira");
+                alert.setContentText("Desculpe, tente novamente mais tarde");
+                alert.showAndWait();
+
+                Window.setRoot(Routes.stockManagementPage);
+            } else{
+                wallet = optional.get();
+            }
+        }
+
         return new StockTransaction(
                 stock,
-                wallet, // TODO: resolver erro de wallet null
+                wallet,
                 dPicker.getValue(),
                 Integer.parseInt(txtQuantity.getText()),
                 new BigDecimal(txtUnitaryValue.getText()),
@@ -142,7 +155,8 @@ public class InvestmentController {
         Window.setRoot(Routes.investmentManagementPage);
     }
 
-    private Boolean isFilledTextFields(){
-        return !txtQuantity.getText().equals("") && !txtUnitaryValue.getText().equals("") && !(dPicker.getValue() == null);
+    private Boolean isFilledTextFields() {
+        return !txtQuantity.getText().equals("") && !txtUnitaryValue.getText().equals("") && !(dPicker.getValue() == null)
+                && cBoxWallet.getValue() != null;
     }
 }

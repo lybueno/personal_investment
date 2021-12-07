@@ -51,6 +51,8 @@ public class StockManagementController {
             Window.setRoot(Routes.loginPage);
         }
 
+        username.setText(user.getUsername());
+
         bindTableViewToItemsList();
         bindColumnsToValueSources();
         loadList();
@@ -158,7 +160,7 @@ public class StockManagementController {
     }
 
     public void setDataInInvestmentPage(Stock stock) throws IOException {
-        InvestmentController controller = (InvestmentController) Window.getController();
+        StockTransactionController controller = (StockTransactionController) Window.getController();
         controller.setData(null, stock, TransactionType.PURCHASE);
     }
 

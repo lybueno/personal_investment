@@ -136,7 +136,7 @@ public class InvestmentsManagementController {
     }
 
     private void setDataInInvestmentPage(Investment investment,TransactionType type) throws IOException {
-        InvestmentController controller = (InvestmentController) Window.getController();
+        StockTransactionController controller = (StockTransactionController) Window.getController();
         controller.setData(investment.getWallet(), investment.getStock(), type);
     }
 
