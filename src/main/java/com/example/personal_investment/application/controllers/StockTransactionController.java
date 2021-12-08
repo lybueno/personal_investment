@@ -124,7 +124,7 @@ public class StockTransactionController {
         try {
             StockTransaction stockTransaction = createStockTransactionWithInputFields();
             BigDecimal tax = calculateTaxAmountUC.calculate(stockTransaction);
-            Boolean resultAlert = false;
+            boolean resultAlert = false;
             if (tax.intValue() > 0) {
                 resultAlert = showAlertAndCancelTransactionIfUserRequest(tax);
             }
@@ -153,11 +153,7 @@ public class StockTransactionController {
         alert.setContentText("Ao realizar essa transação, você irá pagar um imposto de " + tax + "\nDeseja continuar?");
         alert.showAndWait();
         ButtonType resultAlert= alert.getResult();
-        if(resultAlert.equals(confirm)){
-            return true;
-        }else {
-            return false;
-        }
+        return resultAlert.equals(confirm);
 
     }
 
