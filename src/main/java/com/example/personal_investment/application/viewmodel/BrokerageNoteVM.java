@@ -41,7 +41,7 @@ public final class BrokerageNoteVM {
         this.transactionType = stockTransaction.getTransactionType().toString();
         this.cnpj = stockTransaction.getStock().getCnpj();
         this.companyName = stockTransaction.getStock().getCompanyName();
-        this.nameUser = stockTransaction.getWallet().getUser().getUsername();
+        this.nameUser = "null";
     }
 
     public String getTicker() {

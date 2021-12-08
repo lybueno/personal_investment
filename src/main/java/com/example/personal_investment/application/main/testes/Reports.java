@@ -66,7 +66,7 @@ public class Reports {
         BigDecimal saleValue = new BigDecimal("15");
         BigDecimal averagePurchaseValue = new BigDecimal("20");
 
-        Darf darf = new Darf(StockType.REGULAR, dueDate,taxAmount, saleValue, averagePurchaseValue);
+        Darf darf = new Darf("user.getUserName", StockType.REGULAR, dueDate,taxAmount, saleValue, averagePurchaseValue);
 
 //        darfReport.printDarf(darf,user);
     }

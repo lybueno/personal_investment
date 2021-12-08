@@ -15,4 +15,7 @@ public class SearchDarfUC {
     public List<Darf> findAll(){
         return darfDAO.findAll();
     }
+
+    public List<Darf> findAllByUserName(String name){return darfDAO.findAllByUserName(name);}
+
 }

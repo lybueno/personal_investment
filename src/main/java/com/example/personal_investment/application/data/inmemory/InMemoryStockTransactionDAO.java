@@ -57,6 +57,11 @@ public class InMemoryStockTransactionDAO implements BrokerageNoteDAO {
                         stockTransaction.getTransactionDate().isBefore(finalDate)).collect(Collectors.toList());
     }
 
+    @Override
+    public List<StockTransaction> findAllByWallet(String id) {
+        return null;
+    }
+
 
     @Override
     public List<StockTransaction> findAll()  {

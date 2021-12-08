@@ -7,6 +7,7 @@ import com.example.personal_investment.application.viewmodel.BrokerageNoteVM;
 import com.example.personal_investment.application.viewmodel.DarfVM;
 import com.example.personal_investment.application.viewmodel.IncomeTaxVM;
 import com.example.personal_investment.domain.entities.user.User;
+import com.example.personal_investment.domain.entities.wallet.Wallet;
 import com.example.personal_investment.domain.usecases.report.BrokerageNoteReportUC;
 import com.example.personal_investment.domain.usecases.report.DarfReportUC;
 import com.example.personal_investment.domain.usecases.report.IncomeTaxReportUC;
@@ -114,6 +115,8 @@ public class ReportsManagementController {
 
     private User user;
 
+    private ObservableList<Wallet> wallets;
+
     @FXML
     private void initialize() throws IOException {
         user = UserSingleton.getInstance().getUser();
@@ -121,9 +124,17 @@ public class ReportsManagementController {
             Window.setRoot(Routes.loginPage);
         }
         username.setText(user.getUsername());
+        loadWalletsUser();
         bindTableViewToItemsList();
         bindColumnsToValueSources();
         loadLists();
+    }
+
+
+    private void loadWalletsUser(){
+        wallets = FXCollections.observableArrayList();
+        wallets.clear();
+        wallets.addAll(searchWalletUC.findWalletByUser(user));
     }
 
     private void loadLists() {
@@ -158,12 +169,15 @@ public class ReportsManagementController {
     private void loadListIR() {
         List<IncomeTaxVM> incomeTax = new ArrayList<>();
 
-        searchBrokerageNoteUC.findAll().stream().forEach(
-                note -> {
-                    BigDecimal valueLastYear = note.getWallet().getTotalInvestmentsValue();
-                    incomeTax.add(new IncomeTaxVM(note,note.calculateTransactionAmount(),valueLastYear));
-                }
-        );
+        for (Wallet w : wallets) {
+            searchBrokerageNoteUC.findAllByWallet(w.getId()).stream().forEach(
+                    note -> {
+                        BigDecimal valueLastYear = note.getWallet().getTotalInvestmentsValue();
+                        incomeTax.add(new IncomeTaxVM(note,note.calculateTransactionAmount(),valueLastYear));
+                    }
+            );
+        }
+
 
         snapshotIR.clear();
         snapshotIR.addAll(incomeTax);
@@ -242,7 +256,7 @@ public class ReportsManagementController {
         DarfReportUC darfReportUC = new DarfReportUC();
 
         if (selectedDarf != null) {
-            darfReportUC.printDarf(selectedDarf,user);
+            darfReportUC.printDarf(selectedDarf, user);
             tbDarf.getSelectionModel().clearSelection();
         }
     }

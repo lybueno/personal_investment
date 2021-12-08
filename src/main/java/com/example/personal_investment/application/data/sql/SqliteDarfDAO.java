@@ -18,6 +18,7 @@ public class SqliteDarfDAO implements DarfDAO {
 
         return new Darf(
                 rs.getString("id"),
+                rs.getString("userName"),
                 StockType.toEnum(rs.getString("stockType")),
                 LocalDate.parse(rs.getString("dueDate")),
                 rs.getBigDecimal("taxAmount"),
@@ -28,8 +29,8 @@ public class SqliteDarfDAO implements DarfDAO {
 
     @Override
     public String insert(Darf darf) {
-        String sql = "INSERT INTO Darf (id, stockType, dueDate, taxAmount, saleValue, averagePurchaseValue)" +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Darf (id, stockType, dueDate, taxAmount, saleValue, averagePurchaseValue, userName)" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
 
@@ -39,6 +40,7 @@ public class SqliteDarfDAO implements DarfDAO {
             stmt.setBigDecimal(4, darf.getTaxAmount());
             stmt.setBigDecimal(5, darf.getSaleValue());
             stmt.setBigDecimal(6, darf.getAveragePurchaseValue());
+            stmt.setString(7, darf.getUserName());
             stmt.execute();
 
             return darf.getId();

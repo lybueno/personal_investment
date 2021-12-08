@@ -41,7 +41,7 @@ public class TestDarf {
         BigDecimal saleValue = new BigDecimal("15");
         BigDecimal averagePurchaseValue = new BigDecimal("20");
 
-        Darf darf = new Darf(StockType.REGULAR, dueDate,taxAmount, saleValue, averagePurchaseValue);
+        Darf darf = new Darf(user.get().getUsername(), StockType.REGULAR, dueDate,taxAmount, saleValue, averagePurchaseValue);
 
         DarfVM darfVM = new DarfVM(darf);
 

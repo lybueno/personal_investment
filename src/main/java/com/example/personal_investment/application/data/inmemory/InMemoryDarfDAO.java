@@ -41,4 +41,9 @@ public class InMemoryDarfDAO implements DarfDAO {
             throw new EntityNotExistsException("Cannot delete, darf not exists");
         db.remove(darf.getId());
     }
+
+    @Override
+    public List<Darf> findAllByUserName(String value) {
+        return null;
+    }
 }

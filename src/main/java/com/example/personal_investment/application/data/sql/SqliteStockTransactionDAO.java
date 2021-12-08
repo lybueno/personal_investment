@@ -27,10 +27,10 @@ public class SqliteStockTransactionDAO implements BrokerageNoteDAO {
         String id = rs.getString("id");
 
         String walletId = rs.getString("wallet");
-        Wallet wallet = searchWalletUC.findById(walletId).get();
+        Wallet wallet = searchWalletUC.findById(walletId).isPresent() ? searchWalletUC.findById(walletId).get() : null;
 
         String stockId = rs.getString("stock");
-        Stock stock = searchStockUC.findById(stockId).get();
+        Stock stock = searchStockUC.findById(stockId).isPresent() ? searchStockUC.findById(stockId).get() : null;
 
         LocalDate transactionDate = LocalDate.parse(rs.getString("transactionDate"));
         Integer quantity = rs.getInt("quantity");
