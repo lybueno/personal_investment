@@ -119,16 +119,22 @@ public class StockTransactionController {
         }
     }
 
+
     private void registerSale() {
         try {
             StockTransaction stockTransaction = createStockTransactionWithInputFields();
             BigDecimal tax = calculateTaxAmountUC.calculate(stockTransaction);
+            Boolean resultAlert = false;
             if (tax.intValue() > 0) {
-                showAlertAndCancelTransactionIfUserRequest(tax);
+                resultAlert = showAlertAndCancelTransactionIfUserRequest(tax);
             }
-            registerStockSaleUC.sell(stockTransaction, tax);
+
+            if(resultAlert){
+                registerStockSaleUC.sell(stockTransaction, tax);
+            }
             Window.setRoot(Routes.investmentManagementPage);
             setWalletInInvestmentPage(stockTransaction.getWallet());
+
         } catch (AmountNotAllowedException __) {
             systemMessage.setText("Erro, você está tentando vender uma quantia maior do que possui");
         } catch (Exception e) {
@@ -137,7 +143,7 @@ public class StockTransactionController {
         }
     }
 
-    private void showAlertAndCancelTransactionIfUserRequest(BigDecimal tax) {
+    private Boolean showAlertAndCancelTransactionIfUserRequest(BigDecimal tax) {
         ButtonType confirm = new ButtonType("Continuar Compra");
         ButtonType reject = new ButtonType("Desistir");
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Deseja continuar?",reject,confirm);
@@ -145,15 +151,14 @@ public class StockTransactionController {
         alert.setResizable(true);
         alert.setHeaderText("Imposto");
         alert.setContentText("Ao realizar essa transação, você irá pagar um imposto de " + tax + "\nDeseja continuar?");
-        alert.showAndWait().ifPresent(res -> {
-            if (res == reject) {
-                try {
-                    Window.setRoot(Routes.stockManagementPage);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        alert.showAndWait();
+        ButtonType resultAlert= alert.getResult();
+        if(resultAlert.equals(confirm)){
+            return true;
+        }else {
+            return false;
+        }
+
     }
 
     private void registerPurchase() {
