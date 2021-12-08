@@ -1,10 +1,7 @@
 package com.example.personal_investment.application.main;
 
 import com.example.personal_investment.application.data.sql.*;
-import com.example.personal_investment.application.main.testes.Reports;
-import com.example.personal_investment.application.main.testes.TestDarf;
 import com.example.personal_investment.application.view.Window;
-import com.example.personal_investment.domain.entities.wallet.Wallet;
 import com.example.personal_investment.domain.usecases.stock.*;
 import com.example.personal_investment.domain.usecases.stock_transaction.*;
 import com.example.personal_investment.domain.usecases.user.AuthenticateUserUC;
@@ -13,7 +10,6 @@ import com.example.personal_investment.domain.usecases.user.RegisterUserUC;
 import com.example.personal_investment.domain.usecases.user.UserDAO;
 import com.example.personal_investment.domain.usecases.wallet.*;
 
-import java.util.List;
 
 public class Main {
     public static RegisterUserUC registerUserUC;
@@ -56,14 +52,16 @@ public class Main {
 //        TestTransactionPurchaseAndSale.testTransactionSale();
 //        TestInvestment.testInvestment();
 //        TestWallet.testWallet();
-          TestDarf.testDarf();
+//          TestDarf.testDarf();
 //          TestDarf.testIR();
 
 //        ImportUpdatedPriceFromAPI test = new ImportUpdatedPriceFromAPI("PETR4");
 //        BigDecimal updatedPrice = test.getData();
 //        System.out.println(updatedPrice);
 
+
         Window.main(args);
+
 
 
     }
