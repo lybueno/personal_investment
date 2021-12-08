@@ -140,7 +140,7 @@ public class StockTransactionController {
     private void showAlertAndCancelTransactionIfUserResquest(BigDecimal tax) {
         ButtonType confirm = new ButtonType("Continuar Compra");
         ButtonType reject = new ButtonType("Desistir");
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Deseja continuar?",reject,confirm);
         alert.setTitle("Transação de Ação");
         alert.setResizable(true);
         alert.setHeaderText("Imposto");

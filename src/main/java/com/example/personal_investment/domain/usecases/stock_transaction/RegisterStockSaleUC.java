@@ -40,8 +40,10 @@ public class RegisterStockSaleUC {
             darfDAO.insert(darf);
         }
 
+        BigDecimal amount = new BigDecimal(transaction.getQuantity().toString())
+                .multiply(new BigDecimal(investment.calculateAverageValue().toString()));
         investment.decrementQuantity(transaction.getQuantity());
-        investment.decrementAmount(transaction.calculateTransactionAmount());
+        investment.decrementAmount(amount);
 
         if (investment.getQuantity().equals(transaction.getQuantity())) {
             investmentsDAO.delete(investment);
