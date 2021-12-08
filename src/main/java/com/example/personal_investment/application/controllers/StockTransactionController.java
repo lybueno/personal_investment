@@ -124,7 +124,7 @@ public class StockTransactionController {
             StockTransaction stockTransaction = createStockTransactionWithInputFields();
             BigDecimal tax = calculateTaxAmountUC.calculate(stockTransaction);
             if (tax.intValue() > 0) {
-                showAlertAndCancelTransactionIfUserResquest(tax);
+                showAlertAndCancelTransactionIfUserRequest(tax);
             }
             registerStockSaleUC.sell(stockTransaction, tax);
             Window.setRoot(Routes.investmentManagementPage);
@@ -137,7 +137,7 @@ public class StockTransactionController {
         }
     }
 
-    private void showAlertAndCancelTransactionIfUserResquest(BigDecimal tax) {
+    private void showAlertAndCancelTransactionIfUserRequest(BigDecimal tax) {
         ButtonType confirm = new ButtonType("Continuar Compra");
         ButtonType reject = new ButtonType("Desistir");
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Deseja continuar?",reject,confirm);

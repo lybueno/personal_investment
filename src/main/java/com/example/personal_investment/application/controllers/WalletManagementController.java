@@ -25,25 +25,8 @@ import static com.example.personal_investment.application.main.Main.deleteWallet
 import static com.example.personal_investment.application.main.Main.searchWalletUC;
 
 public class WalletManagementController {
-
     @FXML
-    private Button btnAddWallet;
-
-    @FXML
-    private Button btnEditWallet;
-
-    @FXML
-    private Button btnDeleteWallet;
-
-    @FXML
-    private Button btnPreviousScreen;
-
-    @FXML
-    private Button btnSeeWallet;
-
-    @FXML
-    private Button btnLogout;
-
+    public Label username;
     @FXML
     private TableView<WalletVM> tbWallets;
 
@@ -166,5 +149,6 @@ public class WalletManagementController {
         if (user == null) {
             Window.setRoot(Routes.loginPage);
         }
+        username.setText(user.getUsername());
     }
 }

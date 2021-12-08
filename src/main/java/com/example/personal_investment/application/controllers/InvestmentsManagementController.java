@@ -1,17 +1,18 @@
 package com.example.personal_investment.application.controllers;
 
 import com.example.personal_investment.application.common.Routes;
+import com.example.personal_investment.application.common.UserSingleton;
 import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.application.viewmodel.InvestmentVM;
 import com.example.personal_investment.domain.entities.investment.Investment;
 import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.stock_transaction.TransactionType;
+import com.example.personal_investment.domain.entities.user.User;
 import com.example.personal_investment.domain.entities.wallet.Wallet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -31,22 +32,7 @@ public class InvestmentsManagementController {
     private Label systemMessage;
 
     @FXML
-    private Button btnSellInvestment;
-
-    @FXML
-    private Button btnNotes;
-
-    @FXML
-    private Button btnBuyInvestment;
-
-    @FXML
     private Label username;
-
-    @FXML
-    private Button btnReturn;
-
-    @FXML
-    private Button btnLogout;
 
     @FXML
     private TableView<InvestmentVM> tbInvestments;
@@ -67,7 +53,14 @@ public class InvestmentsManagementController {
     private Wallet wallet;
 
     @FXML
-    private void initialize() {
+    private void initialize() throws IOException {
+        User user = UserSingleton.getInstance().getUser();
+        if(user == null) {
+            Window.setRoot(Routes.loginPage);
+        }else{
+        username.setText(user.getUsername());
+
+        }
         bindTableViewToItemsList();
         bindColumnsToValueSources();
     }
@@ -123,9 +116,6 @@ public class InvestmentsManagementController {
                 systemMessage.setText("Algum erro aconteceu");
             }
         }
-    }
-
-    public void visualizeNotes(ActionEvent actionEvent) {
     }
 
     public void backPreviousScreen(ActionEvent actionEvent) throws IOException {
