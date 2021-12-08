@@ -18,7 +18,7 @@ public class DeleteWalletUC {
         }
         Validator.validateWallet(wallet);
 
-        Wallet walletFromDAO = walletDAO.findOne(wallet.getId()).orElseThrow(() -> new EntityNotExistsException("Wallet " +
+        Wallet walletFromDAO = walletDAO.findOneByWalletWithInvestments(wallet.getId()).orElseThrow(() -> new EntityNotExistsException("Wallet " +
                 "not exists"));
 
         if (!walletFromDAO.isEmpty()) {

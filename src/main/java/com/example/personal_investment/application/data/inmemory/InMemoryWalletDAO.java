@@ -65,4 +65,9 @@ public class InMemoryWalletDAO implements WalletDAO {
         }
         return userWallets;
     }
+
+    @Override
+    public Optional<Wallet> findOneByWalletWithInvestments(String value) {
+        return Optional.empty();
+    }
 }

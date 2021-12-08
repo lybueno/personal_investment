@@ -21,8 +21,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.personal_investment.application.main.Main.deleteWalletUC;
-import static com.example.personal_investment.application.main.Main.searchWalletUC;
+import static com.example.personal_investment.application.main.Main.*;
 
 public class WalletManagementController {
     @FXML
@@ -92,10 +91,14 @@ public class WalletManagementController {
 
     public void deleteWallet(ActionEvent actionEvent) {
         if(isWalletSelect()){
-            WalletVM walletVM = tbWallets.getSelectionModel().getSelectedItem();
-            Wallet wallet = walletVM.toWalletEntity(user);
-            deleteWalletUC.delete(wallet);
-            loadList();
+            try{
+                WalletVM walletVM = tbWallets.getSelectionModel().getSelectedItem();
+                Wallet wallet = walletVM.toWalletEntity(user);
+                deleteWalletUC.delete(wallet);
+                loadList();
+            }catch (Exception e){
+                systemMessage.setText(e.getMessage());
+            }
         }else{
             systemMessage.setText("Carteira não selecionada");
         }

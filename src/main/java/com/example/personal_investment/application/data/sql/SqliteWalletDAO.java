@@ -65,6 +65,16 @@ public class SqliteWalletDAO implements WalletDAO {
 
     @Override
     public Optional<Wallet> findOne(String key) {
+        // TODO: erro stackoverflow caso implemente aqui
+//        Wallet wallet = null;
+//        if(findOneByAttribute("id", key).isPresent()){
+//            wallet = findOneByAttribute("id", key).get();
+//            for (Investment investment:
+//                    searchInvestmentUC.findAllInvestmentsByWallet(wallet)) {
+//                wallet.addInvestment(investment);
+//            }
+//        }
+//        return Optional.ofNullable(wallet);
         return findOneByAttribute("id", key);
     }
 
@@ -138,4 +148,24 @@ public class SqliteWalletDAO implements WalletDAO {
             e.printStackTrace();
         }
     }
+
+    public Optional<Wallet> findOneByWalletWithInvestments(String value) {
+        String sql = "SELECT * FROM Wallet WHERE id = ?";
+        Wallet wallet = null;
+        try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
+            stmt.setString(1, value);
+            ResultSet resultSet = stmt.executeQuery();
+            if(resultSet.next()){
+                wallet = resultSetToEntity(resultSet);
+                for (Investment investment:
+                        searchInvestmentUC.findAllInvestmentsByWallet(wallet)) {
+                    wallet.addInvestment(investment);
+                }
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return Optional.ofNullable(wallet);
+    }
+
 }
