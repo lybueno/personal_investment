@@ -2,6 +2,7 @@ package com.example.personal_investment.application.controllers;
 
 import com.example.personal_investment.application.common.Routes;
 import com.example.personal_investment.application.common.UIMode;
+import com.example.personal_investment.application.common.UserSingleton;
 import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.domain.entities.stock.StockType;
 import com.example.personal_investment.domain.entities.user.User;
@@ -22,7 +23,7 @@ import java.util.List;
 import static com.example.personal_investment.application.main.Main.addWalletUC;
 import static com.example.personal_investment.application.main.Main.updateWalletUC;
 
-public class AddEditWalletController {
+public class WalletController {
     @FXML
     private TextField txtName;
 
@@ -132,12 +133,17 @@ public class AddEditWalletController {
 
     public void backWalletManagementPage() throws IOException {
         Window.setRoot(Routes.walletManagementPage);
-        WalletManagementController controller = (WalletManagementController) Window.getController();
-        controller.setData(user);
+//        WalletManagementController controller = (WalletManagementController) Window.getController();
+//        controller.setData(user);
     }
 
 
     private boolean isFilledInputs() {
         return !txtName.getText().equals("") && !cbStockType.getSelectionModel().isEmpty();
     }
+
+//    private void setDataInWalletManagementtPage() throws IOException {
+//        WalletManagementController controller = (WalletManagementController) Window.getController();
+//        controller.setData(UserSingleton.getInstance().getUser());
+//    }
 }

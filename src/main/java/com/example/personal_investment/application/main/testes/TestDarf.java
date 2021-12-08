@@ -1,10 +1,14 @@
 package com.example.personal_investment.application.main.testes;
 
+import com.example.personal_investment.application.common.UserSingleton;
 import com.example.personal_investment.application.data.inmemory.InMemoryDarfDAO;
+import com.example.personal_investment.application.data.sql.SqliteDarfDAO;
+import com.example.personal_investment.application.viewmodel.DarfVM;
 import com.example.personal_investment.domain.entities.darf.Darf;
 import com.example.personal_investment.domain.entities.stock.StockType;
 import com.example.personal_investment.domain.entities.user.User;
 import com.example.personal_investment.domain.exceptions.EntityAlreadyExistsException;
+import com.example.personal_investment.domain.usecases.report.DarfReportUC;
 import com.example.personal_investment.domain.usecases.stock_transaction.DarfDAO;
 
 import java.math.BigDecimal;
@@ -14,7 +18,8 @@ import java.util.Optional;
 import static com.example.personal_investment.application.main.Main.*;
 
 public class TestDarf {
-    static DarfDAO darfDAO = new InMemoryDarfDAO();
+    static DarfDAO darfDAO = new SqliteDarfDAO();
+
 
     public static void testDarf(){
         Optional<User> user = findUserUC.findOneByUsername("mylla");
@@ -26,7 +31,12 @@ public class TestDarf {
 
         Darf darf = new Darf(StockType.REGULAR, dueDate,taxAmount, saleValue, averagePurchaseValue);
 
+        DarfVM darfVM = new DarfVM(darf);
+
         testAddDarf(darf);
+        DarfReportUC darfReportUC = new DarfReportUC();
+
+        darfReportUC.printDarf(darfVM, user.get());
     }
 
     public static void testAddDarf(Darf darf){

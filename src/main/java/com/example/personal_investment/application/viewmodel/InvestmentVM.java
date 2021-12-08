@@ -1,9 +1,11 @@
 package com.example.personal_investment.application.viewmodel;
 
 import com.example.personal_investment.domain.entities.investment.Investment;
-import com.example.personal_investment.domain.entities.stock_transaction.StockTransaction;
-import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
+import com.example.personal_investment.domain.entities.stock.Stock;
+import com.example.personal_investment.domain.entities.wallet.Wallet;
+
+import java.math.BigDecimal;
+import java.util.Optional;
 
 public final class InvestmentVM {
 
@@ -12,21 +14,35 @@ public final class InvestmentVM {
     private final String averageValue;
     private final String stockType;
     private final String quantity;
+    private final String totalAmount;
 
-    public InvestmentVM(String id, String ticker, String averageValue, String stockType, String quantity) {
+    public InvestmentVM(String id, String ticker, String averageValue, String stockType, String quantity, String totalAmount) {
         this.id = id;
         this.ticker = ticker;
         this.averageValue = averageValue;
         this.stockType = stockType;
         this.quantity = quantity;
+        this.totalAmount = totalAmount;
     }
+
 
     public InvestmentVM(Investment investment) {
         this.id = investment.getId();
         this.ticker = investment.getStock().getTicker();
         this.averageValue = investment.calculateAverageValue().toString();
-        this.stockType = investment.getStock().getTicker();
+        this.stockType = investment.getStock().getType().toString();
         this.quantity = investment.getQuantity().toString();
+        this.totalAmount = investment.getTotalAmount().toString();
+    }
+
+    public Investment toInvestmentEntity(Wallet wallet, Stock stock){
+        return new Investment(
+                this.id,
+                wallet,
+                stock,
+                Integer.getInteger(this.quantity),
+                new BigDecimal(this.totalAmount)
+        );
     }
 
     public String getId() {
@@ -47,5 +63,8 @@ public final class InvestmentVM {
 
     public String getQuantity() {
         return quantity;
+    }
+    public String getTotalAmount() {
+        return totalAmount;
     }
 }

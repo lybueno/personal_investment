@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.example.personal_investment.application.main.Main.findUserUC;
+import static com.example.personal_investment.application.main.Main.searchInvestmentUC;
 
 
 public class SqliteWalletDAO implements WalletDAO {
@@ -33,6 +34,10 @@ public class SqliteWalletDAO implements WalletDAO {
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 Wallet wallet = resultSetToEntity(rs);
+                for (Investment investment:
+                        searchInvestmentUC.findAllInvestmentsByWallet(wallet)) {
+                    wallet.addInvestment(investment);
+                }
                 wallets.add(wallet);
             }
         } catch(SQLException e){

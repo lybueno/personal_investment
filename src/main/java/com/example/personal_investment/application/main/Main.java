@@ -23,6 +23,8 @@ public class Main {
     public static DeleteWalletUC deleteWalletUC;
     public static SearchWalletUC searchWalletUC;
 
+    public static SearchInvestmentUC searchInvestmentUC;
+
     public static AddStockUC addStockUC;
     public static DeleteStockUC deleteStockUC;
     public static SearchStockUC searchStockUC;
@@ -57,9 +59,6 @@ public class Main {
 //        ImportUpdatedPriceFromAPI test = new ImportUpdatedPriceFromAPI("PETR4");
 //        BigDecimal updatedPrice = test.getData();
 //        System.out.println(updatedPrice);
-
-
-        // inicio aula DOO (08/12)
 
         Window.main(args);
 
@@ -98,6 +97,8 @@ public class Main {
         updateWalletUC = new UpdateWalletUC(walletDAO);
         searchWalletUC = new SearchWalletUC(walletDAO);
         deleteWalletUC = new DeleteWalletUC(walletDAO);
+
+        searchInvestmentUC = new SearchInvestmentUC(investmentsDAO);
 
         registerStockPurchaseUC = new RegisterStockPurchaseUC(brokerageNoteDAO, investmentsDAO);
         registerStockSaleUC = new RegisterStockSaleUC(investmentsDAO, brokerageNoteDAO, darfDAO);

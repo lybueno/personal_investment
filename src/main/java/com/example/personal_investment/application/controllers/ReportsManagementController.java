@@ -1,6 +1,7 @@
 package com.example.personal_investment.application.controllers;
 
 import com.example.personal_investment.application.common.Routes;
+import com.example.personal_investment.application.common.UserSingleton;
 import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.application.viewmodel.BrokerageNoteVM;
 import com.example.personal_investment.application.viewmodel.DarfVM;
@@ -14,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -49,7 +51,7 @@ public class ReportsManagementController {
     @FXML
     private TableColumn<IncomeTaxVM, String> cIRLastDate;
 
-    //table darfs criar uma viewmodel?
+    //table darf
     @FXML
     private TableView<DarfVM> tbDarf;
 
@@ -107,21 +109,21 @@ public class ReportsManagementController {
     private Button btnReturn;
     @FXML
     private Button btnView;
+    @FXML
+    private Label username;
 
     private User user;
 
-    public void setData(User user) throws IOException {
-        if(user == null){
+    @FXML
+    private void initialize() throws IOException {
+        user = UserSingleton.getInstance().getUser();
+        if (user == null) {
             Window.setRoot(Routes.loginPage);
         }
-        this.user = user;
-        loadLists();
-    }
-
-    @FXML
-    private void initialize() {
+        username.setText(user.getUsername());
         bindTableViewToItemsList();
         bindColumnsToValueSources();
+        loadLists();
     }
 
     private void loadLists() {
@@ -139,7 +141,7 @@ public class ReportsManagementController {
     private void bindTableViewToItemsList() {
         bindTableViewToItemsListDarf();
           bindTableViewToItemsListNote();
-        bindTableViewToItemsListIR();
+          bindTableViewToItemsListIR();
     }
 
     public void seeReport(ActionEvent actionEvent) {
@@ -157,8 +159,7 @@ public class ReportsManagementController {
 
         searchBrokerageNoteUC.findAll().stream().forEach(
                 note -> {
-                    //TODO valor valueLastYear somente para teste, ver dpeois como vamos pegar o valor de compra e arrumar depois
-                    BigDecimal valueLastYear = new BigDecimal(10);
+                    BigDecimal valueLastYear = note.getWallet().getTotalInvestmentsValue();
                     incomeTax.add(new IncomeTaxVM(note,note.calculateTransactionAmount(),valueLastYear));
                 }
         );
@@ -251,7 +252,7 @@ public class ReportsManagementController {
     }
 
     public void backPreviousScreen(ActionEvent actionEvent) throws IOException {
-        Window.setRoot(Routes.investmentManagementPage);
+        Window.setRoot(Routes.stockManagementPage);
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {

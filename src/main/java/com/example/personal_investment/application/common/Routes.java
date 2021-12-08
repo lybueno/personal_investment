@@ -8,5 +8,6 @@ public class Routes {
     public static final String reportManagementPage = "reports-management-view";
     public static final String walletManagementPage = "wallet-management-view";
     public static final String stockPage = "stock-view";
-    public static final String addEditWalletPage = "add-edit-wallet-view";
+    public static final String walletPage = "wallet-view";
+    public static final String stockTransactionPage = "stock-transaction-view";
 }

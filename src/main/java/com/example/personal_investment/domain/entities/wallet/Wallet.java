@@ -88,7 +88,7 @@ public class Wallet {
     }
 
     public BigDecimal getTotalInvestmentsValue(){
-        BigDecimal sum = new BigDecimal("0.00");
+        BigDecimal sum = BigDecimal.ZERO;
         for (Investment investment : myInvestments) {
             sum = sum.add(investment.getTotalAmount());
         }

@@ -2,6 +2,7 @@ package com.example.personal_investment.application.controllers;
 
 import com.example.personal_investment.application.common.Routes;
 import com.example.personal_investment.application.common.UIMode;
+import com.example.personal_investment.application.common.UserSingleton;
 import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.application.viewmodel.WalletVM;
 import com.example.personal_investment.domain.entities.user.User;
@@ -62,18 +63,12 @@ public class WalletManagementController {
 
     private User user;
 
-    public void setData(User user) throws IOException {
-        if(user == null){
-            Window.setRoot(Routes.loginPage);
-        }
-        this.user = user;
-        loadList();
-    }
-
     @FXML
-    private void initialize() {
+    private void initialize() throws IOException {
+        loadUserLogged();
         bindTableViewToItemsList();
         bindColumnsToValueSources();
+        loadList();
     }
 
     private void loadList() {
@@ -94,7 +89,7 @@ public class WalletManagementController {
     }
 
     public void addWallet(ActionEvent actionEvent) throws IOException {
-        Window.setRoot(Routes.addEditWalletPage);
+        Window.setRoot(Routes.walletPage);
         setScreenTypeUpdateOrInsertWallet(UIMode.INSERT);
         setUserAddEditWalletPage();
     }
@@ -103,7 +98,7 @@ public class WalletManagementController {
         if(isWalletSelect()){
             WalletVM walletVM =  tbWallets.getSelectionModel().getSelectedItem();
             Wallet wallet = walletVM.toWalletEntity(user);
-            Window.setRoot(Routes.addEditWalletPage);
+            Window.setRoot(Routes.walletPage);
             setWalletInUpdateWalletController(wallet);
             setScreenTypeUpdateOrInsertWallet(UIMode.UPDATE);
             setUserAddEditWalletPage();
@@ -128,7 +123,14 @@ public class WalletManagementController {
     }
 
     public void investmentsPage(ActionEvent actionEvent) throws IOException {
-        Window.setRoot(Routes.investmentManagementPage);
+        if(isWalletSelect()){
+            WalletVM walletVM =  tbWallets.getSelectionModel().getSelectedItem();
+            Wallet wallet = walletVM.toWalletEntity(user);
+            Window.setRoot(Routes.investmentManagementPage);
+            setWalletInInvestmentPage(wallet);
+        }else{
+            systemMessage.setText("Carteira não selecionada");
+        }
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {
@@ -136,12 +138,12 @@ public class WalletManagementController {
     }
 
     private void setWalletInUpdateWalletController(Wallet wallet) throws IOException {
-        AddEditWalletController controller = (AddEditWalletController) Window.getController();
+        WalletController controller = (WalletController) Window.getController();
         controller.setDataToUpdate(wallet);
     }
 
     private void setScreenTypeUpdateOrInsertWallet(UIMode uiMode) {
-        AddEditWalletController controller = (AddEditWalletController) Window.getController();
+        WalletController controller = (WalletController) Window.getController();
         controller.setDataTypeScreen(uiMode);
     }
 
@@ -150,7 +152,19 @@ public class WalletManagementController {
     }
 
     public void setUserAddEditWalletPage() throws IOException {
-        AddEditWalletController controller = (AddEditWalletController) Window.getController();
+        WalletController controller = (WalletController) Window.getController();
         controller.setData(user);
+    }
+
+    public void setWalletInInvestmentPage(Wallet wallet) throws IOException {
+        InvestmentsManagementController controller = (InvestmentsManagementController) Window.getController();
+        controller.setDataWallet(wallet);
+    }
+
+    private void loadUserLogged() throws IOException {
+        user = UserSingleton.getInstance().getUser();
+        if (user == null) {
+            Window.setRoot(Routes.loginPage);
+        }
     }
 }
