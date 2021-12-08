@@ -4,18 +4,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="505.0" prefWidth="725" style="-fx-background-color: white;"
-            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.personal_investment.application.controllers.LoginController">
+<AnchorPane prefHeight="505.0" prefWidth="725" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.personal_investment.application.controllers.LoginController">
    <children>
       <TextField fx:id="txtUserName" layoutX="204.0" layoutY="160.0" prefHeight="30.0" prefWidth="341.0" promptText="Usuario" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="247.0" layoutY="77.0" prefHeight="17.0" prefWidth="171.0" text="Personal Investments" AnchorPane.bottomAnchor="392.6666666666667" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="230.0" AnchorPane.topAnchor="76.99999999999997">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Label>
-      <TextField fx:id="txtPassword" layoutX="150.0" layoutY="214.0" prefHeight="30.0" prefWidth="249.0" promptText="Senha" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" />
       <Button fx:id="btnLogin" layoutX="150.0" layoutY="262.0" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="249.0" style="-fx-background-color: #7B68EE;" text="Entrar" textFill="WHITE" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" />
       <Button fx:id="btnRegister" layoutX="150.0" layoutY="306.0" mnemonicParsing="false" onAction="#register" prefHeight="30.0" prefWidth="249.0" style="-fx-background-color: #7B68EE;" text="Cadastrar" textFill="WHITE" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" />
       <HBox prefHeight="100.0" prefWidth="200.0" />
       <Label fx:id="systemMessage" layoutX="150.0" layoutY="401.0" prefHeight="17.0" prefWidth="249.0" textFill="#e80808" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
+      <PasswordField fx:id="txtPassword" layoutX="251.0" layoutY="210.0" prefHeight="30.0" prefWidth="225.0" promptText="Senha" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" />
    </children>
 </AnchorPane>
