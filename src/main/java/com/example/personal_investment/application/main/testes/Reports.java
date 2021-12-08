@@ -80,13 +80,16 @@ public class Reports {
         BigDecimal valorStock = new BigDecimal("4.5");
         BigDecimal unitaryValue = new BigDecimal("2");
 
-        Stock stock = new Stock("01",StockType.REGULAR,"PETR4","Petrobras",
+        Stock stock = new Stock(StockType.REGULAR,"PE98","Pet",
                 "33.000.167/0661-29",valorStock);
+        stockDAO.insert(stock);
 
-        Wallet wallet = new Wallet("Test Wallet", StockType.REGULAR, user.get());
+        Wallet wallet = new Wallet("Wallet", StockType.REGULAR, user.get());
+        walletDAO.insert(wallet);
 
-        StockTransaction stockTransaction = new StockTransaction("01",stock,wallet,transactionDate,5,
+        StockTransaction stockTransaction = new StockTransaction(stock,wallet,transactionDate,5,
                 unitaryValue, TransactionType.SALE);
+        brokerageNoteDAO.insert(stockTransaction);
 
 //        brokerageNoteReport.printTradingNote(stockTransaction);
     }

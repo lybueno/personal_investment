@@ -57,11 +57,11 @@ public class Investment {
     }
 
     public void decrementAmount(BigDecimal value) {
-        this.totalAmount = this.totalAmount.add(value);
+        this.totalAmount = this.totalAmount.subtract(value);
     }
 
     public BigDecimal calculateAverageValue() {
-        return totalAmount.divide(BigDecimal.valueOf(quantity), RoundingMode.HALF_EVEN);
+        return totalAmount.divide(BigDecimal.valueOf(quantity), 2,RoundingMode.HALF_EVEN);
     }
 
     public BigDecimal getTotalAmount() {
