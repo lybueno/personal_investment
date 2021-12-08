@@ -24,6 +24,17 @@ public class SqliteWalletDAO implements WalletDAO {
         return null;
     }
 
+    private Wallet resultSetToEntity(ResultSet rs) throws SQLException {
+        String id = rs.getString("user");
+        User user = findUserUC.findOneById(id).get();
+        return new Wallet(
+                rs.getString("id"),
+                rs.getString("name"),
+                StockType.toEnum(rs.getString("stockType")),
+                user
+        );
+    }
+
     @Override
     public List<Wallet> findAllByUser(User user) {
         List<Wallet> wallets = new ArrayList<>();
@@ -110,16 +121,6 @@ public class SqliteWalletDAO implements WalletDAO {
         return wallets;
     }
 
-    private Wallet resultSetToEntity(ResultSet rs) throws SQLException {
-        String id = rs.getString("user");
-        User user = findUserUC.findOneById(id).get();
-        return new Wallet(
-                rs.getString("id"),
-                rs.getString("name"),
-                StockType.toEnum(rs.getString("stockType")),
-                user
-        );
-    }
 
     @Override
     public void update(Wallet wallet) {

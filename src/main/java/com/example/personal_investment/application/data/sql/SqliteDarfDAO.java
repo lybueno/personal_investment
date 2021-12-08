@@ -86,6 +86,23 @@ public class SqliteDarfDAO implements DarfDAO {
         return darfs;
     }
 
+    public List<Darf> findAllByUserName(String name) {
+        String sql = "SELECT * FROM Darf WHERE userName = ?";
+        List<Darf> darfs = new ArrayList<>();
+
+        try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
+            stmt.setString(1, name);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                Darf darf = resultSetToEntity(rs);
+                darfs.add(darf);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return darfs;
+    }
+
     @Override
     public void update(Darf darf) {
         String sql = "UPDATE Darf SET stockType = ?, dueDate = ?, taxAmount = ?, saleValue = ?, " +

@@ -29,7 +29,7 @@ public class SqliteInvestmentDAO implements InvestmentsDAO {
         return new Investment(id, wallet, stock, quantity,totalAmount);
     }
 
-    private Optional<Investment> findOneByAttribute(String attribute, String value) {
+    public Optional<Investment> findOneByAttribute(String attribute, String value) {
         String sql = "SELECT * FROM Investment WHERE " + attribute + " = ?";
         Investment investment = null;
 

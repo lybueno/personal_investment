@@ -184,15 +184,32 @@ public class ReportsManagementController {
     }
 
     private void loadListNote() {
-        List<BrokerageNoteVM> brokerageNotes = searchBrokerageNoteUC.findAll().stream().map(
-                BrokerageNoteVM::new
-        ).collect(Collectors.toList());
+
+        List<BrokerageNoteVM> brokerageNotes = new ArrayList<>();
+        for(Wallet w : wallets){
+            searchBrokerageNoteUC.findAllByWallet(w.getId()).stream().forEach(
+                    note ->{
+                        brokerageNotes.add(new BrokerageNoteVM(note.getStock().getTicker(),
+                                note.calculateTransactionAmount().toString(),
+                                note.getTransactionDate(),
+                                note.getQuantity().toString(),
+                                note.getUnitaryValue().toString(),
+                                note.getTransactionType().toString(),
+                                note.getStock().getCnpj(),
+                                note.getStock().getCompanyName(),
+                                note.getWallet().getUser().getUsername()));
+
+                    }
+
+            );
+        }
+
         snapshotNote.clear();
         snapshotNote.addAll(brokerageNotes);
     }
 
     private void loadListDarf() {
-        List<DarfVM> darfs = searchDarfUC.findAll().stream().map(
+        List<DarfVM> darfs = searchDarfUC.findAllByUserName(user.getUsername()).stream().map(
                 DarfVM::new
         ).collect(Collectors.toList());
         snapshotDarf.clear();

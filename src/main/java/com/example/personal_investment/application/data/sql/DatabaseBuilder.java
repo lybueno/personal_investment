@@ -120,6 +120,7 @@ public class DatabaseBuilder {
 
         builder.append("CREATE TABLE IF NOT EXISTS Darf (\n");
         builder.append("id TEXT PRIMARY KEY, \n");
+        builder.append("userName TEXT NOT NULL, \n");
         builder.append("stockType TEXT NOT NULL, \n");
         builder.append("dueDate TEXT NOT NULL, \n");
         builder.append("taxAmount NUMERIC NOT NULL, \n");

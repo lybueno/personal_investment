@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class RegisterStockSaleUC {
+
     private final InvestmentsDAO investmentsDAO;
     private final BrokerageNoteDAO brokerageNoteDAO;
     private final DarfDAO darfDAO;
@@ -36,7 +37,8 @@ public class RegisterStockSaleUC {
         if (tax != null && tax.doubleValue() > 0.0) {
             LocalDate today = LocalDate.now().plusMonths(1);
             LocalDate dueDate = LocalDate.of(today.getYear(), today.getMonth(), today.lengthOfMonth());
-            Darf darf = new Darf(transaction.getStock().getType(), dueDate, tax, transaction.getUnitaryValue(), investment.calculateAverageValue());
+            String userName = investment.getWallet().getUser().getUsername();
+            Darf darf = new Darf(userName, transaction.getStock().getType(), dueDate, tax, transaction.getUnitaryValue(), investment.calculateAverageValue());
             darfDAO.insert(darf);
         }
 

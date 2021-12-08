@@ -141,6 +141,23 @@ public class SqliteStockTransactionDAO implements BrokerageNoteDAO {
         return stockTransactions;
     }
 
+    public List<StockTransaction> findAllByWallet(String walletId) {
+        List<StockTransaction> stockTransactions = new ArrayList<>();
+        String sql = "SELECT * FROM StockTransaction WHERE wallet = ?";
+
+        try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
+            stmt.setString(1, walletId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                StockTransaction st = resultSetToEntity(rs);
+                stockTransactions.add(st);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return stockTransactions;
+    }
+
     @Override
     public void update(StockTransaction transaction) {
         String sql = "UPDATE StockTransaction SET stock = ?, wallet = ?, transactionDate = ?," +
