@@ -7,6 +7,7 @@ import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.application.viewmodel.WalletVM;
 import com.example.personal_investment.domain.entities.user.User;
 import com.example.personal_investment.domain.entities.wallet.Wallet;
+import com.example.personal_investment.domain.exceptions.WalletIsNotEmptyException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -92,10 +93,17 @@ public class WalletManagementController {
 
     public void deleteWallet(ActionEvent actionEvent) {
         if(isWalletSelect()){
-            WalletVM walletVM = tbWallets.getSelectionModel().getSelectedItem();
-            Wallet wallet = walletVM.toWalletEntity(user);
-            deleteWalletUC.delete(wallet);
-            loadList();
+            try {
+                WalletVM walletVM = tbWallets.getSelectionModel().getSelectedItem();
+                Wallet wallet = walletVM.toWalletEntity(user);
+                deleteWalletUC.delete(wallet);
+                loadList();
+            } catch (WalletIsNotEmptyException __){
+                systemMessage.setText("Não foi possivel deletar a carteira. Venda todos os investimentos antes");
+            } catch (Exception e){
+                systemMessage.setText("Ocorreu um error durante o processo");
+                e.printStackTrace();
+            }
         }else{
             systemMessage.setText("Carteira não selecionada");
         }
