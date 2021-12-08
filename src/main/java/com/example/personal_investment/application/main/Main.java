@@ -62,7 +62,7 @@ public class Main {
 
         Window.main(args);
 
-
+    // TODO verificar filtro de relatorios
 
     }
 

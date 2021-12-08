@@ -42,12 +42,12 @@ public class RegisterStockSaleUC {
 
         BigDecimal amount = new BigDecimal(transaction.getQuantity().toString())
                 .multiply(new BigDecimal(investment.calculateAverageValue().toString()));
-        investment.decrementQuantity(transaction.getQuantity());
         investment.decrementAmount(amount);
 
         if (investment.getQuantity().equals(transaction.getQuantity())) {
             investmentsDAO.delete(investment);
         } else {
+            investment.decrementQuantity(transaction.getQuantity());
             investmentsDAO.update(investment);
         }
     }

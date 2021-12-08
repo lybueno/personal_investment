@@ -129,9 +129,10 @@ public class StockTransactionController {
                 resultAlert = showAlertAndCancelTransactionIfUserRequest(tax);
             }
 
-            if(resultAlert){
-                registerStockSaleUC.sell(stockTransaction, tax);
+            if(!resultAlert){
+                return;
             }
+            registerStockSaleUC.sell(stockTransaction, tax);
             Window.setRoot(Routes.investmentManagementPage);
             setWalletInInvestmentPage(stockTransaction.getWallet());
 
