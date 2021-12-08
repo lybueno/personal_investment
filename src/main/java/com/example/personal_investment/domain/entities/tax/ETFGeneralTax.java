@@ -7,6 +7,6 @@ public class ETFGeneralTax implements Tax {
     private final BigDecimal taxAliquot = new BigDecimal("0.15");
     @Override
     public BigDecimal calculateTaxAmount(BigDecimal profit){
-        return taxAliquot.multiply(profit);
+        return taxAliquot.multiply(profit).setScale(2);
     }
 }

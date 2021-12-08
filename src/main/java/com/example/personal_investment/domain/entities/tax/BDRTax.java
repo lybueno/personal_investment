@@ -8,6 +8,6 @@ public class BDRTax implements Tax {
 
     @Override
     public BigDecimal calculateTaxAmount(BigDecimal profit){
-        return taxAliquot.multiply(profit);
+        return taxAliquot.multiply(profit).setScale(2);
     }
 }
