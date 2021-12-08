@@ -127,15 +127,15 @@ public class ReportsManagementController {
     }
 
     private void loadLists() {
-      loadListDarf();
-      loadListNote();
-      loadListIR();
+        loadListDarf();
+        loadListNote();
+        loadListIR();
     }
 
     private void bindColumnsToValueSources() {
         bindColumsToValuesSourcesDarf();
-          bindColumsToValuesSourcesNote();
-            bindColumsToValuesSourcesIR();
+        bindColumsToValuesSourcesNote();
+        bindColumsToValuesSourcesIR();
     }
 
     private void bindTableViewToItemsList() {
