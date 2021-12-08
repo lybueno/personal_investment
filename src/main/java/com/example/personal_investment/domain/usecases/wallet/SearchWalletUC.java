@@ -30,4 +30,6 @@ public class SearchWalletUC {
         }
         return walletDAO.findOne(id);
     }
+
+    // TODO buscar ação por nome e verificar tipo de carteira com tipo de ação
 }

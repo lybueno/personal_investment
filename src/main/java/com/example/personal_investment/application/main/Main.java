@@ -59,7 +59,7 @@ public class Main {
 //        System.out.println(updatedPrice);
 
 
-        // inicio aula DOO
+        // inicio aula DOO (08/12)
 
         Window.main(args);
 
