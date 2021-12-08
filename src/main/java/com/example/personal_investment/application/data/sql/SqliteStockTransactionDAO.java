@@ -75,8 +75,9 @@ public class SqliteStockTransactionDAO implements BrokerageNoteDAO {
     public List<StockTransaction> findTransactionsBetween(LocalDate initialDate, LocalDate finalDate) {
 
         List<StockTransaction> transactions = new ArrayList<>();
-        String sql = "SELECT * FROM StockTransaction WHERE transactionDate BETWEEN"
-                       + initialDate.toString() + " AND " + finalDate.toString();
+
+        String sql = "SELECT * FROM StockTransaction WHERE transactionDate BETWEEN "
+                       + "'"+initialDate.toString()+"'" + " AND " + "'"+finalDate.toString()+"'";
 
         try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
             ResultSet resultSet = stmt.executeQuery();
