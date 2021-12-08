@@ -60,9 +60,6 @@ public class Main {
 //        BigDecimal updatedPrice = test.getData();
 //        System.out.println(updatedPrice);
 
-
-        // inicio aula DOO
-
         Window.main(args);
 
 
