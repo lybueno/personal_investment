@@ -124,14 +124,16 @@ public class StockTransactionController {
         try {
             StockTransaction stockTransaction = createStockTransactionWithInputFields();
             BigDecimal tax = calculateTaxAmountUC.calculate(stockTransaction);
-            boolean resultAlert = false;
+            boolean resultAlert = true;
             if (tax.intValue() > 0) {
                 resultAlert = showAlertAndCancelTransactionIfUserRequest(tax);
             }
 
             if(!resultAlert){
+                Window.setRoot(Routes.stockManagementPage);
                 return;
             }
+
             registerStockSaleUC.sell(stockTransaction, tax);
             Window.setRoot(Routes.investmentManagementPage);
             setWalletInInvestmentPage(stockTransaction.getWallet());
@@ -155,7 +157,6 @@ public class StockTransactionController {
         alert.showAndWait();
         ButtonType resultAlert= alert.getResult();
         return resultAlert.equals(confirm);
-
     }
 
     private void registerPurchase() {
