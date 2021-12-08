@@ -127,15 +127,15 @@ public class ReportsManagementController {
     }
 
     private void loadLists() {
-      loadListDarf();
-      loadListNote();
-      loadListIR();
+        loadListDarf();
+        loadListNote();
+        loadListIR();
     }
 
     private void bindColumnsToValueSources() {
         bindColumsToValuesSourcesDarf();
-          bindColumsToValuesSourcesNote();
-            bindColumsToValuesSourcesIR();
+        bindColumsToValuesSourcesNote();
+        bindColumsToValuesSourcesIR();
     }
 
     private void bindTableViewToItemsList() {
@@ -152,6 +152,7 @@ public class ReportsManagementController {
         seeDarf(selectedDarf);
         seeNote(selectedNote);
         seeIR(selectedIR);
+
     }
 
     private void loadListIR() {
@@ -231,15 +232,18 @@ public class ReportsManagementController {
         IncomeTaxReportUC incomeTaxReportUC = new IncomeTaxReportUC();
 
         if (selectedIR != null) {
-            incomeTaxReportUC.printIR(selectedIR); ;
+            incomeTaxReportUC.printIR(selectedIR);
+            tbIncomeTax.getSelectionModel().clearSelection();
         }
+
     }
 
     public void seeDarf(DarfVM selectedDarf){
         DarfReportUC darfReportUC = new DarfReportUC();
 
         if (selectedDarf != null) {
-            darfReportUC.printDarf(selectedDarf,user) ;
+            darfReportUC.printDarf(selectedDarf,user);
+            tbDarf.getSelectionModel().clearSelection();
         }
     }
 
@@ -248,6 +252,7 @@ public class ReportsManagementController {
 
         if (selectedNote != null) {
             brokerageNoteReportUC.printTradingNote(selectedNote);
+            tbBrokerageNote.getSelectionModel().clearSelection();
         }
     }
 

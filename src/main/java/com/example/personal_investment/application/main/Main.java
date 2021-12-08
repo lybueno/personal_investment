@@ -1,6 +1,8 @@
 package com.example.personal_investment.application.main;
 
 import com.example.personal_investment.application.data.sql.*;
+import com.example.personal_investment.application.main.testes.Reports;
+import com.example.personal_investment.application.main.testes.TestDarf;
 import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.domain.entities.wallet.Wallet;
 import com.example.personal_investment.domain.usecases.stock.*;
@@ -47,14 +49,15 @@ public class Main {
 //        TestStock.testStocks();
 //        Reports.printDarf();
 //        Reports.printIR();
-//        Reports.printTradingNote();
+//          Reports.printTradingNote();
 //        TestCalculateTax.testCalculateTax();
 //        TestTransactionPurchaseAndSale.testTransactionPurchase();
 //          TestBrokerageNote.testBrokerageNote();
 //        TestTransactionPurchaseAndSale.testTransactionSale();
 //        TestInvestment.testInvestment();
 //        TestWallet.testWallet();
-//          TestDarf.testDarf();
+          TestDarf.testDarf();
+//          TestDarf.testIR();
 
 //        ImportUpdatedPriceFromAPI test = new ImportUpdatedPriceFromAPI("PETR4");
 //        BigDecimal updatedPrice = test.getData();
