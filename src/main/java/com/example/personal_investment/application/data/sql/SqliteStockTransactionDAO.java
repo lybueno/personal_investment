@@ -32,16 +32,11 @@ public class SqliteStockTransactionDAO implements BrokerageNoteDAO {
         String stockId = rs.getString("stock");
         Stock stock = searchStockUC.findById(stockId).get();
 
-        String transactionDate = rs.getString("transactionDate");
-        LocalDate convertedDate = null;
-        if(transactionDate != null){
-            convertedDate = LocalDate.parse(transactionDate);
-        }
-
+        LocalDate transactionDate = LocalDate.parse(rs.getString("transactionDate"));
         Integer quantity = rs.getInt("quantity");
         BigDecimal unitaryValue = rs.getBigDecimal("unitaryValue");
 
-        return new StockTransaction(id, stock, wallet, convertedDate, quantity,
+        return new StockTransaction(id, stock, wallet, transactionDate, quantity,
                 unitaryValue, TransactionType.toEnum(rs.getString("transactionType")));
     }
 
@@ -81,7 +76,7 @@ public class SqliteStockTransactionDAO implements BrokerageNoteDAO {
 
         List<StockTransaction> transactions = new ArrayList<>();
         String sql = "SELECT * FROM StockTransaction WHERE transactionDate BETWEEN"
-                       + initialDate + " AND " + finalDate;
+                       + initialDate.toString() + " AND " + finalDate.toString();
 
         try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
             ResultSet resultSet = stmt.executeQuery();
@@ -108,7 +103,7 @@ public class SqliteStockTransactionDAO implements BrokerageNoteDAO {
             stmt.setString(1, transaction.getId());
             stmt.setString(2, String.valueOf(transaction.getStock().getId()));
             stmt.setString(3, transaction.getWallet().getId());
-            stmt.setDate(4, Date.valueOf(transaction.getTransactionDate()));
+            stmt.setString(4, transaction.getTransactionDate().toString());
             stmt.setInt(5, transaction.getQuantity());
             stmt.setBigDecimal(6, transaction.getUnitaryValue());
             stmt.setString(7, String.valueOf(transaction.getTransactionType()));
@@ -154,7 +149,7 @@ public class SqliteStockTransactionDAO implements BrokerageNoteDAO {
 
             stmt.setString(1, String.valueOf(transaction.getStock().getId()));
             stmt.setString(2, transaction.getWallet().getId());
-            stmt.setDate(3, Date.valueOf(transaction.getTransactionDate()));
+            stmt.setString(3, transaction.getTransactionDate().toString());
             stmt.setInt(4, transaction.getQuantity());
             stmt.setBigDecimal(5, transaction.getUnitaryValue());
             stmt.setString(6, String.valueOf(transaction.getTransactionType()));

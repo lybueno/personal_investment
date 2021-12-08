@@ -8,6 +8,7 @@ import com.example.personal_investment.domain.entities.stock_transaction.StockTr
 import com.example.personal_investment.domain.entities.stock_transaction.TransactionType;
 import com.example.personal_investment.domain.entities.user.User;
 import com.example.personal_investment.domain.entities.wallet.Wallet;
+import com.example.personal_investment.domain.exceptions.AmountNotAllowedException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -18,8 +19,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.example.personal_investment.application.main.Main.registerStockPurchaseUC;
-import static com.example.personal_investment.application.main.Main.searchWalletUC;
+import static com.example.personal_investment.application.main.Main.*;
 
 public class StockTransactionController {
 
@@ -103,35 +103,78 @@ public class StockTransactionController {
                 .filter(w -> w.getType() == stock.getType())
                 .map(Wallet::getName)
                 .collect(Collectors.toList());
-        // TODO: se não houver carteiras, sair da pagina
+
         cBoxWallet.getItems().setAll(walletNames);
     }
 
     public void confirmTransaction(ActionEvent actionEvent) {
         if (isFilledTextFields()) {
             if (transactionType == TransactionType.PURCHASE) {
-                //TODO: fazer tratamento de erros
-                try {
-                    StockTransaction stockTransaction = createStockTransactionWithInputFields();
-                    registerStockPurchaseUC.purchase(stockTransaction);
-
-                    Window.setRoot(Routes.investmentManagementPage);
-                    setWalletInInvestmentPage(stockTransaction.getWallet());
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
+                registerPurchase();
+            } else if (transactionType == TransactionType.SALE) {
+                registerSale();
             }
         } else {
             systemMessage.setText("Campos não preenchidos");
         }
     }
 
+    private void registerSale() {
+        try {
+            StockTransaction stockTransaction = createStockTransactionWithInputFields();
+            BigDecimal tax = calculateTaxAmountUC.calculate(stockTransaction);
+            if (tax.intValue() > 0) {
+                showAlertAndCancelTransactionIfUserResquest(tax);
+            }
+            registerStockSaleUC.sell(stockTransaction, tax);
+            Window.setRoot(Routes.investmentManagementPage);
+            setWalletInInvestmentPage(stockTransaction.getWallet());
+        } catch (AmountNotAllowedException __) {
+            systemMessage.setText("Erro, você está tentando vender uma quantia maior do que possui");
+        } catch (Exception e) {
+            systemMessage.setText("Ocorreu algum erro, tente novamente mais tarde");
+            e.printStackTrace();
+        }
+    }
+
+    private void showAlertAndCancelTransactionIfUserResquest(BigDecimal tax) {
+        ButtonType confirm = new ButtonType("Continuar Compra");
+        ButtonType reject = new ButtonType("Desistir");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Transação de Ação");
+        alert.setResizable(true);
+        alert.setHeaderText("Imposto");
+        alert.setContentText("Ao realizar essa transação, você irá pagar um imposto de " + tax + "\nDeseja continuar?");
+        alert.showAndWait().ifPresent(res -> {
+            if (res == reject) {
+                try {
+                    Window.setRoot(Routes.stockManagementPage);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void registerPurchase() {
+        try {
+            StockTransaction stockTransaction = createStockTransactionWithInputFields();
+            registerStockPurchaseUC.purchase(stockTransaction);
+
+            Window.setRoot(Routes.investmentManagementPage);
+            setWalletInInvestmentPage(stockTransaction.getWallet());
+        } catch (Exception e) {
+            systemMessage.setText("Ocorreu algum erro, tente novamente mais tarde");
+            System.out.println(e);
+        }
+    }
+
     private StockTransaction createStockTransactionWithInputFields() throws IOException {
-        if(wallet == null) {
+        if (wallet == null) {
             Optional<Wallet> optional = searchWalletUC
                     .findWalletByUser(user).stream()
                     .filter(w -> w.getName().equals(cBoxWallet.getValue())).findFirst();
-            if(optional.isEmpty()){
+            if (optional.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Transação de Ação");
                 alert.setHeaderText("Erro, ocorreu algum erro com a carteira");
@@ -139,7 +182,7 @@ public class StockTransactionController {
                 alert.showAndWait();
 
                 Window.setRoot(Routes.stockManagementPage);
-            } else{
+            } else {
                 wallet = optional.get();
             }
         }
@@ -156,8 +199,7 @@ public class StockTransactionController {
     }
 
     public void cancelRegister(ActionEvent actionEvent) throws IOException {
-        //TODO: Passar dados da carteira
-        Window.setRoot(Routes.investmentManagementPage);
+        Window.setRoot(Routes.stockManagementPage);
     }
 
     private Boolean isFilledTextFields() {

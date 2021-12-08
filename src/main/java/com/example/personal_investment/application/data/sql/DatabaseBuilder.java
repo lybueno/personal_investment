@@ -103,7 +103,7 @@ public class DatabaseBuilder {
         builder.append("id TEXT PRIMARY KEY, \n");
         builder.append("wallet TEXT NOT NULL, \n");
         builder.append("stock TEXT NOT NULL, \n");
-        builder.append("transactionDate DATETIME NOT NULL, \n");
+        builder.append("transactionDate TEXT NOT NULL, \n");
         builder.append("quantity INTEGER NOT NULL, \n");
         builder.append("unitaryValue NUMERIC NOT NULL, \n");
         builder.append("transactionType TEXT NOT NULL, \n");
@@ -121,7 +121,7 @@ public class DatabaseBuilder {
         builder.append("CREATE TABLE IF NOT EXISTS Darf (\n");
         builder.append("id TEXT PRIMARY KEY, \n");
         builder.append("stockType TEXT NOT NULL, \n");
-        builder.append("dueDate DATETIME NOT NULL, \n");
+        builder.append("dueDate TEXT NOT NULL, \n");
         builder.append("taxAmount NUMERIC NOT NULL, \n");
         builder.append("saleValue NUMERIC NOT NULL, \n");
         builder.append("averagePurchaseValue NUMERIC NOT NULL \n");

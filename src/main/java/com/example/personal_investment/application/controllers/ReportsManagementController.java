@@ -252,7 +252,7 @@ public class ReportsManagementController {
     }
 
     public void backPreviousScreen(ActionEvent actionEvent) throws IOException {
-        Window.setRoot(Routes.investmentManagementPage);
+        Window.setRoot(Routes.stockManagementPage);
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {

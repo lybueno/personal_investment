@@ -30,7 +30,7 @@ public final class InvestmentVM {
         this.id = investment.getId();
         this.ticker = investment.getStock().getTicker();
         this.averageValue = investment.calculateAverageValue().toString();
-        this.stockType = investment.getStock().getTicker();
+        this.stockType = investment.getStock().getType().toString();
         this.quantity = investment.getQuantity().toString();
         this.totalAmount = investment.getTotalAmount().toString();
     }

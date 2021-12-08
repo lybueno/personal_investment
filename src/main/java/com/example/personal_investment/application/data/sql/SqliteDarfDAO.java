@@ -34,8 +34,8 @@ public class SqliteDarfDAO implements DarfDAO {
         try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
 
             stmt.setString(1, darf.getId());
-            stmt.setString(2, String.valueOf(darf.getStockType()));
-            stmt.setString(3, String.valueOf(darf.getDueDate()));
+            stmt.setString(2, darf.getStockType().toString());
+            stmt.setString(3, darf.getDueDate().toString());
             stmt.setBigDecimal(4, darf.getTaxAmount());
             stmt.setBigDecimal(5, darf.getSaleValue());
             stmt.setBigDecimal(6, darf.getAveragePurchaseValue());
@@ -91,8 +91,8 @@ public class SqliteDarfDAO implements DarfDAO {
 
         try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
 
-            stmt.setString(1, String.valueOf(darf.getStockType()));
-            stmt.setString(2, String.valueOf(darf.getDueDate()));
+            stmt.setString(1, darf.getStockType().toString());
+            stmt.setString(2, darf.getDueDate().toString());
             stmt.setBigDecimal(3, darf.getTaxAmount());
             stmt.setBigDecimal(4, darf.getSaleValue());
             stmt.setBigDecimal(5, darf.getAveragePurchaseValue());
