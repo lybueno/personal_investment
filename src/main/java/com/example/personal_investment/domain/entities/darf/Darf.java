@@ -8,14 +8,16 @@ import java.util.UUID;
 
 public class Darf {
     private final String id;
+    private final String userName;
     private final StockType stockType;
     private final LocalDate dueDate;
     private final BigDecimal taxAmount;
     private final BigDecimal saleValue;
     private final BigDecimal averagePurchaseValue;
 
-    public Darf(String id, StockType stockType, LocalDate dueDate, BigDecimal taxAmount, BigDecimal saleValue, BigDecimal averagePurchaseValue) {
+    public Darf(String id, String userName, StockType stockType, LocalDate dueDate, BigDecimal taxAmount, BigDecimal saleValue, BigDecimal averagePurchaseValue) {
         this.id = id;
+        this.userName = userName;
         this.stockType = stockType;
         this.dueDate = dueDate;
         this.taxAmount = taxAmount;
@@ -23,8 +25,9 @@ public class Darf {
         this.averagePurchaseValue = averagePurchaseValue;
     }
 
-    public Darf(StockType stockType, LocalDate dueDate, BigDecimal taxAmount, BigDecimal saleValue, BigDecimal averagePurchaseValue) {
+    public Darf(String userName, StockType stockType, LocalDate dueDate, BigDecimal taxAmount, BigDecimal saleValue, BigDecimal averagePurchaseValue) {
         this.id = UUID.randomUUID().toString();
+        this.userName = userName;
         this.stockType = stockType;
         this.dueDate = dueDate;
         this.taxAmount = taxAmount;
@@ -35,6 +38,8 @@ public class Darf {
     public String getId() {
         return id;
     }
+
+    public String getUserName(){ return userName; }
 
     public BigDecimal getAveragePurchaseValue() {
         return averagePurchaseValue;

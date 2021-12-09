@@ -136,7 +136,7 @@
                     <font size="14"/>
                     <paragraph leftIndent="5" spacingBefore="0"/>
                 </textElement>
-                <text><![CDATA[Tipo de estoque:]]></text>
+                <text><![CDATA[Tipo de ação:]]></text>
             </staticText>
             <staticText>
                 <reportElement x="120" y="220" width="160" height="30" uuid="84e46cbe-ca89-4784-ab5a-9ac93bac60ec"/>

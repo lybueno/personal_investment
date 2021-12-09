@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="242.0" prefWidth="415.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.personal_investment.application.controllers.WalletController">
+   <children>
+      <Button fx:id="btnCancel" layoutX="152.0" layoutY="217.0" mnemonicParsing="false" onAction="#backPreviousScreen" text="Cancelar" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0"
+              style="-fx-background-color: #7B68EE;" textFill="WHITE" />
+      <TextField fx:id="txtName" layoutX="69.0" layoutY="78.0" promptText="Nome Carteira" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="50.0" />
+      <ComboBox fx:id="cbStockType" layoutX="59.0" layoutY="155.0" prefWidth="150.0" promptText="Tipo de Ação" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="90.0" />
+      <Button fx:id="btnRegister" layoutX="100.0" layoutY="147.0" mnemonicParsing="false" onAction="#registerOrUpdateWallet" text="Cadastrar" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0"
+              style="-fx-background-color: #7B68EE;" textFill="WHITE"/>
+      <Label fx:id="systemMessage" layoutX="100.0" layoutY="121.0" textFill="RED" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
+   </children>
+</AnchorPane>

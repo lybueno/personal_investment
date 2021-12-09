@@ -7,11 +7,6 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.net.URLConnection;
 
-/*
-    TODO: ver com grupo como iremos usar essa informação, se apenas visualizar em tela ou atualizar
-     os valores dos investimetos em carteira
- */
-
 public class ImportUpdatedPriceFromAPI {
 
     StringBuilder ticker = new StringBuilder();

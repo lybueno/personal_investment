@@ -15,17 +15,17 @@ public class AuthenticateUserUC {
     }
 
     public User login(String username, String password){
-        Optional<User> optional = userDAO.findOne(new User(username,password));
+        Optional<User> optional = userDAO.findByUsername(username);
         if(optional.isEmpty()){
             throw new EntityNotExistsException("This username is not registered");
         }
 
-        User user = optional.get();
+        User user = optional.orElseThrow(() -> new RuntimeException("Something went wrong"));
 
         if(!user.getPassword().equals(password)){
             throw new IncorrectPasswordException("Cannot login, password incorrect");
         }
 
-        return optional.get();
+        return user;
     }
 }

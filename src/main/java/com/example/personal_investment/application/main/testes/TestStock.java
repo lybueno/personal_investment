@@ -45,7 +45,7 @@ public class TestStock {
         testFindStockByCNPJ("001/9999");
         testFindStockByCNPJ("001/232323");
 
-        testDeleteStock(stock1);
+     //   testDeleteStock(stock1);
         testFindAllStocks();
         testAddStock(stock1);
 

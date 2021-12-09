@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="505.0" prefWidth="720.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.personal_investment.application.controllers.ReportsManagementController">
+
+
+    <Pane prefHeight="73.0" prefWidth="720.0" style="-fx-background-color: #D9D9D9;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Label layoutX="31.0" layoutY="21.0" text="Relatórios">
+            <font>
+                <Font name="System Bold" size="21.0" />
+            </font>
+        </Label>
+      <Button fx:id="btnView" layoutX="640.0" layoutY="24.0" mnemonicParsing="false" onAction="#seeReport" style="-fx-background-color: #7B68EE;" text="Visualizar" textFill="WHITE" />
+    </Pane>
+    <Pane layoutY="431.0" prefHeight="73.0" prefWidth="720.0" style="-fx-background-color: #D9D9D9;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="432.0">
+        <Button fx:id="btnReturn" layoutX="14.0" layoutY="24.0" mnemonicParsing="false" onAction="#backPreviousScreen" style="-fx-background-color: #7B68EE;" text="Voltar" textFill="WHITE" />
+        <Button fx:id="btnLogout" layoutX="619.0" layoutY="21.0" mnemonicParsing="false" onAction="#logout" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #54565B;" text="Sair" textFill="WHITE" />
+        <Label fx:id="username" layoutX="537.0" layoutY="28.0" text="Nome usuário" />
+    </Pane>
+   <TabPane prefHeight="362.0" prefWidth="720.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
+     <tabs>
+       <Tab text="Imposto de renda">
+         <content>
+           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="382.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
+                  <children>
+                     <TableView fx:id="tbIncomeTax" prefHeight="330.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <columns>
+                               <TableColumn fx:id="cIRCnpj" prefWidth="95.0" text="CNPJ" />
+                               <TableColumn fx:id="cIRDiscrimination" prefWidth="171.0" text="Discriminação" />
+                               <TableColumn fx:id="cIRCurrentYear" minWidth="0.0" prefWidth="108.0" text="Situação atual" />
+                               <TableColumn fx:id="cIRLastYear" prefWidth="112.0" text="Situação anterior" />
+                               <TableColumn fx:id="cIRCurrentDate" prefWidth="112.0" text="Data atual" />
+                               <TableColumn fx:id="cIRLastDate" prefWidth="121.0" text="Data anterior" />
+                        </columns>
+                     </TableView>
+                  </children></AnchorPane>
+         </content>
+       </Tab>
+         <Tab text="DARF">
+             <content>
+                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="382.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
+                     <children>
+                         <TableView fx:id="tbDarf" prefHeight="330.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                             <columns>
+                                 <TableColumn fx:id="cDarfType" prefWidth="83.0" text="Tipo" />
+                                 <TableColumn fx:id="cDarfTaxAmount" prefWidth="150.0" text="Valor do imposto" />
+                                 <TableColumn fx:id="cDarfSaleValue" prefWidth="136.0" text="Valor de venda" />
+                                 <TableColumn fx:id="cDarfAveragePurchaseValue" minWidth="0.0" prefWidth="175.0" text="Valor de compra médio" />
+                                 <TableColumn fx:id="cDarfDueDate" minWidth="3.0" prefWidth="175.0" text="Data de vencimento" />
+                             </columns>
+                         </TableView>
+                     </children></AnchorPane>
+             </content>
+         </Tab>
+       <Tab text="Notas de negociação">
+           <content>
+               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="382.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
+                   <children>
+                       <TableView fx:id="tbBrokerageNote" prefHeight="330.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <columns>
+                               <TableColumn fx:id="cNoteTicker" prefWidth="75.0" text="Ticker" />
+                               <TableColumn fx:id="cNoteCnpj" prefWidth="86.0" text="CNPJ" />
+                               <TableColumn fx:id="cNoteCompany" prefWidth="98.0" text="Empresa" />
+                               <TableColumn fx:id="cNoteQuantity" prefWidth="78.0" text="Quantidade" />
+                               <TableColumn fx:id="cNoteUnitaryValue" prefWidth="92.0" text="Valor unitário" />
+                               <TableColumn fx:id="cNoteValue" prefWidth="78.0" text="Valor" />
+                               <TableColumn fx:id="cNoteType" prefWidth="96.0" text="Tipo" />
+                               <TableColumn fx:id="cNoteDate" prefWidth="116.0" text="Data" />
+                           </columns>
+                       </TableView>
+                   </children></AnchorPane>
+           </content>
+       </Tab>
+     </tabs>
+   </TabPane>
+
+</AnchorPane>

@@ -9,6 +9,7 @@ import com.example.personal_investment.domain.entities.wallet.Wallet;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static com.example.personal_investment.application.main.Main.*;
 
@@ -57,13 +58,13 @@ public class TestCalculateTax {
         String username = "RENAN";
         String password = "123456";
         String confirmPassword = "123456";
-        User user = registerUserUC.signUp(username, password, confirmPassword);
+        Optional<User> user = findUserUC.findOneByUsername("mylla");
 
-        Wallet walletFI = new Wallet("Wallet FI", StockType.FII, user);
-        Wallet walletBDR = new Wallet("Wallet BDR", StockType.BDR, user);
-        Wallet walletETFGENERAL = new Wallet("Wallet ETF GENERAL", StockType.ETF_GENERAL, user);
-        Wallet walletETFREALESTATE = new Wallet("Wallet ETF REAL ESTATE", StockType.ETF_REAL_ESTATE, user);
-        Wallet walletREGULAR = new Wallet("Wallet ETF REAL ESTATE", StockType.REGULAR, user);
+        Wallet walletFI = new Wallet("Wallet FI", StockType.FII, user.get());
+        Wallet walletBDR = new Wallet("Wallet BDR", StockType.BDR, user.get());
+        Wallet walletETFGENERAL = new Wallet("Wallet ETF GENERAL", StockType.ETF_GENERAL, user.get());
+        Wallet walletETFREALESTATE = new Wallet("Wallet ETF REAL ESTATE", StockType.ETF_REAL_ESTATE, user.get());
+        Wallet walletREGULAR = new Wallet("Wallet ETF REAL ESTATE", StockType.REGULAR, user.get());
 
         printTaxValue(stockFII, walletFI, 2, 1, "200.00");
 
@@ -88,7 +89,6 @@ public class TestCalculateTax {
     public static void printTaxValue(Stock stock, Wallet wallet, Integer quantityPurchase, Integer quantitySale, String newStockValue){
         try {
             StockTransaction transactionPurchase = new StockTransaction(
-                    "1",
                     stock,
                     wallet,
                     LocalDate.now(),
@@ -98,7 +98,6 @@ public class TestCalculateTax {
             );
 
             StockTransaction transactionSale = new StockTransaction(
-                    "2",
                     stock,
                     wallet,
                     LocalDate.now(),

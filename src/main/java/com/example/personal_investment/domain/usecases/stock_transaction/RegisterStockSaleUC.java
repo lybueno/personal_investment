@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class RegisterStockSaleUC {
+
     private final InvestmentsDAO investmentsDAO;
     private final BrokerageNoteDAO brokerageNoteDAO;
     private final DarfDAO darfDAO;
@@ -24,7 +25,7 @@ public class RegisterStockSaleUC {
     public void sell(StockTransaction transaction, BigDecimal tax) {
         Validator.validateTransaction(transaction);
 
-        Investment investment = investmentsDAO.findOneByTicker(transaction.getStock().getTicker())
+        Investment investment = investmentsDAO.findOneByTickerAndWallet(transaction.getStock().getTicker(), transaction.getWallet())
                 .orElseThrow(() -> new EntityNotExistsException("Cannot sell, doesn`t have investments with this Stock"));
 
         if (investment.getQuantity() < transaction.getQuantity()) {
@@ -34,18 +35,21 @@ public class RegisterStockSaleUC {
         brokerageNoteDAO.insert(transaction);
 
         if (tax != null && tax.doubleValue() > 0.0) {
-            LocalDate today = LocalDate.now();
-            LocalDate dueDate = LocalDate.of(today.getYear(), today.getMonth().plus(1), today.lengthOfMonth());
-            Darf darf = new Darf(transaction.getStock().getType(), dueDate, tax, transaction.getUnitaryValue(), investment.calculateAverageValue());
+            LocalDate today = LocalDate.now().plusMonths(1);
+            LocalDate dueDate = LocalDate.of(today.getYear(), today.getMonth(), today.lengthOfMonth());
+            String userName = investment.getWallet().getUser().getUsername();
+            Darf darf = new Darf(userName, transaction.getStock().getType(), dueDate, tax, transaction.getUnitaryValue(), investment.calculateAverageValue());
             darfDAO.insert(darf);
         }
 
-        investment.decrementQuantity(transaction.getQuantity());
-        investment.decrementAmount(transaction.calculateTransactionAmount());
+        BigDecimal amount = new BigDecimal(transaction.getQuantity().toString())
+                .multiply(new BigDecimal(investment.calculateAverageValue().toString()));
+        investment.decrementAmount(amount);
 
         if (investment.getQuantity().equals(transaction.getQuantity())) {
             investmentsDAO.delete(investment);
         } else {
+            investment.decrementQuantity(transaction.getQuantity());
             investmentsDAO.update(investment);
         }
     }

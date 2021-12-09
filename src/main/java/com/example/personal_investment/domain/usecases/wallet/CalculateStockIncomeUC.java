@@ -2,6 +2,7 @@ package com.example.personal_investment.domain.usecases.wallet;
 
 import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.stock_transaction.StockTransaction;
+import com.example.personal_investment.domain.entities.user.User;
 import com.example.personal_investment.domain.usecases.stock_transaction.BrokerageNoteDAO;
 
 import java.math.BigDecimal;
@@ -19,14 +20,16 @@ public class CalculateStockIncomeUC {
         this.brokerageNoteDAO = brokerageNoteDAO;
     }
 
-    public BigDecimal calculate(int time, BigDecimal currentValue, Stock stock){
+    public BigDecimal calculate(User user,  BigDecimal currentValue, Stock stock){
         LocalDate today = LocalDate.now().withDayOfMonth(1);
-        LocalDate initialDate = today.minusMonths(time);
+        LocalDate initialDate = today;
         LocalDate endDate = initialDate.withDayOfMonth(initialDate.lengthOfMonth());
-        List<StockTransaction> transactions = brokerageNoteDAO.findTransactionsBetween(initialDate, endDate);
+        List<StockTransaction> transactions = brokerageNoteDAO.findTransactionsBetween(user,initialDate, endDate);
         for (StockTransaction st: transactions) {
             if (st.getStock().equals(stock)){
-                return stock.getStockQuote().divide(currentValue, RoundingMode.HALF_EVEN);
+                return ((currentValue.divide(stock.getStockQuote(), 1, RoundingMode.HALF_EVEN))
+                        .subtract(new BigDecimal("1"))
+                        .multiply(new BigDecimal("100")));
             }
         }
         return null;

@@ -22,9 +22,13 @@ public class RegisterStockPurchaseUC {
 
         brokerageNoteDAO.insert(transaction);
 
-        Optional<Investment> optionalInvestment = investmentsDAO.findOneByTicker(transaction.getStock().getTicker());
+        Optional<Investment> optionalInvestment = investmentsDAO
+                .findOneByTickerAndWallet(
+                        transaction.getStock().getTicker(),
+                        transaction.getWallet()
+                );
 
-        if (optionalInvestment.isPresent()) {
+        if (optionalInvestment.isPresent() && optionalInvestment.get().getWallet().getId().equals(transaction.getWallet().getId())) {
             Investment investment = optionalInvestment.get();
             BigDecimal amount = transaction.getUnitaryValue()
                     .multiply(

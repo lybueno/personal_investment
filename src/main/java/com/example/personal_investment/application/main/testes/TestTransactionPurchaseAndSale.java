@@ -1,6 +1,6 @@
 package com.example.personal_investment.application.main.testes;
 
-import com.example.personal_investment.application.data.dao.InMemoryDarfDAO;
+import com.example.personal_investment.application.data.inmemory.InMemoryDarfDAO;
 import com.example.personal_investment.domain.entities.darf.Darf;
 import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.stock.StockType;
@@ -40,7 +40,7 @@ public class TestTransactionPurchaseAndSale {
         try {
             registerStockPurchaseUC.purchase(transactionPurchase);
             System.out.println("Compra no valor de " + transactionPurchase.calculateTransactionAmount() + " efetuada com sucesso");
-            System.out.println("Rendimento no periodo: " + calculateStockIncomeUC.calculate(2, new BigDecimal("66"),
+            System.out.println("Rendimento no periodo: " + calculateStockIncomeUC.calculate(user, new BigDecimal("66"),
                     stock) + "%");
         } catch (EntityNotExistsException e){
             System.out.println(e.getMessage());
@@ -52,7 +52,7 @@ public class TestTransactionPurchaseAndSale {
 
     public static void testTransactionSale(){
         DarfDAO darfDAO = new InMemoryDarfDAO();
-        User user = new User("Hedy Lamarr", "ladyTech");
+        User user = new User("Ada Lovelace", "girlsInTech");
         Stock stock = new Stock(StockType.BDR,"1",  "PEPB34", "PEPSICO Inc", new BigDecimal("61.08"));
         Wallet wallet = new Wallet("MyBDRs", StockType.BDR, user);
         LocalDate date = LocalDate.of(2021, 9, 10);

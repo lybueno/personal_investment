@@ -6,6 +6,7 @@ import com.example.personal_investment.domain.entities.wallet.Wallet;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.UUID;
 
 public class StockTransaction {
     private final String id;
@@ -24,6 +25,10 @@ public class StockTransaction {
         this.quantity = quantity;
         this.unitaryValue = unitaryValue;
         this.transactionType = transactionType;
+    }
+
+    public StockTransaction(Stock stock, Wallet wallet, LocalDate transactionDate, Integer quantity, BigDecimal unitaryValue, TransactionType transactionType) {
+        this(UUID.randomUUID().toString(),stock,wallet,transactionDate,quantity,unitaryValue,transactionType);
     }
 
     public BigDecimal calculateTransactionAmount() {

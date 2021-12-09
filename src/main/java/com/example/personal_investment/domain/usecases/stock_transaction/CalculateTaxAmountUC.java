@@ -21,7 +21,7 @@ public class CalculateTaxAmountUC {
     }
 
     public BigDecimal calculate(StockTransaction transaction) {
-        Investment investment = investmentsDAO.findOneByTicker(transaction.getStock().getTicker()).orElseThrow(
+        Investment investment = investmentsDAO.findOneByTickerAndWallet(transaction.getStock().getTicker(), transaction.getWallet()).orElseThrow(
                 () -> new EntityNotExistsException("Investment not exists, cannot calculate tax amount")
         );
 
@@ -38,7 +38,7 @@ public class CalculateTaxAmountUC {
 
         if (stockType.equals(StockType.REGULAR)) {
             BigDecimal limitExemption = new BigDecimal(limitExemptionToStockRegular);
-            BigDecimal totalSaleMonth = getTotalSaleMonth();
+            BigDecimal totalSaleMonth = getTotalSaleMonth(transaction);
             if (totalSaleMonth.compareTo(limitExemption) <= 0) {
                 return BigDecimal.ZERO;
             }
@@ -47,8 +47,9 @@ public class CalculateTaxAmountUC {
         return stockType.getTax().calculateTaxAmount(profit);
     }
 
-    private BigDecimal getTotalSaleMonth() {
-        List<StockTransaction> list = getStockTransactionsByDate();
+    private BigDecimal getTotalSaleMonth(StockTransaction transaction) {
+        List<StockTransaction> list = getStockTransactionsByDate(transaction);
+        list.add(transaction);
         BigDecimal totalSaleMonth = new BigDecimal("0");
         for (StockTransaction sale : list) {
             totalSaleMonth = totalSaleMonth.add(sale.calculateTransactionAmount());
@@ -56,9 +57,9 @@ public class CalculateTaxAmountUC {
         return totalSaleMonth;
     }
 
-    private List<StockTransaction> getStockTransactionsByDate() {
-        LocalDate today = LocalDate.now();
+    private List<StockTransaction> getStockTransactionsByDate(StockTransaction transaction) {
+        LocalDate today = transaction.getTransactionDate();
         LocalDate initial = LocalDate.of(today.getYear(), today.getMonthValue(), 1);
-        return brokerageNoteDAO.findTransactionsBetween(initial, today);
+        return brokerageNoteDAO.findTransactionsBetween(transaction.getWallet().getUser(),initial, today);
     }
 }

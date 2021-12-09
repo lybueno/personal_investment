@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="505.0" prefWidth="662.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.personal_investment.application.controllers.InvestmentsManagementController">
+
+    <Pane prefHeight="73.0" prefWidth="720.0" style="-fx-background-color: #D9D9D9;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Label layoutX="31.0" layoutY="21.0" text="Investimentos">
+            <font>
+                <Font name="System Bold" size="21.0" />
+            </font>
+        </Label>
+      <Button fx:id="btnBuyInvestment" layoutX="510.0" layoutY="25.0" mnemonicParsing="false" onAction="#buyInvestment" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #7B68EE;" text="Comprar" textFill="WHITE" />
+      <Button fx:id="btnSellInvestment" layoutX="592.0" layoutY="25.0" mnemonicParsing="false" onAction="#sellInvestment" prefHeight="25.0" prefWidth="56.0" style="-fx-background-color: #7B68EE;" text="Vender" textFill="WHITE" />
+        <Separator layoutX="490.0" layoutY="15.0" orientation="VERTICAL" prefHeight="46.0" prefWidth="5.0" />
+    </Pane>
+    <Pane layoutY="435.0" prefHeight="73.0" prefWidth="720.0" style="-fx-background-color: #D9D9D9;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="435.0">
+        <Button fx:id="btnReturn" layoutX="14.0" layoutY="24.0" mnemonicParsing="false" onAction="#backPreviousScreen" style="-fx-background-color: #7B68EE;" text="Voltar" textFill="WHITE" />
+        <Button fx:id="btnLogout" layoutX="574.0" layoutY="21.0" mnemonicParsing="false" onAction="#logout" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #54565B;" text="Sair" textFill="WHITE" />
+        <Label fx:id="username" layoutX="492.0" layoutY="28.0" text="Nome usuário" />
+      <Label fx:id="systemMessage" layoutX="77.0" layoutY="28.0" textFill="RED" />
+    </Pane>
+    <TableView fx:id="tbInvestments" layoutY="73.0" prefHeight="363.0" prefWidth="720.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="72.0">
+        <columns>
+            <TableColumn fx:id="cTicker" prefWidth="209.0" text="Ticker" />
+            <TableColumn fx:id="cAverageValue" prefWidth="160.0" text="Valor médio" />
+            <TableColumn fx:id="cStockType" prefWidth="153.0" text="Tipo" />
+            <TableColumn fx:id="cAmount" minWidth="1.0" prefWidth="139.0" text="Quantidade" />
+        </columns>
+    </TableView>
+</AnchorPane>
