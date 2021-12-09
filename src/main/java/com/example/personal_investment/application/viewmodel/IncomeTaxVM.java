@@ -27,8 +27,6 @@ public final class IncomeTaxVM {
         this.currentDate = currentDate;
     }
 
-    //revert, aparenta estar confuso
-
     public IncomeTaxVM(StockTransaction stockTransaction, BigDecimal situationCurrentYear, BigDecimal situationLastYear) {
         this.cnpj = stockTransaction.getStock().getCnpj();
         this.discrimination = "Empresa: " + stockTransaction.getStock().getCompanyName() +
