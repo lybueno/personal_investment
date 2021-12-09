@@ -3,6 +3,7 @@ package com.example.personal_investment.application.data.sql;
 import com.example.personal_investment.domain.entities.stock.Stock;
 import com.example.personal_investment.domain.entities.stock_transaction.StockTransaction;
 import com.example.personal_investment.domain.entities.stock_transaction.TransactionType;
+import com.example.personal_investment.domain.entities.user.User;
 import com.example.personal_investment.domain.entities.wallet.Wallet;
 import com.example.personal_investment.domain.usecases.stock_transaction.BrokerageNoteDAO;
 
@@ -72,14 +73,16 @@ public class SqliteStockTransactionDAO implements BrokerageNoteDAO {
     }
 
     @Override
-    public List<StockTransaction> findTransactionsBetween(LocalDate initialDate, LocalDate finalDate) {
+    public List<StockTransaction> findTransactionsBetween(User user, LocalDate initialDate, LocalDate finalDate) {
 
         List<StockTransaction> transactions = new ArrayList<>();
 
-        String sql = "SELECT * FROM StockTransaction WHERE transactionDate BETWEEN "
+        String sql = "SELECT w.user, s.id, s.wallet, s.stock, s.transactionDate, s.quantity, s.unitaryValue, s.transactionType " +
+                "FROM Wallet w, StockTransaction s WHERE w.id = s.wallet AND w.user = ? AND s.transactionDate BETWEEN "
                        + "'"+initialDate.toString()+"'" + " AND " + "'"+finalDate.toString()+"'";
 
         try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
+            stmt.setInt(1,Integer.parseInt(user.getId()));
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()){
                 StockTransaction transaction = resultSetToEntity(resultSet);

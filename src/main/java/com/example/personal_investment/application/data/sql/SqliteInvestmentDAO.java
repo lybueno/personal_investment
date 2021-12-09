@@ -48,13 +48,15 @@ public class SqliteInvestmentDAO implements InvestmentsDAO {
     }
 
     @Override
-    public Optional<Investment> findOneByTicker(String ticker) {
-        String sql = "select i.id, i.wallet, i.stock, i.quantity, i.totalAmount from Stock s, Investment i WHERE s.id = i.stock AND s.ticker = ?";
+    public Optional<Investment> findOneByTickerAndWallet(String ticker,Wallet wallet) {
+        String sql = "select i.id, i.wallet, i.stock, i.quantity, i.totalAmount from Stock s, " +
+                "Investment i WHERE s.id = i.stock AND s.ticker = ? AND i.wallet = ?";
         Investment investment = null;
 
         try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
 
             stmt.setString(1, ticker);
+            stmt.setString(2, wallet.getId());
             ResultSet rs = stmt.executeQuery();
             if(rs.next()){
                 investment = resultSetToEntity(rs);

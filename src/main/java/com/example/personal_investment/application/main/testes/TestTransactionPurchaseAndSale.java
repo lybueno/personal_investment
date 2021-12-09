@@ -40,7 +40,7 @@ public class TestTransactionPurchaseAndSale {
         try {
             registerStockPurchaseUC.purchase(transactionPurchase);
             System.out.println("Compra no valor de " + transactionPurchase.calculateTransactionAmount() + " efetuada com sucesso");
-            System.out.println("Rendimento no periodo: " + calculateStockIncomeUC.calculate(2, new BigDecimal("66"),
+            System.out.println("Rendimento no periodo: " + calculateStockIncomeUC.calculate(user,2, new BigDecimal("66"),
                     stock) + "%");
         } catch (EntityNotExistsException e){
             System.out.println(e.getMessage());

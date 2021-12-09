@@ -1,6 +1,7 @@
 package com.example.personal_investment.application.data.inmemory;
 
 import com.example.personal_investment.domain.entities.stock_transaction.StockTransaction;
+import com.example.personal_investment.domain.entities.user.User;
 import com.example.personal_investment.domain.exceptions.EntityNotExistsException;
 import com.example.personal_investment.domain.usecases.stock_transaction.BrokerageNoteDAO;
 
@@ -50,7 +51,7 @@ public class InMemoryStockTransactionDAO implements BrokerageNoteDAO {
     }
 
     @Override
-    public List<StockTransaction> findTransactionsBetween(LocalDate initialDate, LocalDate finalDate) {
+    public List<StockTransaction> findTransactionsBetween(User user, LocalDate initialDate, LocalDate finalDate) {
         return db.values().stream().filter(
                 stockTransaction ->
                 stockTransaction.getTransactionDate().isAfter(initialDate) &&

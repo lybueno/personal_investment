@@ -170,14 +170,14 @@ public class ReportsManagementController {
         List<IncomeTaxVM> incomeTax = new ArrayList<>();
 
         for (Wallet w : wallets) {
-            searchBrokerageNoteUC.findAllByWallet(w.getId()).stream().forEach(
+            searchBrokerageNoteUC.findAllByWallet(w.getId()).forEach(
                     note -> {
-                        BigDecimal valueLastYear = note.getWallet().getTotalInvestmentsValue();
+                        BigDecimal valueLastYear = calculateStockIncomeUC
+                                .calculate(user,12,note.calculateTransactionAmount(),note.getStock());
                         incomeTax.add(new IncomeTaxVM(note,note.calculateTransactionAmount(),valueLastYear));
                     }
             );
         }
-
 
         snapshotIR.clear();
         snapshotIR.addAll(incomeTax);

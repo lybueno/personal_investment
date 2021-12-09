@@ -25,7 +25,7 @@ public class RegisterStockSaleUC {
     public void sell(StockTransaction transaction, BigDecimal tax) {
         Validator.validateTransaction(transaction);
 
-        Investment investment = investmentsDAO.findOneByTicker(transaction.getStock().getTicker())
+        Investment investment = investmentsDAO.findOneByTickerAndWallet(transaction.getStock().getTicker(), transaction.getWallet())
                 .orElseThrow(() -> new EntityNotExistsException("Cannot sell, doesn`t have investments with this Stock"));
 
         if (investment.getQuantity() < transaction.getQuantity()) {

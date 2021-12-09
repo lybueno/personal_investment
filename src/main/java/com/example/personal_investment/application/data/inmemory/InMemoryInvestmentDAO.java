@@ -1,6 +1,7 @@
 package com.example.personal_investment.application.data.inmemory;
 
 import com.example.personal_investment.domain.entities.investment.Investment;
+import com.example.personal_investment.domain.entities.wallet.Wallet;
 import com.example.personal_investment.domain.exceptions.EntityNotExistsException;
 import com.example.personal_investment.domain.usecases.stock_transaction.InvestmentsDAO;
 
@@ -44,7 +45,7 @@ public class InMemoryInvestmentDAO implements InvestmentsDAO {
     }
 
     @Override
-    public Optional<Investment> findOneByTicker(String ticker) {
+    public Optional<Investment> findOneByTickerAndWallet(String ticker, Wallet wallet) {
         return db.values().stream().filter(investment -> investment.getStock().getTicker().equals(ticker)).findAny();
     }
 
