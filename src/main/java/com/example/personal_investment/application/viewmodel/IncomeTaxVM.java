@@ -39,6 +39,7 @@ public final class IncomeTaxVM {
         this.currentYear = situationCurrentYear.toString();
         this.currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         this.lastDate = LocalDate.now().minusYears(1).with(lastDayOfYear()).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
     }
 
     public String getCnpj() {
