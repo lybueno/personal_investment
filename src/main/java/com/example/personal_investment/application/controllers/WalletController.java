@@ -7,14 +7,12 @@ import com.example.personal_investment.application.view.Window;
 import com.example.personal_investment.domain.entities.stock.StockType;
 import com.example.personal_investment.domain.entities.user.User;
 import com.example.personal_investment.domain.entities.wallet.Wallet;
+import com.example.personal_investment.domain.exceptions.WalletIsNotEmptyException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -117,7 +115,15 @@ public class WalletController {
             StockType stockType = cbStockType.getSelectionModel().getSelectedItem();
             Wallet updateWallet = new Wallet(wallet.getId(), nameWallet, stockType, user);
             updateWalletUC.update(updateWallet);
-        }catch (Exception e){
+        }catch (WalletIsNotEmptyException __) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Editar de Carteira");
+            alert.setResizable(true);
+            alert.setHeaderText("Erro ao editar");
+            alert.setContentText("Para editar a carteira, venda todas os investimentos dentro dela");
+            alert.showAndWait();
+        }
+        catch (Exception e){
             System.out.println(e.getMessage());
         }
     }

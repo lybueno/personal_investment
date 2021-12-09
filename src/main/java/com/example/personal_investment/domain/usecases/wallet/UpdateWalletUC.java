@@ -18,7 +18,7 @@ public class UpdateWalletUC {
         }
         Validator.validateWallet(wallet);
 
-        Wallet walletFromDAO = walletDAO.findOne(wallet.getId()).orElseThrow(() -> new EntityNotExistsException("Wallet not" +
+        Wallet walletFromDAO = walletDAO.findOneByWalletWithInvestments(wallet.getId()).orElseThrow(() -> new EntityNotExistsException("Wallet not" +
                 " exists"));
 
         if (walletFromDAO.getType() != wallet.getType() && !walletFromDAO.isEmpty()) {
