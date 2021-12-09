@@ -23,6 +23,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -172,8 +173,14 @@ public class ReportsManagementController {
         for (Wallet w : wallets) {
             searchBrokerageNoteUC.findAllByWallet(w.getId()).forEach(
                     note -> {
-                        BigDecimal valueLastYear = calculateStockIncomeUC
-                                .calculate(user,12,note.calculateTransactionAmount(),note.getStock());
+                        BigDecimal valueLastYear;
+                        LocalDate lastDate = LocalDate.now().minusYears(1);
+
+                        if (note.getTransactionDate().isAfter(lastDate)) {
+                            valueLastYear = new BigDecimal("0");
+                        } else{
+                            valueLastYear = note.getUnitaryValue();
+                        }
                         incomeTax.add(new IncomeTaxVM(note,note.calculateTransactionAmount(),valueLastYear));
                     }
             );
