@@ -28,6 +28,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.example.personal_investment.application.main.Main.*;
+import static java.time.temporal.TemporalAdjusters.lastDayOfYear;
 
 public class ReportsManagementController {
 
@@ -174,7 +175,8 @@ public class ReportsManagementController {
             searchBrokerageNoteUC.findAllByWallet(w.getId()).forEach(
                     note -> {
                         BigDecimal valueLastYear;
-                        LocalDate lastDate = LocalDate.now().minusYears(1).withDayOfMonth(LocalDate.now().lengthOfMonth());
+
+                        LocalDate lastDate = LocalDate.now().minusYears(1).with(lastDayOfYear());
 
                         if (note.getTransactionDate().isAfter(lastDate)) {
                             valueLastYear = new BigDecimal("0");
