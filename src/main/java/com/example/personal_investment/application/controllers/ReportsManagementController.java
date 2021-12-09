@@ -174,7 +174,7 @@ public class ReportsManagementController {
             searchBrokerageNoteUC.findAllByWallet(w.getId()).forEach(
                     note -> {
                         BigDecimal valueLastYear;
-                        LocalDate lastDate = LocalDate.now().minusYears(1);
+                        LocalDate lastDate = LocalDate.now().minusYears(1).withDayOfMonth(LocalDate.now().lengthOfMonth());
 
                         if (note.getTransactionDate().isAfter(lastDate)) {
                             valueLastYear = new BigDecimal("0");
